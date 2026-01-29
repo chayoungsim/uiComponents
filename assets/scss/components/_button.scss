@@ -1,0 +1,242 @@
+@use "../abstracts" as *;
+
+$border-color: $gray66;
+
+@mixin button-base {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    height: 5rem;
+    font-size: 1.6rem;
+}
+
+.btn-fill {
+    @include button-base;
+    border: 1px solid $accent-color;
+    background: $accent-color;
+    color: $white;
+    i {
+        display: inline-block;
+    }
+    .ico-down {
+        background-image: svg(down, "ffffff");
+    }
+    .ico-arrow {
+        background-image: svg(linkOpen, "ffffff");
+    }
+}
+.btn-outline {
+    @include button-base;
+    border: 1px solid $border-color;
+    background: $white;
+    color: $primary-color;
+    i {
+        display: inline-block;
+    }
+}
+.small {
+    padding: 1rem 1.5rem;
+    height: 4rem;
+    font-size: 1.5rem;
+}
+.medium {
+    height: 5rem;
+    font-size: 1.6rem;
+}
+.large {
+    padding: 1rem 4rem;
+    height: 6rem;
+    font-size: 1.8rem;
+}
+
+.ico-arrow {
+    width: 1.6rem;
+    height: 1.6rem;
+    background-image: svg(linkOpen, "0072c6");
+    background-size: cover;
+}
+.ico-down {
+    width: 1.6rem;
+    height: 1.7rem;
+    background-image: svg(down, "0072c6");
+    background-size: cover;
+}
+
+.btn-cols {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 4rem 0;
+
+    @include respond(phone) {
+        button {
+            flex: 1;
+        }
+    }
+}
+
+.hamburger-modern {
+    width: 4rem;
+    height: 4rem;
+    background: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    z-index: 101;
+    border: 1px solid #ddd;
+    span {
+        position: absolute;
+        left: 50%;
+        width: 50.91%;
+        height: 5.45%;
+        background: #222;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        &:nth-child(1) {
+            top: 29.09%;
+            transform: translateX(-50%);
+        }
+        &:nth-child(2) {
+            top: 47.27%;
+            transform: translateX(-50%);
+            width: 40%;
+        }
+        &:nth-child(3) {
+            top: 65.45%;
+            transform: translateX(-50%);
+            width: 50.91%;
+        }
+    }
+    &.active {
+        span {
+            &:nth-child(1) {
+                top: 47.27%;
+                transform: translateX(-50%) rotate(45deg);
+            }
+            &:nth-child(2) {
+                opacity: 0;
+                transform: translateX(-50%) translateX(20px);
+            }
+            &:nth-child(3) {
+                top: 47.27%;
+                width: 50.91%;
+                transform: translateX(-50%) rotate(-45deg);
+            }
+        }
+    }
+}
+
+.btn-trans {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s;
+    padding: 0;
+    font-size: 1.8rem;
+    span,
+    &:after {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 5rem;
+        transition: .3s ease-in-out;
+        font-weight: 600;
+        padding: 1rem 2rem;
+    }
+    span { 
+        color:#222;        
+    }
+    &::after {
+       content: attr(data-trans);       
+       position: absolute; 
+       top: 100%; 
+       left: 0; 
+       color:#000;
+    }
+    &.active,
+    &:focus,
+    &:hover {
+        background: $accent-color;
+        border: 1px solid $accent-color;        
+        span {
+            transform: translateY(-100%);  
+        }
+        &:after {
+            top: 0; 
+            color: $white;
+        }
+    }
+}
+
+.btn-trans2{
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s ease;
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: #333;
+        transition: width 0.4s ease;
+        z-index: 0;
+    }
+    &:hover {
+        color:#fff;
+        span {
+           position: relative;
+           z-index: 1;
+        }
+        &::before {
+            width: 100%;
+        }
+    }
+}
+
+.links { 
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.link {
+    position: relative;
+    transition: color .3s cubic-bezier(.19, 1, .22, 1);
+    font-size: 1.25vw;
+    line-height: 130%;
+    color:#000;
+    text-decoration: none;
+    outline: none;
+}
+.link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: .075em;
+    min-height: 1px;
+    transform-origin: right;
+    transform: scaleX(0);
+    background-color: #000;
+    transition: transform .95s cubic-bezier(.19, 1, .22, 1);
+    box-sizing: border-box;
+    border: 0 solid #e2e8f0;
+}
+.link:focus::after,
+.link:hover::after{    
+    transform-origin: left;
+    transform: scaleX(1)
+}

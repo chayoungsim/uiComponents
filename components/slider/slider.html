@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../../assets/css/style.min.css" />
+        <link rel="stylesheet" href="../../assets/css/temp.css" />
+        <link rel="stylesheet" href="../../assets/css/swiper.min.css" />
+        <script src="../../assets/js/swiper.min.js"></script>
+        <title>Slider</title>
+        <script type="module">
+            import { initSwiper, initCardSwiper } from '../../assets/js/ui_swiper.js';
+            document.addEventListener('DOMContentLoaded', () => {
+              initSwiper();
+              initCardSwiper();
+            });
+        </script>
+    </head>
+    <body>
+        <div class="cards">
+            <div class="card">
+                <h2 class="card__title">slider</h2>
+                <div class="card__desc">
+                  <div class="slider-wrap">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">Slide 1</div>
+                            <div class="swiper-slide">Slide 2</div>
+                            <div class="swiper-slide">Slide 3</div>
+                            <div class="swiper-slide">Slide 4</div>
+                            <div class="swiper-slide">Slide 5</div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <!-- Navigation -->
+                        <button class="swiper-button-prev" aria-label="이전 슬라이드"></button>
+                        <button class="swiper-button-next" aria-label="다음 슬라이드"></button>
+                    </div>
+                  </div>  
+                </div>
+            </div>
+            <div class="card">
+                <h2 class="card__title">slider</h2>
+                <div class="card__desc">
+                  
+                    <div class="slider-wrap">
+
+                      <div class="card-swiper">
+                        <div class="swiper-wrapper">
+                          <div class="swiper-slide">
+                            <div class="swiper__item">
+                              <h3>Card 01</h3>
+                              <p>카드형 콘텐츠 설명 영역입니다.</p>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="swiper__item">
+                              <h3>Card 02</h3>
+                              <p>카드형 콘텐츠 설명 영역입니다.</p>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="swiper__item">
+                              <h3>Card 03</h3>
+                              <p>카드형 콘텐츠 설명 영역입니다.</p>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="swiper__item">
+                              <h3>Card 04</h3>
+                              <p>카드형 콘텐츠 설명 영역입니다.</p>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="swiper__item">
+                              <h3>Card 05</h3>
+                              <p>카드형 콘텐츠 설명 영역입니다.</p>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="swiper__item">
+                              <h3>Card 06</h3>
+                              <p>카드형 콘텐츠 설명 영역입니다.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        
+    </body>
+</html>

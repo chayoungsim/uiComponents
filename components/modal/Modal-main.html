@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="description" content="">
+  <title>main-Modal</title>
+  <link rel="icon" href="../../resource/images/common/favicon.ico" />
+  <link type="text/css" href="../../resource/css/style.css" rel="stylesheet" />
+  <!-- <script src="../../resource/js/jquery-3.6.4.min.js"></script>
+  <script src="../../resource/js/common.js"></script>
+  <script src="../../resource/js/swiper.min.js"></script> -->
+</head>
+<body>
+
+
+
+<!-- 메인팝업2 -->
+<div class="modal" id="main-popup-2" data-popup-id="main-popup-2" hidden>
+    <div class="modal-backdrop" data-backdrop></div>
+    <div class="modal-surface modal-main-popup" role="dialog" aria-modal="true">       
+        <div class="modal-body">
+            <div class="modal-body-cont">모달 설명 또는 본문 텍스트를 입력하세요.2 <a href="#">저장</a></div>
+        </div>
+        <div class="modal-footer">
+            <span class="checkForm">
+                <input type="checkbox" id="todayCheck-2" class="todayCheck">
+                <label for="todayCheck-2">오늘 하루 보지 않기 </label>
+            </span>
+            <button type="button" class="modal-close" data-dialog-close aria-label="팝업 닫기">×</button>
+        </div>
+    </div>
+</div> 
+
+<!-- 메인팝업1 -->
+<div class="modal" id="main-popup-1" data-popup-id="main-popup-1" hidden>
+    <div class="modal-backdrop" data-backdrop></div>
+    <div class="modal-surface modal-main-popup" role="dialog" aria-modal="true">       
+        <div class="modal-body">
+            <div class="modal-body-cont">모달 설명 또는 본문 텍스트를 입력하세요.1 <a href="#">저장</a></div>
+        </div>
+        <div class="modal-footer">
+            <span class="checkForm">
+                <input type="checkbox" id="todayCheck" class="todayCheck">
+                <label for="todayCheck">오늘 하루 보지 않기 </label>
+            </span>
+            <button type="button" class="modal-close" data-dialog-close aria-label="팝업 닫기">×</button>
+        </div>
+    </div>
+</div> 
+
+
+  <p id="accessibility"><a href="#contents">본문바로가기</a></p>
+  <div id="wrap">
+    <header></header>
+    <div id="container">
+      <div id="contents" class="main">
+
+      </div>
+    </div>
+    <footer></footer>
+  </div>
+
+
+
+<script src="../resource/js/components.modal-main.js"></script>
+
+</body>
+</html>

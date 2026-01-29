@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>UI 컴포넌트 템플릿 라이브러리</title>
+        <link rel="stylesheet" href="assets/css/style.min.css" />
+        <link rel="stylesheet" href="assets/css/index.css" />
+        <script src="assets/js/common.js"></script>
+    </head>
+    <body>
+        <p id="accessibility"><a href="#container">본문바로가기</a></p>
+        <div class="common-wrap">
+            <div class="common-side">
+              <h1>UI 컴포넌트 템플릿 라이브러리</h1>
+              <h2>컴포넌트</h2>
+              <ul>
+                <li><a href="#" data-page="components/button/button.html">Button</a></li>
+                <li><a href="#" data-page="components/form/form.html">form</a></li>
+                <li><a href="#" data-page="components/modal/modal.html">modal</a></li>
+                <li><a href="#" data-page="components/slider/slider.html">Slider</a></li>
+                <li><a href="#" data-page="components/tab/tab.html">Tab</a></li>
+                <li><a href="#" data-page="components/tab/tab-m.html">Tab-m</a></li>
+                <li><a href="#" data-page="components/tab/tab-rwd.html">Tab-rwd</a></li>
+                <li><a href="#">Calendar</a></li>
+                <li><a href="#" data-page="components/wheelpicker/wheelpicker.html">Wheelpicker</a></li>
+                <li><a href="#" data-page="components/timepicker/timepicker.html">timepicker</a></li>
+              </ul>
+              <h2>모션</h2>
+              <ul>
+                <li><a href="#" data-page="components/motion/background-attachment.html">background-attachment</a></li>
+              </ul>
+            </div>
+            <div class="common-view">
+                <iframe id="contentFrame" class="common-secton" src="" style="display: none;"></iframe>
+                <div class="welcome-message" id="welcomeMessage">왼쪽 메뉴에서 컴포넌트를 선택하세요</div>
+            </div>
+            <button type="button" class="hamburger-modern common-hbr" aria-label="메뉴 열기">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button> 
+        </div>
+
+
+    <script>
+        const hamburger = document.querySelector('.common-hbr');
+        const sidebar = document.querySelector('.common-side');
+        const overlay = document.querySelector('.overlay');
+        const contentFrame = document.getElementById('contentFrame');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const menuLinks = document.querySelectorAll('.common-side a');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            const isOpen = sidebar.classList.contains('active');
+            hamburger.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        // overlay.addEventListener('click', toggleMenu);
+
+        // 메뉴 링크 클릭 처리
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();                
+                const pagePath = link.getAttribute('data-page');
+                
+                if (pagePath) {
+                    // 활성 메뉴 표시
+                    menuLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // iframe에 페이지 로드
+                    contentFrame.src = pagePath;
+                    contentFrame.style.display = 'block';
+                    welcomeMessage.style.display = 'none';
+                    
+                    // 모바일에서 메뉴 닫기
+                    if (window.innerWidth <= 768) {
+                        toggleMenu();
+                    }
+                }
+            });
+        });
+
+        // iframe 로드 에러 처리
+        contentFrame.addEventListener('error', () => {
+            welcomeMessage.textContent = '페이지를 로드할 수 없습니다.';
+            welcomeMessage.style.display = 'flex';
+            contentFrame.style.display = 'none';
+        });
+    </script>
+    </body>
+</html>

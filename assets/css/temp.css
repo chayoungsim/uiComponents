@@ -1,0 +1,45 @@
+:root {
+    --primary-color:#000;
+    --background-color: #fafafa;
+    --border-color:rgba(0,0,0,0.092);
+}
+
+
+body {
+    background: var(--background-color);
+    padding: 4vw;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.card__title {
+    font-size: 18px;
+    font-weight: 600;
+}
+.card__desc {
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 1px rgba(0,0,0,0.014);
+    padding: 16px;
+    
+    background: #fff;
+    border-radius: 6px;
+}
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+}
+.select-wp {
+   display: flex;
+   justify-content: center;
+   gap:4rem;
+}
+.select-wp .custom-select {
+    width: 200px;
+    flex: auto
+}
+
+    

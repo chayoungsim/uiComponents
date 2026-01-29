@@ -1,0 +1,71 @@
+.modal {
+    position: fixed; 
+    inset: 0; 
+    display: grid; 
+    place-items: center;
+    z-index: 1000;
+    &[hidden] {
+        opacity: 0;
+        visibility: hidden;
+    }
+    &-backdrop {
+        position: fixed; 
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5); 
+    }
+    &-surface {
+        background: #fff;
+        transform: translateY(10rem);
+        opacity: 0;         
+        width: 90%;
+        max-width: 60rem;
+        height: 60rem;
+        transition: all 0.5s;
+        display: flex;
+        flex-direction: column;
+        
+    }
+    &-close {
+        width: 4rem;
+        height: 4rem;
+        font-size: 3rem;
+    }
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+    }
+    &-body {
+        padding: 1rem;
+        flex: 1;
+        overflow: hidden;
+        overflow-y: auto;       
+    }  
+
+    &-main-popup {
+        transform: translateY(0);
+        opacity: 1;    
+    }
+    
+    &-footer {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.modal-open {
+    animation: fadeIn 0.2s forwards;
+    .modal-surface {
+        transform: translateY(0);
+        opacity: 1; 
+    }
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0; visibility: hidden;}
+    100% {opacity: 1; visibility: visible;}
+}

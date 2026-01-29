@@ -1,0 +1,284 @@
+@use 'sass:map';
+@use "sass:color";
+@use '../abstracts' as *;
+
+$icon-colors: (
+  "primary": #0072c6,
+  "gray": #999,
+  "white": #fff,
+  "black": #000
+);
+
+$icon-sizes: (
+  "sm": 1.6rem,
+  "md": 2.4rem,
+  "lg": 3.2rem,
+  "xl": 4.8rem
+);
+
+@mixin icon($name, $color: map.get($icon-colors, "primary"), $size: map.get($icon-sizes, "md")) {
+    $url: url(#{$url-imgs}icons/#{$name}.svg);
+    width: $size;
+    height: $size;
+    //background: $url no-repeat center;
+    background-size: contain;  
+    mask: $url no-repeat center;
+    mask-size: contain;
+    background-color: $color; // 색상 적용
+}
+
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    &-download {
+        @include icon("download",$sub-color, 3.2rem);    
+    }
+    &-box-arrow-right {
+        @include icon("box-arrow-right",$sub-color,map.get($icon-sizes, "lg"));    
+    }
+    &-box-arrow-up-right {
+        @include icon("box-arrow-up-right");    
+    }
+    &-clip {
+        @include icon("clip");    
+    }
+    &-clip-square {
+        @include icon("clip-square");    
+    }
+    &-question-circle {
+        @include icon("question-circle");    
+    }
+    &-exc-circle {
+        @include icon("exc-circle");    
+    }
+    &-info-circle {
+        @include icon("info-circle");        
+    }
+    &-info-circle-fill {
+        @include icon("info-circle-fill");        
+    }
+    &-check {
+        @include icon("check");        
+    }
+    &-check-circle {
+        @include icon("check-circle");        
+    }
+    &-eye {
+        @include icon("eye");        
+    }
+    &-link-45deg {
+        @include icon("link-45deg");        
+    }
+    &-search {
+        @include icon("search");
+    }
+    &-share {
+        @include icon("share");
+    }
+    &-refresh {
+        @include icon("refresh");
+    }
+    &-pen {
+        @include icon("pen");
+    }
+    &-pen-square {
+        @include icon("pen-square");
+    }
+    &-calendar {
+        @include icon("calendar");
+    }
+    &-print {
+        @include icon("print");
+    }
+    &-geo-alt {
+        @include icon("geo-alt");
+    }
+    &-telephone {
+        @include icon("telephone");
+    }
+    &-envelope {
+        @include icon("envelope");
+    }
+    &-house {
+        @include icon("house");
+    }
+    &-globe {
+        @include icon("globe");
+    }
+    &-bell {
+        @include icon("bell");
+    }
+    &-bag {
+        @include icon("bag");
+    }
+    &-bus-front {
+        @include icon("bus-front");
+    }
+    &-train-front {
+        @include icon("train-front");
+    }
+    &-car-front {
+        @include icon("car-front");
+    }
+    &-person {
+        @include icon("person");
+    }
+    &-clock {
+        @include icon("clock");
+    }
+    &-hamber-bar {
+        @include icon("hamber-bar");
+    }
+    &-message-dots {
+        @include icon("message-dots");
+    }
+
+    &-minus {
+        @include icon("minus");
+    }
+    &-plus {
+        @include icon("plus");
+    }
+    &-x {
+        @include icon("x");
+    }
+    &-x-lg {
+        @include icon("x-lg");
+    }
+    &-pause {
+        @include icon("pause");
+    }
+    &-play {
+        @include icon("play");
+    }
+    &-play-fill {
+        @include icon("play-fill");
+    }
+    &-play-fill-up {
+        @include icon("play-fill");
+        transform: rotate(-90deg);
+    }
+    &-play-fill-down {
+        @include icon("play-fill");
+        transform: rotate(90deg);
+    }
+
+
+    &-arrow-right {
+        @include icon("arrow-right");
+    }
+    &-arrow-left {
+        @include icon("arrow-right");
+        transform: rotate(180deg);
+    }
+    &-arrow-up {
+        @include icon("arrow-right");
+        transform: rotate(-90deg);
+    }
+    &-arrow-up-left {
+        @include icon("arrow-right");
+        transform: rotate(-135deg);
+    }
+    &-arrow-up-right {
+        @include icon("arrow-right");
+        transform: rotate(-45deg);
+    }
+    &-arrow-down {
+        @include icon("arrow-right");
+        transform: rotate(90deg)
+    }
+    &-arrow-down-left {
+        @include icon("arrow-right");
+        transform: rotate(135deg);
+    }
+    &-arrow-down-right {
+        @include icon("arrow-right");
+        transform: rotate(45deg);
+    }
+    &-arr-right {
+        @include icon("arr-right");
+    }
+    &-arr-left {
+        @include icon("arr-right");
+        transform: rotate(180deg);
+    }
+    &-arr-up {
+        @include icon("arr-right");
+        transform: rotate(-90deg);
+    }
+    &-arr-down {
+        @include icon("arr-right");
+        transform: rotate(90deg);
+    }
+
+    &-arr-double-right {
+        @include icon("arr-double-right");
+        
+    }
+    &-arr-double-left {
+        @include icon("arr-double-right");
+        transform: rotate(180deg);
+    }
+
+
+    &-facebook {
+        @include icon("facebook");
+    }
+    &-instagram {
+        @include icon("instagram");
+    }
+    &-youtube {
+        @include icon("youtube");
+    }
+    &-twitter {
+        @include icon("twitter");
+    }
+    &-kakao {
+        @include icon("kakao");
+    }    
+    &-naver {
+        @include icon("naver");
+    }
+    &-blog {
+        @include icon("blog");
+    }
+    &-apple {
+        @include icon("apple");
+    }
+    &-band {
+        @include icon("band");
+    }
+    &-pinterest {
+        @include icon("pinterest");
+    }
+    &-linkedin {
+        @include icon("linkedin");
+    }
+    &-tiktok {
+        @include icon("tiktok");
+    }
+}
+
+
+
+
+.icon-lists {
+    display: flex;gap:2rem;flex-wrap: wrap;
+    li {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+       border-radius: 1rem; 
+       padding: 2rem 1rem;
+       background: #dfdfdf;
+       width: 18rem;
+       .bx {
+        height: map.get($icon-sizes, "lg")
+       }
+       .tx {
+            font-size: 1.3rem;
+            text-align: center;
+       }
+    }
+}

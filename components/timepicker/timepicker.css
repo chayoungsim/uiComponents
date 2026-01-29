@@ -1,0 +1,138 @@
+.time-picker-container {
+    max-width: 40rem;
+    margin:0 auto;
+}
+.time-picker-container .text-b-sm-m{
+    padding: 2.4rem 2.4rem 2rem;
+}
+.time-picker {
+   padding: 0 2.4rem
+}
+
+.time-picker-top {
+    display: flex;
+}
+
+.time-picker-top .hour,
+.time-picker-top .minute {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 140%;
+    width: 9.6rem;
+    height: 8rem;
+    border-radius: 0.8rem;
+}
+.time-separator {
+    font-size: 5.7rem;
+    font-weight: 400;
+    width: 2.4rem;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.time-picker-top .time-box {
+    color: #282828;
+    background: #F2F3F5;
+}
+
+.time-picker-top .time-box.active {
+    color: #39B695;
+    background: #E7FCF6;
+
+}
+
+
+.time-picker-top .period-selector {
+    margin-left: auto;
+    display: flex;  
+    flex-direction: column;
+    border-radius: 0.8rem;
+    border: 1px solid #E2E6ED;
+    overflow: hidden;
+}
+.time-picker-top .period-btn {
+    padding: 0.8rem 1rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    flex:1
+}
+.time-picker-top .pm {
+     border-top: 1px solid #E2E6ED;
+}
+.time-picker-top .active {
+    background: #E7FCF6;
+    color:#39B695
+}
+
+.time-picker-clock {
+    background: #F2F3F5;
+    border-radius: 50%;
+    margin-top: 3.6rem;
+    margin-bottom: 2em;
+}
+
+.time-picker-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom:2rem;
+}
+
+
+.time-picker-clock,
+.clock-container {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 30px;
+    position: relative;
+}
+
+.clock-face {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #f5f5f5;
+    position: relative;
+}
+
+.clock-number {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.clock-hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    width: 3px;
+    height: 40%;
+    background: #3db39e;
+    transform-origin: bottom center;
+    transform: translateX(-50%) rotate(0deg);
+    transition: transform 0.25s ease;
+}
+
+.clock-center {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    background: #3db39e;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}

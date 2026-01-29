@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="../resource/css/style.min.css">
+</head>
+<body>
+    <div class="swiper-visual" id="slide">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" data-duration="5000">
+                <div class="video-frame bg1">
+                    <video src="../resource/video/main_vs2.mp4" class="responsive-video" muted autoplay playsinline></video>
+                </div>
+                <div class="text">
+                    <div class="text-1" id="target">
+                        <p>VIEW, <br class="mo-only">Perspective <br class="mo-only">of Life</p>
+                    </div>
+                    <div class="text-2">
+                        <p>가치를 보는 안목 </p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide" data-duration="5000">
+                <div class="video-frame bg2">
+                    <video src="../resource/video/v3.mp4" class="responsive-video" muted autoplay playsinline></video>
+                </div>
+                <div class="text">
+                    <div class="text-1">
+                        <p>VIEW, <br class="mo-only">Perspective <br class="mo-only">of Life</p>
+                    </div>
+                    <div class="text-2">
+                        <p>본질을 보는 혜안 </p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide" data-duration="5000">
+                <div class="video-frame bg3" style="background-color: aquamarine;">
+                    
+                </div>
+                <div class="text">
+                    <div class="text-1">
+                        <p>VIEW, <br class="mo-only">Perspective <br class="mo-only">of Life</p>
+                    </div>
+                    <div class="text-2">
+                        <p>보여지는 것 너머 <br class="mo-only">보이지 않는 삶을 보는 섬세함</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-nav">
+            <div class="swiper-controls">
+                <button type="button" class="swiper-button-prev">
+                    <i class="ico-prev"><span class="blind">이전</span></i>
+                </button>
+                <div class="swiper-pagination"></div>
+                <button type="button" class="swiper-button-next">
+                    <i class="ico-next"><span class="blind">다음</span></i>
+                </button>                          
+                <button type="button" class="swiper-button-play"><span class="blind">재생</span></button>
+                <button type="button" class="swiper-button-pause"><span class="blind">정지</span></button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!-- Swiper's JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="../resource/js/gsap.min.js"></script>
+<script src="../resource/js/ScrollTrigger.min.js"></script>
+<script src="../resource/js/SplitText.min.js"></script>
+<script src="../resource/js/lenis.min.js"></script>
+<script>
+
+function mainVsSwiper(options = {}) {
+    const autoplayDelay = 5000;
+    const mainVisualContainer = document.querySelector('.swiper-visual');
+
+    let isPC = window.matchMedia("(min-width: 1025px)").matches;
+  
+    let swiper;
+
+    const handleSlideChange = (swiperInstance, isInit = false) => {
+        const wasPaused = mainVisualContainer.classList.contains('is-paused');
+        const activeSlide = swiperInstance.slides[swiperInstance.activeIndex];
+        const video = activeSlide.querySelector('video');
+
+
+        resetAllProgressBars();
+
+        const activeBullet = swiperInstance.pagination.bullets[swiperInstance.realIndex];
+        if (!activeBullet) return;
+        const progressBar = activeBullet.querySelector('.progress-bar');
+        if (!progressBar) return;
+
+        if (video) {
+            swiperInstance.autoplay.stop();
+            video.currentTime = 0;
+
+            const setupVideo = () => {
+                progressBar.style.animation = `progress-animation ${video.duration}s linear forwards`;
+                if (wasPaused) {
+                    progressBar.style.animationPlayState = 'paused';
+                    video.pause();
+                } else {
+                    progressBar.style.animationPlayState = 'running';
+                    video.play().catch(error => {
+                        console.error("Video play was prevented: ", error);
+                        setTimeout(() => swiperInstance.slideNext(), 200);
+                    });
+                }
+            };
+
+            if (video.readyState >= 1) { // HAVE_METADATA
+                setupVideo();
+            } else {
+                video.onloadedmetadata = setupVideo;
+            }
+
+            video.onended = () => {
+                if (!mainVisualContainer.classList.contains('is-paused')) {
+                    if (swiperInstance.pagination.bullets.length > 1) {
+                        swiperInstance.slideNext();
+                    }
+                }
+            };
+        } else {
+            const duration = parseInt(activeSlide.getAttribute('data-duration'), 10) || autoplayDelay;
+            swiperInstance.params.autoplay.delay = duration;
+            progressBar.style.animation = `progress-animation ${duration / 1000}s linear forwards`;
+
+            if (wasPaused) {
+                swiperInstance.autoplay.stop();
+                progressBar.style.animationPlayState = 'paused';
+            } else {
+                swiperInstance.autoplay.stop();   // ← 먼저 완전 정지
+                swiperInstance.autoplay.start();  // ← 변경된 delay로 재시작
+                progressBar.style.animationPlayState = 'running';
+            }
+        }
+    };
+
+    const swiperOptions = {
+        loop: true, 
+        autoplay: {
+            delay: autoplayDelay,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            renderBullet: function (index, className) {
+                return `
+                    <button type="button" class="${className}">
+                        <svg class="progress-circle" viewBox="0 0 30 30">
+                            <circle class="bg" cx="15" cy="15" r="14"></circle>
+                            <circle class="progress-bar" cx="15" cy="15" r="14"></circle>
+                        </svg>
+                        <span>${index + 1}</span>
+                    </button>`;
+            },
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            0:   { touchRatio: 1, touchAngle: 45, resistanceRatio: .5 },
+            1025:{ touchRatio: 0.7, touchAngle: 45, resistanceRatio: 0.85 }
+        },
+        on: {
+            init: function () {
+                handleSlideChange(this, true);
+            },
+            slideChange: function () {
+                handleSlideChange(this, false);
+            },
+        }
+    };
+
+    
+    swiper = new Swiper('.swiper-visual', swiperOptions);
+    
+    
+    const playBtn = document.querySelector('.swiper-button-play');
+    const pauseBtn = document.querySelector('.swiper-button-pause');
+
+    function resetAllProgressBars() {
+        document.querySelectorAll('.swiper-pagination-bullet .progress-bar').forEach(bar => {
+            bar.style.animation = 'none';
+            // 강제 리플로우로 애니메이션 재시작 보장
+            // eslint-disable-next-line no-unused-expressions
+            bar.offsetWidth;
+            bar.style.animationPlayState = 'paused';
+        });
+    }
+
+
+    function playSlider() {
+        mainVisualContainer.classList.remove('is-paused');
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const video = activeSlide.querySelector('video');
+        const activeBullet = swiper.pagination.bullets[swiper.realIndex];
+        if (activeBullet) {
+            const progressBar = activeBullet.querySelector('.progress-bar');
+            if(progressBar) progressBar.style.animationPlayState = 'running';
+        }
+        if (video) {
+            video.play();
+        }
+        else {
+            swiper.autoplay.start();
+        }
+    }
+
+    function pauseSlider() {
+        mainVisualContainer.classList.add('is-paused');
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const video = activeSlide.querySelector('video');
+        const activeBullet = swiper.pagination.bullets[swiper.realIndex];
+
+        if (activeBullet) {
+            const progressBar = activeBullet.querySelector('.progress-bar');
+            if(progressBar) progressBar.style.animationPlayState = 'paused';
+        }
+
+        if (video) {
+            video.pause();
+        } else {
+            swiper.autoplay.stop();
+        }
+    }
+
+    playBtn.addEventListener('click', playSlider);
+    pauseBtn.addEventListener('click', pauseSlider);
+
+    return { 
+        play: playSlider, 
+        pause: pauseSlider, 
+        swiper 
+    };
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {  
+    window.mainSlider = mainVsSwiper();
+});
+
+
+</script>
+</body>
+</html>

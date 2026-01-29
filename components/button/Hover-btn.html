@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InovaYa Button Hover Effect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 40px;
+        }
+
+        .demo-container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 60px;
+            font-weight: 600;
+        }
+
+        .buttons-wrapper {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            position: relative;
+            padding: 18px 36px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: color 0.4s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: #333;
+            transition: width 0.4s ease;
+            z-index: 0;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            color: white;
+        }
+
+        /* 색상 변형 */
+        .btn-blue {
+            color: #0066cc;
+            border-color: #0066cc;
+        }
+
+        .btn-blue::before {
+            background: #0066cc;
+        }
+
+        .btn-green {
+            color: #00a86b;
+            border-color: #00a86b;
+        }
+
+        .btn-green::before {
+            background: #00a86b;
+        }
+
+        .btn-orange {
+            color: #ff6b35;
+            border-color: #ff6b35;
+        }
+
+        .btn-orange::before {
+            background: #ff6b35;
+        }
+
+        /* 스타일 변형 - 오른쪽에서 왼쪽 */
+        .btn-rtl::before {
+            left: auto;
+            right: 0;
+        }
+
+        /* 스타일 변형 - 중앙에서 확장 */
+        .btn-center::before {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .btn-center:hover::before {
+            width: 100%;
+        }
+
+        /* 스타일 변형 - 느린 속도 */
+        .btn-slow::before {
+            transition: width 0.8s ease;
+        }
+
+        .info-text {
+            margin-top: 50px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>버튼 호버 효과</h1>
+        
+        <div class="buttons-wrapper">
+            <button class="btn">
+                <span>Nous connaître</span>
+            </button>
+            
+            <button class="btn btn-blue">
+                <span>Contactez-nous</span>
+            </button>
+            
+            <button class="btn btn-green">
+                <span>En savoir plus</span>
+            </button>
+            
+            <button class="btn btn-orange">
+                <span>Découvrir</span>
+            </button>
+        </div>
+
+        <br><br>
+
+        <div class="buttons-wrapper">
+            <button class="btn btn-rtl">
+                <span>Right to Left</span>
+            </button>
+            
+            <button class="btn btn-center">
+                <span>From Center</span>
+            </button>
+            
+            <button class="btn btn-slow">
+                <span>Slow Motion</span>
+            </button>
+        </div>
+
+        <div class="info-text">
+            <p>마우스를 버튼 위에 올려보세요!</p>
+            <p>왼쪽에서 오른쪽으로 색상이 채워지는 부드러운 애니메이션</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+.accordions {
+    &-item {
+
+    }
+    &-header {
+        border: 1px solid #ddd;
+        padding: 2rem;
+    }
+    &-panel{
+        background: #efefef;
+        padding: 2rem;
+    }
+}

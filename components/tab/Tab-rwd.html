@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../assets/css/style.min.css" />
+    <link rel="stylesheet" href="../../assets/css/temp.css" />
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+    
+        .tab-nav {
+            list-style-type: none;;
+            display: flex;
+            gap:1px;
+            
+        }
+        .tab-nav>li{
+            flex:1;
+        }
+        .tab-nav>li.active button{
+            background:#ccc;
+        }
+        .tab-nav>li>button {
+            width: 100%;
+            border:1px solid #ddd;
+        }
+
+        @media (max-width: 640px) {
+            .tab-nav {
+                flex-direction: column;
+                display: none;
+            }
+            .tab-nav.open {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>반응형 탭</h1>
+
+    <!-- 수평 -->
+    <div class="tab-container rwd">
+        <div class="tab-navs">
+            <h3 class="tab-current">탭1</h3>
+            <ul class="tab-nav" role="tablist" aria-label="콘텐츠 탭">
+                <li class="active"><button type="button" id="tab1" role="tab" aria-selected="true" aria-controls="tabpanel1">탭1</button></li>
+                <li><button type="button" id="tab2" role="tab" aria-selected="false" aria-controls="tabpanel2" tabindex="-1">탭2</button></li>
+                <li><button type="button" id="tab3" role="tab" aria-selected="false" aria-controls="tabpanel3" tabindex="-1">탭3</button></li>
+                <li><button type="button" id="tab4" role="tab" aria-selected="false" aria-controls="tabpanel4" tabindex="-1">탭4</button></li>
+                <li><button type="button" id="tab5" role="tab" aria-selected="false" aria-controls="tabpanel5" tabindex="-1">탭5</button></li>
+            </ul>
+        </div>
+        <div class="tab-panels">
+            <div id="tabpanel1" class="tab-panel active" role="tabpanel" tabindex="0" aria-labelledby="tab1">
+                탭패널1
+            </div>
+            <div id="tabpanel2" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab2" hidden>
+                탭패널2
+            </div>
+            <div id="tabpanel3" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab3" hidden>
+                탭패널3
+            </div>
+            <div id="tabpanel4" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab4" hidden>
+                탭패널4
+            </div>
+            <div id="tabpanel5" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab5" hidden>
+                탭패널5
+            </div>
+        </div>
+    </div>
+
+ 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabContainers = document.querySelectorAll('.tab-container.rwd');
+
+        tabContainers.forEach(container => {
+            const tabNavs = container.querySelectorAll('.tab-nav button');
+            const tabPanels = container.querySelectorAll('.tab-panel');
+            const tabCurrent = container.querySelector('.tab-current');
+
+            tabNavs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    // 탭 선택 상태 업데이트
+                    tabNavs.forEach(t => {
+                        t.parentElement.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                        t.setAttribute('tabindex', '-1');
+                    });
+                    tab.parentElement.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+                    tab.removeAttribute('tabindex');
+
+                    // 탭 패널 표시 업데이트
+                    tabPanels.forEach(panel => panel.hidden = true);
+                    tabPanels[index].hidden = false;
+
+                    // 현재 탭 텍스트 업데이트
+                    tabCurrent.textContent = tab.textContent;
+                });
+            });
+        });
+
+        //모바일일때
+        const mediaQuery = window.matchMedia('(max-width: 640px)');
+        function handleTabletChange(e) {    
+            tabContainers.forEach(container => {
+                const tabNavs = container.querySelectorAll('.tab-nav button');
+                const tabCurrent = container.querySelector('.tab-current');
+
+                if (e.matches) {
+                    // 모바일: 현재 탭 클릭 시 탭 목록 토글
+                    tabCurrent.addEventListener('click', () => {
+                        container.querySelector('.tab-nav').classList.toggle('open');
+                    });
+
+                    // 탭 선택 시 탭 목록 닫기
+                    tabNavs.forEach(tab => {
+                        tab.addEventListener('click', () => {
+                            container.querySelector('.tab-nav').classList.remove('open');
+                        });
+                    });
+                } else {
+                    // 데스크탑: 탭 목록 항상 표시
+                    container.querySelector('.tab-nav').classList.remove('open');
+                }
+            });
+        }
+
+        mediaQuery.addEventListener('change', handleTabletChange);
+        handleTabletChange(mediaQuery);
+
+    });
+    </script>
+</body>
+</html>

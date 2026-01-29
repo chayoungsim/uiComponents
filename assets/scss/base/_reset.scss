@@ -1,0 +1,204 @@
+/*base/_reset.scss */
+:root {
+    --vh: calc(100vh / 100);
+}
+html, body{
+    position: relative;
+    width: 100%;
+    min-height: calc(var(--vh) * 100);
+    word-break: keep-all;
+    word-wrap: break-word;
+    scroll-behavior: smooth;
+}
+html{
+    overflow: hidden;
+    overflow-y: scroll;    
+}
+body {  
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;   
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+main, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+    &::before,
+    &::after {
+        content: "";
+    }
+}
+
+a {    
+    text-decoration: none;
+    color: inherit;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    border-radius: none;
+    text-transform: none;
+    box-shadow: none;
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+    resize: vertical;
+}
+
+audio, canvas, video {
+    display: inline-block;
+    max-width: 100%;
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+[hidden] {
+    display: none;
+}
+
+button,
+input {
+    line-height: normal;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    appearance: button;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+}
+
+[disabled] {
+    pointer-events: none;
+}
+
+button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;   
+    color:inherit;
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+    resize: vertical;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-indent: 0;
+}
+th, td{
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace;
+}
+
+small
+sub,
+sup {
+    font-size: 0.6em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -.5rem;
+}
+
+sup {
+    top: -.5em;
+}
+
+legend {
+    max-width: 100%;
+    width: 100%;
+    color: inherit;
+    white-space: normal;
+    display: block;
+    border: 0;
+}
+
+fieldset {
+    min-width: 0;
+}
+
+summary {
+    display: list-item;
+}
+
+address {
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: normal;
+}
+
+strong,
+em {
+    color: inherit;
+    font: {
+        weight: normal;
+        style: normal;
+    }
+}
+
+strong {
+    font-weight: 700;
+}

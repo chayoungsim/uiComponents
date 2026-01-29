@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../assets/css/style.min.css">
+    <link rel="stylesheet" href="../../assets/css/temp.css" />
+
+    <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+   <div class="cards">
+       <div class="card">
+            <div class="card__title">Calendar</div>
+            <div class="card__desc">
+
+                <!-- Range Calendar -->
+                <div class="range-calendar-container">  
+                    <div class="range-header">
+                        <button class="range-nav-btn" id="rangePrevBtn"> 
+                        <i class="ico-prev"></i><span class="sr-only">이전</span>
+                        </button>
+                        <div class="range-title" id="rangeTitle">2026. 01</div>
+                        <button class="range-nav-btn" id="rangeNextBtn">
+                        <i class="ico-next"></i><span class="sr-only">다음</span>
+                        </button>
+                    </div>
+                    <div class="range-weekdays">
+                        <div class="weekday-cell sun">일</div>
+                        <div class="weekday-cell ">월</div>
+                        <div class="weekday-cell ">화</div>
+                        <div class="weekday-cell ">수</div>
+                        <div class="weekday-cell ">목</div>
+                        <div class="weekday-cell ">금</div>
+                        <div class="weekday-cell sat">토</div>
+                    </div>
+                    <div class="range-days-grid" id="rangeDaysGrid">
+                    </div>
+                </div>
+
+                <!-- Regular Calendar -->
+                <div class="calendar-container">
+                    <div class="calendar-header">        
+                        <button type="button" class="nav-btn prev" id="regularPrevBtn">
+                            <i class="ico-arr"></i><span class="sr-only">이전</span>
+                        </button>
+                        <h2 class="header-title" id="regularTitle">
+                            2026. 01
+                            <span class="picker-arrow ">▼</span>
+                        </h2>        
+                        <button type="button" class="nav-btn next" id="regularNextBtn">
+                            <i class="ico-arr"></i><span class="sr-only">다음</span>
+                        </button>
+                    </div>
+                    <div class="weekdays-grid">
+                        <div class="weekday">일</div>
+                        <div class="weekday">월</div>
+                        <div class="weekday">화</div>
+                        <div class="weekday">수</div>
+                        <div class="weekday">목</div>
+                        <div class="weekday">금</div>
+                        <div class="weekday">토</div>
+                    </div>
+                    <div class="days-grid" id="regularDaysGrid">        
+                    </div>
+                </div>  
+
+            </div>
+       </div>
+   </div>
+
+<script src="plugin/dayjs.min.js"></script>
+<script src="plugin/weekday.js"></script>
+<script src="plugin/isoWeek.js"></script>
+<script src="calendar.js"></script>
+</body>
+</html>

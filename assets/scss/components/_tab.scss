@@ -1,0 +1,55 @@
+
+[role="tablist"]{
+    display: flex;
+    justify-content: center;    
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap:1rem;
+    > li {
+        flex: 1;
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 5rem;
+            font-size: clamp(1.6rem, 1.76vw,1.8rem);
+            border: 1px solid #ddd;
+        }
+        &.active {
+            button {
+                background: #000;
+                color: #fff;
+            }
+        }
+    }
+    &[aria-orientation='vertical'] {
+        flex-direction: column;
+        border-bottom: none;        
+    }
+}
+
+[role="tabpanel"]{
+    display: none;
+    &.active {
+        display: block;
+        animation: fadeInUpTab 0.5s;
+    }
+}
+
+@keyframes fadeInUpTab {
+    0% {opacity: 0; transform: translateY(30px);}
+    100% {opacity: 1; transform: translateY(0);}
+}
+
+.tab-container {    
+    &.vertical {
+        display: flex;
+        width: 100%;
+
+        [role="tablist"]{
+            width: 20rem;
+        }
+    }
+}

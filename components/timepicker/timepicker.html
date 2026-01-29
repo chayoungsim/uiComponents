@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Time Picker</title>
+        <link rel="stylesheet" href="../../assets/css/style.min.css" />
+        <link rel="stylesheet" href="../../assets/css/temp.css" />
+
+        <link rel="stylesheet" href="timepicker.css" />
+
+        
+    </head>
+
+    <body>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card__title">timepicker</div>
+            <div class="card__desc">
+
+                <!-- Time Picker -->
+                <div class="time-picker-container">
+                  <p class="text-b-sm-m">날짜 선택</p>
+                  <div class="time-picker">
+                      <div class="time-picker-top">
+                        <div class="time-box hour active" id="hourBox">07</div>
+                        <div class="time-separator">:</div>
+                        <div class="time-box minute" id="minuteBox">00</div>
+                        <div class="period-selector">
+                          <button class="period-btn am active" id="amBtn">오전</button>
+                          <button class="period-btn pm" id="pmBtn">오후</button>
+                        </div>
+                      </div>
+                      <div class="time-picker-clock">
+                        <div class="clock-face" id="clockFace">
+                          <div class="clock-hand" id="clockHand"></div>
+                          <div class="clock-center" id="clockCenter">7</div>
+                        </div>
+                      </div>
+                      <div class="time-picker-bottom">
+                        <button type="button">
+                          <i class="ico-keyboard"></i>
+                        </button>
+                        <div>
+                          <button type="button" class="btn">취소</button>
+                          <button type="button" class="btn">확인</button>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- //Time Picker -->
+
+              </div>
+            </div>
+          </div>
+        </div> 
+
+
+
+        
+
+        <script type="module">
+          import { createTimePicker } from './timepicker.js';
+          createTimePicker();
+        </script>
+
+    </body>
+</html>

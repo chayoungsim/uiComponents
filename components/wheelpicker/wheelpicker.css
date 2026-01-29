@@ -1,0 +1,171 @@
+.picker-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 1002;
+}
+
+.picker-modal-container {
+    width: 100%;
+    max-width: 50rem;
+    background: #fff;
+    border-radius: 2rem 2rem 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.picker-header {
+    padding: 3rem 2rem 1rem;
+    text-align: center;
+}
+
+.picker-header h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.picker-date-info {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.label-today {
+    font-weight: 600;
+}
+
+.label-time {
+    color: #999;
+}
+
+
+.wheel-picker-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.highlight-bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 5.8rem;
+    transform: translateY(-50%);    
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.highlight-bar div {
+    border-radius: 1.4rem;
+    background: #F6F7F9;
+    width: 9.8rem;
+    height: 6.8rem;
+}
+
+.picker-columns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+    height: 17.4rem;
+}
+.picker-columns::before,
+.picker-columns::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 6rem;
+    position: absolute;
+    z-index: 2;
+}
+.picker-columns::before {
+    top: 0;
+    background: linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%);
+
+}
+.picker-columns::after {
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 2.56%, #FFF 100%);
+}
+
+.picker-columns .unit-label {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    right: 50%;
+    transform: translateY(-50%) translateX(15rem)
+}
+
+.picker-columns .dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3.6rem;
+}
+
+
+.wheel-column {
+    width:9.8rem;
+    height: 174px; /* 3개 아이템 표시*/
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+}
+
+.wheel-column:active {
+    cursor: grabbing;
+}
+
+.wheel-items {
+    width: 100%;
+    transition: transform 0.2s ease-out;
+    padding: 58px 0;  /*위아래 여백으로 중앙 정렬 */
+}
+
+.wheel-item {
+    width: 100%;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    color: #999;
+    transition: all 0.2s;
+}
+
+.wheel-item.selected {
+    color: #000;
+    font-weight: 600;
+    font-size: 3.2rem;
+}
+
+.decimal .wheel-item {
+    font-size: 2.4rem;
+}
+
+.dot {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.unit-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}

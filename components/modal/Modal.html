@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="description" content="">
+  <title>Modal</title>
+  <link rel="stylesheet" href="../../assets/css/style.min.css">
+  <link rel="stylesheet" href="../../assets/css/temp.css" />
+  <!-- <script src="../../resource/js/jquery-3.6.4.min.js"></script>
+  <script src="../../resource/js/common.js"></script>
+  <script src="../../resource/js/swiper.min.js"></script> -->
+
+    <style>
+     section {
+        padding:4rem 4rem;  
+     }
+     h2 {
+        margin: 4rem 0 1rem;
+     }
+  </style>
+</head>
+<body>
+<div class="cards">
+  <div class="card">
+    <div class="card__title"></div>
+    <div class="card__desc">
+        <button type="button" class="modalOpen" data-dialog-target="#demoDialog1">모달오픈1-center</button>
+          <button type="button" class="modalOpen" data-dialog-target="#demoDialog2">모달오픈2-center</button>
+    </div>
+  </div>
+</div>
+
+
+<script src="../../assets/js/components.modal.js"></script> 
+
+
+<!-- 오픈 : hidden제거하고, modal-open 클래스 추가하고 html에 not-scroll클래스 추가 -->
+<div class="modal" id="demoDialog1" hidden>
+  <div class="modal-backdrop" data-backdrop></div>
+  <div class="modal-surface" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <h2 class="modal-title">알림1</h2>
+      <button type="button" layer="close" class="modal-close" data-dialog-close aria-label="팝업 닫기">×</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <p>모달 설명 또는 본문 텍스트를 입력하세요.</p>
+        <a href="#">저장</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="demoDialog2" hidden>
+  <div class="modal-backdrop" data-backdrop></div>
+  <div class="modal-surface" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <h2 class="modal-title">알림2</h2>
+      <button type="button" layer="close" class="modal-close" data-dialog-close aria-label="팝업 닫기">×</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <p>모달 설명 또는 본문 텍스트를 입력하세요.</p>
+        <a href="#">저장</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+
+</body>
+</html>

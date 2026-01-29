@@ -1,0 +1,429 @@
+@use '../abstracts' as *;
+
+
+@mixin flex-c{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.main-visual-wrap{
+    position: relative;
+    height:240vh;   
+    @include respond(tablet){
+        height:auto;
+    } 
+}
+
+.scene-logo{    
+    width:100%;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;    
+    position: relative;
+    &-inner{
+        display: flex;
+        justify-content: center;  
+        width:100vw;
+        //padding-bottom:10vh;  
+        position: sticky;
+        bottom:10vh;
+        
+    }
+    &-wrap{   
+        width:100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.scene-slide{
+    height:100vh;
+    margin-top:-10vh;  
+    &-inner{
+        @include flex-c;        
+        height:100vh; 
+    }
+    .swiper-visual-wrap{       
+        width:100%;
+        height:100%;        
+        transition: all 0.5s; 
+    }
+    .scene-slide-inner{
+        width: 100%;
+        height:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;       
+    }
+    .mask{
+       clip-path: polygon(10% 18%, 90% 18%, 90% 80%, 10% 80%); 
+    }
+    @include respond(tablet){
+        margin-top:0;
+        overflow:hidden;  
+    }
+    @include respond(mobile){  
+        max-height:91.5rem;
+        margin-top:0;
+    }
+}
+
+@include respond(tablet){    
+    .scene-logo{
+        display: none;
+    }
+    .scene-slide .mask{
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); 
+    }
+    .main-visual-wrapper{
+        overflow: hidden;
+        height:auto;          
+    }  
+    #footer{
+        position: relative;
+        z-index: 2;
+    } 
+}
+
+
+
+.swiper-visual {
+    width:100%;
+    height:100vh;    
+    position: relative;        
+    overflow: hidden;
+    .swiper-wrapper {
+        will-change: transform;
+    }
+    .swiper-slide{ 
+        will-change: transform;
+        .video-frame,
+        picture,    
+        video,
+        img{
+            width:100%;
+            height:100%;
+            object-fit: cover;
+        }   
+        .video-frame{
+            &::after{
+                content: '';
+                display: block;
+                width:100%;
+                height:100%;
+                position: absolute;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+            }             
+        }    
+        .video-frame,
+        .video-frame::after{
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }        
+        .text{
+            position: absolute;
+            bottom:43vh;
+            left:0;
+            width:100%;                     
+            color:$white;           
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;  
+            align-items: center;          
+            line-height: 1.6;
+            z-index: 2; 
+            &-1{
+                font-size:10rem;
+                font-family: "Playfair Display", serif;
+                font-weight: 400;  
+                transform: translateY(10rem);
+                opacity: 0;
+                text-align: center;
+            }
+            &-2{
+                font-size:3.6rem; 
+                font-weight: 500;               
+                letter-spacing: -0.6px;   
+                transform: translateY(10rem); 
+                letter-spacing: -0.72px;   
+                opacity: 0;
+            }
+            
+        }  
+    }
+    .swiper-nav{
+        position: absolute;
+        left:0;
+        bottom:35.56vh;
+        width:100%; 
+        @include flex-c;
+        gap:1rem;
+        z-index: 2;        
+    }
+    .swiper-controls{
+        position: relative; 
+        @include flex-c;
+        gap:1rem;
+    } 
+    .swiper-pagination{
+        position: initial;
+        width:auto;
+        display: flex;
+        gap:0;       
+    }
+    .swiper-pagination-bullet {
+        width: 4rem;
+        height: 4rem;    
+        background: none;
+        opacity: 1;
+        position: relative;
+        cursor: pointer;
+        span {
+            position: absolute;
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            width:100%;
+            height: 100%;
+            @include flex-c;
+            font-weight: 600;
+            font-size:1.6rem;
+            color:rgba(255, 255, 255, 0.8);
+        }
+        .progress-circle{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            width: 100%;
+            height: 100%;
+            circle {
+                fill: none;
+                stroke-width: 1;
+            }
+            .bg {
+                stroke: rgba(255, 255, 255, 0.3);
+            }
+            .progress-bar {
+                stroke: #ffffff;
+                stroke-dasharray: 88;
+                stroke-dashoffset: 88;               
+            }
+        }
+        &.paused {
+            .progress-bar {
+                animation-play-state: paused;
+            }
+        }
+        &-active {      
+            .progress-circle{      
+                .progress-bar {
+                    animation-name: progress-animation;
+                    animation-timing-function: linear;
+                    animation-fill-mode: forwards;
+                    // animation-duration: 5s;
+                }
+            }
+        }
+    }
+    
+    @keyframes progress-animation {
+        to { stroke-dashoffset: 0; }
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev{
+        position: initial;
+        width:4rem;
+        height:4rem;
+        margin:0;           
+        z-index: 12;           
+        border-radius: 50%;  
+        border: 1px solid lime;
+        &:after{
+            display: none;
+        }
+    }
+
+    .swiper-button-play,
+    .swiper-button-pause {
+        width:4rem;
+        height:4rem;      
+        border-radius: 50%; 
+    }
+    .swiper-button-play {
+        display: none;
+        &::before {
+            content:'';
+            display: block;
+            width: 2.4rem;
+            height: 2.4rem;
+            background-size: contain;
+            mask: url(../images/icons/play-fill.svg) no-repeat center;
+            mask-size: contain;
+            background-color: #ffffff;
+        }            
+    }
+    .swiper-button-pause {
+        &::before {
+            content:'';
+            display: block;
+            width: 2.4rem;
+            height: 2.4rem;
+            background-size: contain;
+            mask: url(../images/icons/pause.svg) no-repeat center;
+            mask-size: contain;
+            background-color: #0072c6;  
+        }  
+    }
+
+
+    &.is-paused {
+        .swiper-button-play {
+            display: block;
+        }
+        .swiper-button-pause {
+            display: none;
+        }
+    }
+    
+    @include respond(tablet){   
+        .swiper-slide{
+            .text{                
+                &-1{
+                    font-size:8rem;
+                }
+                &-2{                    
+                    font-size: 2rem;                    
+                }
+            }
+        }
+    }
+
+    @include respond(mobile){        
+        .swiper-slide{
+            .text{
+                padding:0;
+                justify-content: center;
+                text-align: center;
+                bottom:40vh;
+                &-1{
+                    font-size:5rem;
+                    transform: translateY(10rem);
+                    opacity: 0;
+                    line-height: 1.2;
+                }
+                &-2{
+                    line-height: 1.2;
+                    font-size: 2.2rem;
+                    letter-spacing: -0.44px;
+                    transform: translateY(10rem);
+                    opacity: 0;
+                    margin-top: 2rem;
+                }
+            }            
+        }
+        .swiper-nav{
+            flex-direction: column;
+            bottom:24vh;
+            left:0;
+            gap:4.5vh;            
+            .swiper-progress{
+                width:100%;
+                order:2;
+                .progressBar{
+                    em{
+                        height:2px
+                    }
+                }
+            }
+            .swiper-controls{
+                order:1;
+                .swiper-button-next,
+                .swiper-button-prev,
+                .btn-pause{
+                    width: 4rem;
+                    height:4rem;
+                }
+            }
+        }
+        .swiper-controls{
+            .swiper-pagination{
+                &-bullet{
+                    &-active .progress {
+                        animation: progress-stroke 12s forwards;      
+                    }
+                }
+            }
+        }            
+    }
+    @include respond(phone){
+        height:100vh;
+    }
+}
+
+
+
+.main-section-wrap {
+    overflow: hidden;
+}
+
+.main-garo {
+   overflow: hidden;
+}
+
+.horizontal-wrap {    
+    background: $white;
+    .horizontal{    
+        display:flex;
+        flex-wrap:nowrap;    
+        width: max-content;
+        height: 100vh;
+        background: #fff;  
+        
+        @include respond(tablet){
+            display: block;
+            height: auto;
+            width:100vw;
+            overflow: hidden;
+        }
+    }
+}
+
+.main-quickMenu {
+    width:100%;
+    height:100vh;
+    min-height: 108rem;   
+    padding:14.81vh 2.4vw 12.96vh;  
+    position: relative;
+}
+
+/*1. basic styles*/
+.slider-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 40rem;
+    
+}
+.swiper-slide {
+    height: 100%;    
+    background:#ddd;
+    
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.swiper, .card-swiper{
+    height: 100%;    
+}
+
+/*2. size variations*/

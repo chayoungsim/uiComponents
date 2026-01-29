@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="../../assets/css/style.min.css">
+    <link rel="stylesheet" href="../../assets/css/temp.css" />
+</head>
+<body>
+
+
+    <div class="cards">
+      <div class="card">
+        <div class="card__title">
+          form - attachment
+        </div>
+        <div class="card__desc">
+           <form>
+                <fieldset class="form-field">
+                    <legend class="blind">Form 양식</legend>
+                    <div class="form-row">
+                        <div class="form-tit">
+                            <label for="name">이름 <span class="required"><em class="blind">필수입력</em></span></label>
+                        </div>
+                        <div class="form-col">
+                            <input type="text" id="name" name="name" required aria-describedby="nameHelp" class="input full">
+                            <p id="nameHelp" class="form-help">실명을 입력하세요.</p>
+                            <p class="form-error" id="nameError" role="alert" hidden>이름은 필수입니다.</p>
+                        </div>  
+                    </div>
+                    <div class="form-row">
+                        <div class="form-tit">
+                            <label for="mobile">휴대폰 <span class="required"><em class="blind">필수입력</em></span></label>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-phone">
+                                <select name="mobile1" title="휴대폰 앞자리" id="mobile">
+                                    <option value="010">010</option>
+                                    <option value="011">011</option>
+                                    <option value="016">016</option>
+                                    <option value="017">017</option>
+                                    <option value="018">018</option>
+                                    <option value="019">019</option>
+                                </select>
+                                <span class="bar">-</span>
+                                <input type="number" class="input" name="mobile2" maxlength="4" title="휴대폰 가운데자리">
+                                <span class="bar">-</span>
+                                <input type="number" class="input" name="mobile3" maxlength="4" title="휴대폰 뒷자리">
+                            </div>                    
+                        </div>  
+                    </div>
+                    <div class="form-row">
+                        <div class="form-tit">
+                            <label for="email">이메일 <span class="required"><em class="blind">필수입력</em></span></label>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-email">
+                                <input type="text" name="email1" value="sim22" title="이메일 아이디" id="email" class="input">
+                                <span>@</span>
+                                <input type="text" name="email2" value="nate.com" title="이메일 도메인" class="input">
+                                <select name="emailSelect" onchange="document.memEdit.email2.value=this.value" title="이메일 도메인 선택">
+                                    <option value="">직접입력</option>
+                                    <option value="nate.com">네이트</option>
+                                    <option value="hotmail.com">핫메일</option>
+                                    <option value="yahoo.co.kr">야후(co.kr)</option>
+                                    <option value="yahoo.com">야후(com)</option>
+                                    <option value="naver.com">네이버</option>
+                                    <option value="paran.com">파란</option>
+                                    <option value="dreamwiz.com">드림위즈</option>
+                                    <option value="orgio.com">오르지오</option>
+                                    <option value="hanafos.com">하나포스</option>
+                                    <option value="lycos.co.kr">라이코스</option>
+                                </select>
+                            </div> 
+                        </div>  
+                    </div>
+                    <div class="form-row">
+                        <div class="form-tit">
+                            <label for="userEmail">이메일 <span class="required"><em class="blind">필수입력</em></span></label>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-email-new">
+                                <input type="email" id="userEmail" name="userEmail" required aria-required="true" placeholder="example@domain.com" autocomplete="email" aria-describedby="emailHint emailError" class="input">
+                                <div id="emailHint" class="hint">유효한 이메일 주소를 입력해 주세요.</div>
+                                <div id="emailError" class="error" aria-live="polite"></div>
+                            </div>      
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-tit">
+                            <label for="homeAddr1">주소 <span class="required"><em class="blind">필수입력</em></span></label>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-address">
+                                <div class="form-address-zip">
+                                    <input type="text" name="homeZip1" id="homeZip1" maxlength="7" title="거주지주소 우편번호" class="input">
+                                    <button type="button" title="주소 우편번호찾기(새창)" class="btn-outline">우편번호찾기</button>
+                                </div>
+                                <div class="form-address-addr">
+                                    <input type="text" name="homeAddr1" id="homeAddr1" title="거주지주소 기본주소" class="input">
+                                    <input type="text" name="homeAddr2" id="homeAddr2" title="거주지주소 상세주소" class="input">
+                                </div>                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-tit">
+                            <label for="q-content">문의내용 <span class="required"><em class="blind">필수입력</em></span></label>
+                        </div>
+                        <div class="form-col">
+                            <textarea id="q-content" name="form.content" class="textar" title="문의내용" aria-required="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-tit">
+                            <label for="addFile">첨부파일</label>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-attachment">                        
+                                <input type="text" id="attachment" class="input file-name-input" title="첨부파일" readonly="">
+                                <button type="button" class="btn-outline file-open-btn">첨부파일 추가</button>
+                                <button type="button" class="file-delete-btn" style="display: none;">삭제</button>
+                                <input type="file" class="real-file-input" style="display: none;" title="파일 첨부">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form> 
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__title">
+          form - check, radio
+        </div>
+        <div class="card__desc">
+            <div class="checkForm-lists">
+                <span class="checkForm">
+                    <input type="checkbox" id="CHK1">
+                    <label for="CHK1">체크박스1</label>
+                </span>
+                <span class="checkForm">
+                    <input type="checkbox" id="CHK2">
+                    <label for="CHK2">체크박스2</label>
+                </span>
+                <span class="checkForm">
+                    <input type="checkbox" id="CHK3">
+                    <label for="CHK3">체크박스3</label>
+                </span>
+            </div>
+            <br /><br />
+            <div class="checkForm-lists">
+                <span class="checkForm">
+                    <input type="radio" id="RDO1" name="RDO">
+                    <label for="RDO1">라디오박스1</label>
+                </span>
+                <span class="checkForm">
+                    <input type="radio" id="RDO2" name="RDO">
+                    <label for="RDO2">라디오박스2</label>
+                </span>
+                <span class="checkForm">
+                    <input type="radio" id="RDO3" name="RDO">
+                    <label for="RDO3">라디오박스3</label>
+                </span>
+            </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__title">select</div>
+        <div class="card__desc">
+
+          <div class="select-wp">
+            <div class="custom-select">
+                <select name="select1" id="select1" class="select">
+                    <option value="">선택하세요</option>
+                    <option value="option1">옵션1</option>
+                    <option value="option2">옵션2</option>
+                    <option value="option3">옵션3</option>
+                </select>
+            </div>
+          </div>  
+
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__title">dropdown</div>
+        <div class="card__desc">
+
+
+            <div class="dropdown">
+                <button class="dropdown-button">
+                    선택해주세요
+                </button>
+                <div class="dropdown-list">
+                    <div class="dropdown-item" data-value="선택해주세요">선택해주세요</div>
+                    <div class="dropdown-item" data-value="menu1">menu1</div>
+                    <div class="dropdown-item" data-value="menu2">menu2</div>
+                    <div class="dropdown-item" data-value="menu3">menu3</div>
+                    <div class="dropdown-item" data-value="menu4">menu4</div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+<script>
+window.addEventListener('load',()=>{  
+    initFileUpload();  
+})
+
+function initFileUpload(containerSelector = '.form-attachment') {
+  const containers = document.querySelectorAll(containerSelector);
+  containers.forEach(container =>{
+    const fileInput = container.querySelector('.real-file-input');
+    const fileNameInput = container.querySelector('.file-name-input');
+    const triggerButton = container.querySelector('.file-open-btn');
+    const deleteButton = container.querySelector('.file-delete-btn');
+
+    if (!fileInput || !fileNameInput || !triggerButton || !deleteButton) return;
+    triggerButton.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        fileNameInput.value = fileInput.files[0].name;
+        deleteButton.style.display = 'inline-block';
+      }
+    });
+    deleteButton.addEventListener('click', () => {
+      // 파일 input 초기화
+      fileInput.value = '';
+      // 파일명 input 초기화
+      fileNameInput.value = '';
+      // 삭제 버튼 숨김
+      deleteButton.style.display = 'none';
+    });
+
+  })  
+}
+
+
+//dropdown
+document.addEventListener('click', (e) => {
+  const dropdown = e.target.closest('.dropdown');
+  if (e.target.classList.contains('dropdown-button')) {
+    const current = e.target.closest('.dropdown');
+    document.querySelectorAll('.dropdown.is-open').forEach(menu => {
+      if (menu !== current) menu.classList.remove('is-open');
+    });
+    current.classList.toggle('is-open');
+    return;
+  }
+  if (e.target.classList.contains('dropdown-item')) {
+    const item = e.target;
+    const menu = item.closest('.dropdown');
+    const button = menu.querySelector('.dropdown-button');
+    button.textContent = item.textContent;
+    button.dataset.value = item.dataset.value;
+    menu.classList.remove('is-open');
+    return;
+  }
+  document.querySelectorAll('.dropdown.is-open').forEach(menu => {
+    menu.classList.remove('is-open');
+  });
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+
+$breakpoints: (
+  'xs': 390px,
+  'phone': 640px,
+  'mobile': 768px, 
+  'tablet': 1024px,
+  'laptop': 1280px,
+  'pc':1540px,  
+  'wide' : 1920px
+);
+
+@mixin respond($breakpoint) {
+  $raw-query: map.get($breakpoints, $breakpoint);
+  @if $raw-query {
+    @media (max-width: $raw-query) {
+      @content;
+    }
+  } @else {
+    @warn "🚨 #{$breakpoint}는 $breakpoints에 존재하지 않습니다.";
+  }
+}
+
+// HTML 루트 폰트 크기 설정 (반응형)
+html { 
+  font-size: 62.5%; // 1rem = 10px 기준 
+  body {
+    font-size: 1.6rem;
+  }
+  @include respond(laptop) {
+    
+  }
+
+  @include respond(tablet) { 
+    font-size:9px
+  }
+  // 모바일에서 폰트 크기 조정
+  @include respond(mobile) {     
+    //font-size:10px;   
+  }  
+
+  @include respond(phone) {  
+           
+  }
+
+  @include respond(xs) {  
+    font-size:2.31vw;
+    
+  }
+
+}
+

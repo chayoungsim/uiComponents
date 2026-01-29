@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wheel Picker</title>
+  <link rel="stylesheet" href="../../assets/css/style.min.css" />
+  <link rel="stylesheet" href="../../assets/css/temp.css" />
+
+  <!-- <link rel="stylesheet" href="wheelpicker.css">   -->
+
+  <style>
+ .wheel-picker-wrapper {
+    position: relative;
+    padding:0 2rem;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.highlight-bar {
+    position: absolute;
+    width: 100%;
+    height: 60px; /* 50px → 60px */
+    top: 50%;
+    left:0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.highlight-bar div {
+    border-radius: 1.4rem;
+    background: #F6F7F9;
+    width: 9.8rem;
+    height: 6.8rem;
+}
+
+.picker-columns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+    height: 17.4rem;
+}
+.picker-columns::before,
+.picker-columns::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 6rem;
+    position: absolute;
+    z-index: 2;
+}
+.picker-columns::before {
+    top: 0;
+    background: linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%);
+
+}
+.picker-columns::after {
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 2.56%, #FFF 100%);
+}
+
+.picker-columns .unit-label {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    right: 50%;
+    transform: translateY(-50%) translateX(15rem)
+}
+
+.picker-columns .dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3.6rem;
+}
+
+.wheel-column {
+    width:9.8rem;
+    height: 180px; 
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+}
+
+.wheel-column:active {
+    cursor: grabbing;
+}
+
+.wheel-items {
+    transition: transform 0.2s ease-out;
+    padding: 60px 0;
+}
+
+.wheel-item {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    color: #999;
+    transition: all 0.2s;
+}
+
+.wheel-item.selected {
+    color: #000;
+    font-weight: 600;
+    font-size: 3.2rem;
+}
+
+.dot {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.unit-label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 4px;
+    align-self: center;
+}
+  </style>
+
+</head>
+<body>
+  <div class="cards">
+    <div class="card">
+      <h2 class="card__title">Wheel Picker</h2>
+      <div class="card__desc">
+        휠 피커는 사용자가 회전하는 휠 인터페이스를 통해 값을 선택할 수 있도록 하는 UI 컴포넌트입니다. 
+        주로 날짜, 시간, 숫자 또는 기타 연속적인 값의 선택에 사용됩니다.
+    </div>
+    <div class="card">
+      <h2 class="card__title">Wheel Picker</h2>
+      <div class="card__desc">
+        <!-- wheel picker content -->
+          <div class="wheel-picker-wrapper">
+              <div class="highlight-bar">
+                  <div></div>
+                  <div></div>
+              </div>
+              <div class="picker-columns">                        
+                  <div class="wheel-column" id="integer">
+                    <div class="wheel-items">
+                    </div>
+                  </div>
+                  <div class="dot">.</div>
+                  <div class="wheel-column decimal" id="decimals">
+                    <div class="wheel-items">                     
+                    </div>
+                  </div> 
+                  <div class="unit-label">kg</div>                       
+              </div>
+          </div>
+        <!-- // -->
+    </div>
+  </div>
+
+  
+
+  <script type="module">
+    import { initWeightWheel, getSelectedWeight } from './wheelpicker.js';
+    
+    // DOM이 로드된 후 초기화
+    document.addEventListener('DOMContentLoaded', () => {
+      initWeightWheel();
+      
+      // 선택된 값 확인 (선택사항)
+      console.log('Selected weight:', getSelectedWeight());
+    });
+  </script>
+
+</body>
+</html>

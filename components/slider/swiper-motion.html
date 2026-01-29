@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Swiper Card Horizontal Slider</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Swiper CDN -->
+  <link
+    rel="stylesheet"
+    href="../../assets/css/swiper.min.css"
+  />
+
+  <style>
+    html, body {
+        width:100%;
+        min-height: 100%;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f5f5;
+    }
+
+    .slider-wrap {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100vh;
+    }
+
+    .swiper {
+      overflow: hidden;
+    }
+
+  
+    /* 카드 스타일 */
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      height: 220px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* 네비게이션 버튼 */
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #000;
+      color: #fff;
+      top: -70px;
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+      font-size: 18px;
+    }
+
+    .swiper-button-prev {
+      left: auto;
+      right: 64px;
+    }
+
+    .swiper-button-next {
+      right: 0;
+    }
+
+    .swiper-slide {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    .swiper-slide.is-animated {
+        opacity: 1;
+        transform: translateX(0);
+        transition: 
+        opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* 반응형 */
+    @media (max-width: 1024px) {
+      body {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slider-wrap">
+    <div class="swiper card-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="card">
+            <h3>Card 01</h3>
+            <p>카드형 콘텐츠 설명 영역입니다.</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <h3>Card 02</h3>
+            <p>카드형 콘텐츠 설명 영역입니다.</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <h3>Card 03</h3>
+            <p>카드형 콘텐츠 설명 영역입니다.</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <h3>Card 04</h3>
+            <p>카드형 콘텐츠 설명 영역입니다.</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <h3>Card 05</h3>
+            <p>카드형 콘텐츠 설명 영역입니다.</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="card">
+            <h3>Card 06</h3>
+            <p>카드형 콘텐츠 설명 영역입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <button class="swiper-button-prev" aria-label="이전 슬라이드"></button>
+    <button class="swiper-button-next" aria-label="다음 슬라이드"></button>
+  </div>
+
+  <script src="../../assets/js/swiper.min.js"></script>
+
+  <script>
+
+
+
+function animateVisibleSlides(swiper) {
+  swiper.slides.forEach(slide => {
+    slide.classList.remove('is-animated');
+  });
+
+  swiper.visibleSlides.forEach((slide, index) => {
+    slide.style.transitionDelay = `${index * 150}ms`;
+    slide.classList.add('is-animated');
+  });
+}
+
+
+const swiper = new Swiper('.card-swiper', {
+  slidesPerView: 4,
+  spaceBetween: 24,
+  speed: 600,
+  watchSlidesProgress: true,
+
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  breakpoints: {
+    0: {
+      slidesPerView: 1.2,
+    },
+    640: {
+      slidesPerView: 2.2,
+    },
+    1024: {
+      slidesPerView: 4,
+    },
+  },
+
+  on: {
+    init(swiper) {
+      animateVisibleSlides(swiper);
+    },
+
+    slideChangeTransitionStart(swiper) {
+      animateVisibleSlides(swiper);
+    },
+  },
+});
+
+    
+  </script>
+
+</body>
+</html>

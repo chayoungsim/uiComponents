@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab</title>
+    <link rel="stylesheet" href="../../assets/css/style.min.css" />
+    <link rel="stylesheet" href="../../assets/css/temp.css" />
+    <style>
+        .tabs {
+  width: 100%;
+}
+
+.tab-list {
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-item {
+  position: relative;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.tab-item.is-active {
+  color: #0070f3;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #0070f3;
+  transition: left 0.25s ease, width 0.25s ease;
+}
+
+.tab-panels {
+  padding: 16px 0;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.is-active {
+  display: block;
+}
+
+    </style>
+</head>
+<body>
+    <div>
+
+        <div class="tabs">
+            <div class="tab-list">
+                <button class="tab-item is-active">Tab 1</button>
+                <button class="tab-item">Tab 2</button>
+                <button class="tab-item">Tab 3</button>
+                <span class="tab-indicator"></span>
+            </div>
+
+            <div class="tab-panels">
+                <div class="tab-panel is-active">Content 1</div>
+                <div class="tab-panel">Content 2</div>
+                <div class="tab-panel">Content 3</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+const tabList = document.querySelector('.tab-list');
+const tabItems = document.querySelectorAll('.tab-item');
+const tabPanels = document.querySelectorAll('.tab-panel');
+const indicator = document.querySelector('.tab-indicator');
+
+function moveIndicator(target) {
+  const listRect = tabList.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+
+  const left = targetRect.left - listRect.left;
+  const width = targetRect.width;
+
+  indicator.style.left = `${left}px`;
+  indicator.style.width = `${width}px`;
+}
+
+function setActiveTab(index) {
+  tabItems.forEach((tab, i) => {
+    tab.classList.toggle('is-active', i === index);
+  });
+
+  tabPanels.forEach((panel, i) => {
+    panel.classList.toggle('is-active', i === index);
+  });
+
+  moveIndicator(tabItems[index]);
+}
+
+// 초기 상태
+window.addEventListener('load', () => {
+  // 첫 번째 탭 기준으로 인디케이터 세팅
+  setActiveTab(0);
+});
+
+tabItems.forEach((tab, index) => {
+  tab.addEventListener('click', () => {
+    setActiveTab(index);
+  });
+});
+
+</script>    
+
+</body>
+</html>

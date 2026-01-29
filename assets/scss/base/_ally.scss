@@ -1,0 +1,42 @@
+/*base/_a11y.scss */
+#accessibility {
+    position: relative;
+    margin: 0;
+    padding: 0
+}
+#accessibility {
+    a {
+        display: block;
+        height: 1px;
+        width: 1px;
+        margin-bottom: -1px;
+        overflow: hidden;
+        text-align: center;
+        color:#000;
+        white-space: nowrap;
+        &:focus,
+        &:active {
+            position: absolute;
+            height: auto;
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+            background:#fff;
+            z-index: 9999
+        }
+    }    
+}
+caption,
+.hidden,
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}
+
