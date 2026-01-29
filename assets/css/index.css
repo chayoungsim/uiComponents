@@ -35,6 +35,10 @@ body {
     flex-direction: column;
     gap: 1rem;
 }
+.common-side .active {
+    font-weight: 700;
+    color: #0d2846
+}
 .common-view {    
     width: 100%;
     padding-left:25rem;

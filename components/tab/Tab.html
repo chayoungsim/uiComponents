@@ -9,53 +9,78 @@
 </head>
 <body>
 
-    <h1>페이지 내 탭형식</h1>
+    <div class="cards">
+        <div class="card">
+            <div class="card__title">페이지 내 탭형식 - 수평</div>
+            <div class="card__desc">
+                <!-- 수평 -->
+                <div class="tab-container">
+                    <div class="tab-navs">
+                        <ul class="tab-nav" role="tablist" aria-label="콘텐츠 탭">
+                            <li class="active"><button type="button" id="tab1" role="tab" aria-selected="true" aria-controls="tabpanel1">탭1</button></li>
+                            <li><button type="button" id="tab2" role="tab" aria-selected="false" aria-controls="tabpanel2" tabindex="-1">탭2</button></li>
+                            <li><button type="button" id="tab3" role="tab" aria-selected="false" aria-controls="tabpanel3" tabindex="-1">탭3</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-panels">
+                        <div id="tabpanel1" class="tab-panel active" role="tabpanel" tabindex="0" aria-labelledby="tab1">
+                            탭패널1
+                        </div>
+                        <div id="tabpanel2" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab2" hidden>
+                            탭패널2
+                        </div>
+                        <div id="tabpanel3" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab3" hidden>
+                            탭패널3
+                        </div>
+                    </div>
+                </div>
 
-    <!-- 수평 -->
-    <div class="tab-container">
-        <div class="tab-navs">
-            <ul class="tab-nav" role="tablist" aria-label="콘텐츠 탭">
-                <li class="active"><button type="button" id="tab1" role="tab" aria-selected="true" aria-controls="tabpanel1">탭1</button></li>
-                <li><button type="button" id="tab2" role="tab" aria-selected="false" aria-controls="tabpanel2" tabindex="-1">탭2</button></li>
-                <li><button type="button" id="tab3" role="tab" aria-selected="false" aria-controls="tabpanel3" tabindex="-1">탭3</button></li>
-            </ul>
+            </div>
         </div>
-        <div class="tab-panels">
-            <div id="tabpanel1" class="tab-panel active" role="tabpanel" tabindex="0" aria-labelledby="tab1">
-                탭패널1
-            </div>
-            <div id="tabpanel2" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab2" hidden>
-                탭패널2
-            </div>
-            <div id="tabpanel3" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab3" hidden>
-                탭패널3
+        <div class="card">
+            <div class="card__title">페이지 내 탭형식 - 수직</div>
+            <div class="card__desc">
+                <!-- 수직 -->
+                <div class="tab-container vertical">
+                    <div class="tab-navs">
+                        <ul class="tab-nav" role="tablist" aria-label="콘텐츠 탭" aria-orientation="vertical">
+                            <li class="active"><button type="button" id="tab1-1" role="tab" aria-selected="true" aria-controls="tabpanel1-1">탭1</button></li>
+                            <li><button type="button" id="tab1-2" role="tab" aria-selected="false" aria-controls="tabpanel1-2" tabindex="-1">탭2</button></li>
+                            <li><button type="button" id="tab1-3" role="tab" aria-selected="false" aria-controls="tabpanel1-3" tabindex="-1">탭3</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-panels">
+                        <div id="tabpanel1-1" class="tab-panel active" role="tabpanel" tabindex="0" aria-labelledby="tab1-1">
+                            탭패널1
+                        </div>
+                        <div id="tabpanel1-2" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab1-2" hidden>
+                            탭패널2
+                        </div>
+                        <div id="tabpanel1-3" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab1-3" hidden>
+                            탭패널3
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <br><br><br>
 
-    <!-- 수직 -->
-    <div class="tab-container vertical">
-        <div class="tab-navs">
-            <ul class="tab-nav" role="tablist" aria-label="콘텐츠 탭" aria-orientation="vertical">
-                <li class="active"><button type="button" id="tab1-1" role="tab" aria-selected="true" aria-controls="tabpanel1-1">탭1</button></li>
-                <li><button type="button" id="tab1-2" role="tab" aria-selected="false" aria-controls="tabpanel1-2" tabindex="-1">탭2</button></li>
-                <li><button type="button" id="tab1-3" role="tab" aria-selected="false" aria-controls="tabpanel1-3" tabindex="-1">탭3</button></li>
-            </ul>
-        </div>
-        <div class="tab-panels">
-            <div id="tabpanel1-1" class="tab-panel active" role="tabpanel" tabindex="0" aria-labelledby="tab1-1">
-                탭패널1
-            </div>
-            <div id="tabpanel1-2" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab1-2" hidden>
-                탭패널2
-            </div>
-            <div id="tabpanel1-3" class="tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab1-3" hidden>
-                탭패널3
-            </div>
-        </div>
-    </div>
 
-    <script src="../resource/js/components.tab.js" defer></script>
+
+    
+
+
+
+    <!-- <script src="../../assets/js/components.tab.js" defer></script> -->
+     <script type="module">
+  import { createAriaTabs } from './ariaTabs.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    createAriaTabs({
+      containerSelector: '.tab-container'
+    });
+  });
+</script>
+
 </body>
 </html>

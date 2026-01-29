@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../assets/css/style.min.css">
+  <link rel="stylesheet" href="../../assets/css/temp.css" />
+  <style>
+    .slide-up {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;       
+        overflow: hidden;
+        position: relative;
+        gap: 6rem;
+    }
+    .slide-up .box {
+        background:#efefef;
+        width:25vw;
+        height: 25vw;;
+    }
+    .slide-up .txt {
+        font-size: 3.2rem;
+        width: 50vw;
+    }
+/*motion*/
+.n-motion { opacity: 0; transition: all .45s .0s ease-in-out; } 
+.n-delay1 { transition-delay: 0.1s } 
+.n-delay2 { transition-delay: 0.2s } 
+.n-delay3 { transition-delay: 0.3s } 
+.n-delay4 { transition-delay: 0.4s } 
+.n-delay5 { transition-delay: 0.5s } 
+.n-delay6 { transition-delay: 0.6s } 
+.n-delay7 { transition-delay: 0.7s } 
+.n-delay8 { transition-delay: 0.8s } 
+.n-delay9 { transition-delay: 0.9s } 
+.n-delay10 { transition-delay: 1s } 
+.n-delay11 { transition-delay: 1.1s } 
+.n-delay12 { transition-delay: 1.2s } 
+.n-delay13 { transition-delay: 1.3s } 
+.n-delay14 { transition-delay: 1.4s } 
+.n-motion.n-left { transform: translateX(-7.5rem) } 
+.n-motion.n-right { transform: translateX(7.5rem) } 
+.n-motion.n-top { transform: translateY(-7.5rem) } 
+.n-motion.n-bottom { transform: translateY(7.5rem) } /*120px*/
+.n-motion.n-spin { transform: rotate(180deg) } 
+.n-motion.n-active { opacity: 1 } 
+.n-motion.n-left.n-active { transform: translateX(0) } 
+.n-motion.n-right.n-active { transform: translateX(0) } 
+.n-motion.n-top.n-active { transform: translateY(0) } 
+.n-motion.n-bottom.n-active { transform: translateY(0) } 
+.n-motion.n-spin.n-active { transform: rotate(0deg) } 
+</style>
+</head>
+<body>
+  <div class="cards">
+    <div class="card">
+        <div class="card__title"></div>
+        <div class="card__desc">
+
+            <div class="slide-up">
+                <div class="txt n-motion n-bottom">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur reiciendis unde animi quidem laboriosam reprehenderit delectus odio, repellat necessitatibus iure, quas illo perferendis fuga magni est ut ipsa sunt quasi!</div>
+                <div class="box n-motion n-bottom">2</div>
+                <div class="box n-motion n-bottom">3</div>
+                <div class="box n-motion n-bottom">4</div>
+                <div class="box n-motion n-bottom">5</div>
+                <div class="txt n-motion n-bottom">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur reiciendis unde animi quidem laboriosam reprehenderit delectus odio, repellat necessitatibus iure, quas illo perferendis fuga magni est ut ipsa sunt quasi!</div>
+                <div class="box n-motion n-left">7</div>
+                <div class="box n-motion n-right">8</div>
+                <div class="box n-motion n-spin">9</div>
+                <div class="box n-motion n-top">10</div>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+  <script type="module">
+  import { createMotionObserver } from './motionObserver.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    createMotionObserver({
+      targetSelector: '.n-motion',
+      activeClass: 'n-active'
+    });
+  });
+</script>
+</body>
+</html>

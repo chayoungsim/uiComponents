@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordions</title>
+    <link rel="stylesheet" href="../../assets/css/style.min.css">
+    <link rel="stylesheet" href="../../assets/css/temp.css" />
+
+</head>
+<body>
+
+  <div class="cards">
+    <div class="card">
+        <div class="card__title">FAQ</div>
+        <div class="card__desc">
+            <ul class="accordions" aria-label="FAQ">
+                <li class="accordions-item">
+                    <h3 class="accordions-header">
+                    <button type="button" class="accordions-trigger" aria-expanded="false">
+                        <span class="title">첫 번째 질문 문구</span>
+                        <span class="arrow" aria-hidden="true"></span>
+                    </button>
+                    </h3>
+                    <div class="accordions-panel" role="region" hidden>
+                    <p>첫 번째 답변 내용</p>
+                    </div>
+                </li>
+                <li class="accordions-item">
+                    <h3 class="accordions-header">
+                    <button type="button" class="accordions-trigger" aria-expanded="false">
+                        <span class="title">두 번째 질문 문구</span>
+                        <span class="arrow" aria-hidden="true"></span>
+                    </button>
+                    </h3>
+                    <div class="accordions-panel" role="region" hidden>
+                    <p>두 번째 답변 내용</p>
+                    </div>
+                </li>
+                <li class="accordions-item">
+                    <h3 class="accordions-header">
+                    <button type="button" class="accordions-trigger" aria-expanded="false">
+                        <span class="title">세 번째 질문 문구</span>
+                        <span class="arrow" aria-hidden="true"></span>
+                    </button>
+                    </h3>
+                    <div class="accordions-panel" role="region" hidden>
+                    <p>세 번째 답변 내용</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+    
+
+  <script type="module" src="./accordions.js"></script>
+  <script type="module">
+  import { createAccordion } from './accordions.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    createAccordion();
+  });
+</script>
+</body>
+</html>
