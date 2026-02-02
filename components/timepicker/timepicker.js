@@ -12,6 +12,18 @@ export function createTimePicker() {
   const clockHand = document.getElementById('clockHand');
   const clockCenter = document.getElementById('clockCenter');
 
+  /* ---------- active 동기화 ---------- */
+  function syncActiveNumber() {
+    const value = clockCenter.textContent.trim();
+
+    clockFace.querySelectorAll('.clock-number').forEach(el => {
+      el.classList.toggle(
+        'active',
+        el.textContent.trim() === value
+      );
+    });
+  }
+
   /* ---------- Render ---------- */
   function renderNumbers() {
     clockFace.querySelectorAll('.clock-number').forEach(el => el.remove());
@@ -23,10 +35,10 @@ export function createTimePicker() {
     values.forEach((value, index) => {
       const angle = index * 30;
       const rad = angle * Math.PI / 180;
-      const radius = 120;
+      const radius = 100;
 
-      const x = 150 + radius * Math.sin(rad);
-      const y = 150 - radius * Math.cos(rad);
+      const x = 128 + radius * Math.sin(rad);
+      const y = 128 - radius * Math.cos(rad);
 
       const el = document.createElement('div');
       el.className = 'clock-number';
@@ -35,12 +47,18 @@ export function createTimePicker() {
       el.style.top = `${y - 20}px`;
 
       el.addEventListener('click', () => {
-        isSelectingHour ? hour = value || 12 : minute = value;
+        if (isSelectingHour) {
+          hour = value || 12;
+        } else {
+          minute = value;
+        }
         update();
       });
 
       clockFace.appendChild(el);
     });
+
+    syncActiveNumber();
   }
 
   /* ---------- Update ---------- */
@@ -54,6 +72,8 @@ export function createTimePicker() {
 
     clockHand.style.transform = `translateX(-50%) rotate(${angle}deg)`;
     clockCenter.textContent = isSelectingHour ? hour : minute;
+
+    syncActiveNumber();
   }
 
   /* ---------- Clock Interaction ---------- */
@@ -129,5 +149,3 @@ export function createTimePicker() {
     }
   };
 }
-
-/* 사용 예시 */

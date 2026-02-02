@@ -4,7 +4,7 @@ html {
 html body {
   font-size: 1.6rem;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   html {
     font-size: 9px;
   }
@@ -473,7 +473,7 @@ footer {
   background: lime;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   header {
     height: 8rem;
   }
@@ -1764,7 +1764,7 @@ select {
   position: relative;
   height: 240vh;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .main-visual-wrap {
     height: auto;
   }
@@ -1816,7 +1816,7 @@ select {
 .scene-slide .mask {
   clip-path: polygon(10% 18%, 90% 18%, 90% 80%, 10% 80%);
 }
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .scene-slide {
     margin-top: 0;
     overflow: hidden;
@@ -1829,7 +1829,7 @@ select {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .scene-logo {
     display: none;
   }
@@ -2040,7 +2040,7 @@ select {
 .swiper-visual.is-paused .swiper-button-pause {
   display: none;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .swiper-visual .swiper-slide .text-1 {
     font-size: 8rem;
   }
@@ -2119,7 +2119,7 @@ select {
   height: 100vh;
   background: #fff;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .horizontal-wrap .horizontal {
     display: block;
     height: auto;
@@ -2255,7 +2255,7 @@ select {
   position: absolute;
   top: 0;
   left: 0;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 .modal-in-header.active {
   height: 100vh;
@@ -2273,7 +2273,7 @@ select {
   justify-content: space-between;
   padding: 2rem;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .modal-in-header .sitemap {
     display: none;
   }
@@ -2329,6 +2329,141 @@ header.show-sitemap .modal-in-header {
     display: none;
   }
 }
+body.has-fixed-header {
+  padding-top: var(6rem);
+}
+
+#header-ty1 .header-top {
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#header-ty1 .hamburger-modern {
+  z-index: 202;
+}
+#header-ty1 .header-nav {
+  padding: 0 2rem;
+  background: #fff;
+}
+#header-ty1 .header-nav nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 1.8rem;
+  font-weight: 500;
+  height: 6rem;
+}
+#header-ty1 .header-nav nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 1rem;
+  position: relative;
+}
+#header-ty1 .header-nav nav a::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0.3rem;
+  background: #282828;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease-in-out;
+}
+#header-ty1 .header-nav nav a:hover {
+  font-weight: 700;
+}
+#header-ty1 .header-nav nav a:hover::after {
+  width: 100%;
+}
+#header-ty1 .global-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 43%;
+  height: 100%;
+  background: #fff;
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+#header-ty1 .global-panel nav {
+  padding: 5vw 4vw 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+  font-size: 3.6rem;
+  font-weight: 600;
+  color: #999;
+}
+#header-ty1 .global-panel.is-open {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 201;
+}
+#header-ty1 .global-panel-section {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+#header-ty1.is-fixed {
+  padding-top: var(--nav-height);
+}
+#header-ty1.is-fixed .header-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 101;
+  height: var(--nav-height);
+}
+#header-ty1 .global-dim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+}
+#header-ty1 .global-panel-close {
+  position: absolute;
+  top: 4rem;
+  right: 2rem;
+  width: 4rem;
+  height: 4rem;
+}
+@media (max-width: 1023px) {
+  #header-ty1 {
+    height: auto;
+  }
+  #header-ty1 .header-top {
+    padding: 1rem 2rem;
+  }
+  #header-ty1 .header-nav {
+    display: none;
+  }
+  #header-ty1 .global-panel {
+    width: 100%;
+  }
+  #header-ty1.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 101;
+    background: #fff;
+  }
+  #header-ty1 .global-panel-close {
+    top: 1rem;
+  }
+}
+
 .loading-splash {
   width: 100%;
   height: 100%;

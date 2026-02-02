@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/temp.css" />
+  <!-- <script src="header.js"></script> -->
+
+ <script type="module">
+  import { createHeaderController } from './headerController.js';
+
+  createHeaderController({
+    header: '#header',
+    gnb: '.gnb',
+    navbarBtn: '.hamburger-modern',
+    closeBtn: '.modal-in-header .close'
+  });
+
+ </script>
+</head>
+<body style="padding:0">
+  <p id="accessibility"><a href="#contents">본문바로가기</a></p>
+  <div id="wrap">
+    <header id="header">
+      <div class="site-header">
+          <div class="static">
+            <h1 class="brand">
+              <a href="/ko/main.do">Logo</a>
+            </h1>
+            <nav id="nav">          
+              <ul class="gnb">
+                <li class="about">
+                  <a href="/ko/about/group.do"><span>그룹소개</span></a>
+                  <div class="submenu">
+                    <ul style="">
+                      <li><a href="/ko/about/group.do"><span>JB금융그룹 소개</span></a></li>
+                      <li><a href="/ko/about/ceo.do"><span>CEO 인사말</span></a></li>
+                      <li><a href="/ko/about/vision.do"><span>그룹비전</span></a></li>
+                      <li><a href="/ko/about/history.do"><span>연혁</span></a></li>
+                      <li><a href="/ko/about/network.do"><span>계열사 소개</span></a></li>
+                      <li><a href="/ko/about/ethics.do"><span>윤리경영</span></a></li>
+                      <li><a href="/ko/about/ci.do"><span>CI 소개</span></a></li>
+                      <li><a href="/ko/about/campus.do"><span>연수원 소개</span></a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="governance">
+                  <a href="/ko/governance/director/member.do"><span>기업지배구조</span></a>
+                  <div class="submenu">
+                    <ul style="">
+                      <li><a href="/ko/governance/director/member.do"><span>이사회</span></a></li>
+                      <li><a href="/ko/governance/organization.do"><span>조직도</span></a></li>
+                      <li><a href="/ko/governance/shareholder/structure.do"><span>주주총회</span></a></li>
+                      
+                      <li><a href="/ko/governance/regulations/articles.do"><span>관련 규정</span></a></li>
+                      <li><a href="/ko/governance/disclosure.do"><span>지배구조공시</span></a></li>
+                      
+                      <li><a href="/ko/governance/diversity.do"><span>외부감사인 현황</span></a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="ir">
+                  <a href="/ko/ir/overview.do"><span>투자정보</span></a>
+                  <div class="submenu">
+                    <ul style="">
+                      <li><a href="/ko/ir/overview.do"><span>Investor Relations</span></a></li>
+                      <li><a href="/ko/ir/value.do"><span>기업가치 제고 계획</span></a></li>
+                      <li><a href="/ko/ir/disclosure/dart.do"><span>공시정보</span></a></li>
+                      <li><a href="/ko/ir/performance/investorPresentations.do"><span>경영실적</span></a></li>
+                      <li><a href="/ko/ir/finance/balance.do"><span>재무정보</span></a></li>
+                      <li><a href="/ko/ir/activity.do"><span>IR활동</span></a></li>
+                      <li><a href="/ko/ir/stock/realtimeQuotes.do"><span>주가정보</span></a></li>
+                      <li><a href="/ko/ir/shareholderReturn.do"><span>주주환원</span></a></li>
+                      <li><a href="/ko/ir/rating.do"><span>신용등급</span></a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="pr">
+                  <a href="/ko/prcenter/press.do"><span>PR센터</span></a>
+                  <div class="submenu">
+                    <ul style="">
+                      <li><a href="/ko/prcenter/press.do"><span>보도자료</span></a></li>
+                      <li><a href="/ko/prcenter/media.do"><span>홍보영상</span></a></li>
+                      <li><a href="/ko/prcenter/notice/financialNews.do"><span>공지사항</span></a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="esg">
+                  <a href="/ko/esg/strategy.do"><span>ESG</span></a>
+                  <div class="submenu">
+                    <ul style="">
+                      <li><a href="/ko/esg/strategy.do"><span>ESG 전략체계</span></a></li>
+                      <li><a href="/ko/esg/governance.do"><span>ESG 지배구조</span></a></li>
+                      <li><a href="/ko/esg/guideline.do"><span>ESG 정책 및 가이드라인</span></a></li>
+                      <li><a href="/ko/esg/achievements/evaluation.do"><span>ESG 성과</span></a></li>
+                      <li><a href="/ko/esg/report.do"><span>ESG 보고서</span></a></li>
+                      <li><a href="/ko/esg/responsibility.do"><span>사회공헌</span></a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+            <div class="utils">
+                <button type="button" class="hamburger-modern" aria-label="메뉴 열기">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>      
+            </div>
+          </div>  
+      </div>
+
+      <aside class="modal-in-header">
+         <div class="sitemap">
+            <div class="scroll-area">
+                <div class="sitemap-header">
+                  <a href="">Logo</a>
+                  <button type="button" class="close">닫기</button>
+                </div>
+                <div class="sitemap-content">
+                    pc menu
+                </div>
+            </div>
+         </div>
+         <div class="mobile">
+            <div class="scroll-area">
+                <div class="sitemap-header">
+                  <a href="">Logo</a>
+                  <button type="button" class="close">닫기</button>
+                </div>
+                <div class="sitemap-content" style="height:2000px">
+                    mo menu
+                </div>
+            </div>
+         </div>
+      </aside> 
+    </header>
+
+
+    <div id="container">
+      <div id="contents" class="main">
+        <section style="height:1500px">
+          <div class="static">
+             
+          </div>
+        </section>
+      </div>
+    </div>
+    <footer></footer>
+  </div>
+</body>
+</body>
+</html>

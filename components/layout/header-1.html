@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Header</title>
+        <link rel="stylesheet" href="../../assets/css/style.css" />
+        <link rel="stylesheet" href="../../assets/css/temp.css" />
+        <script type="module">
+            import { initHeader } from "./header.init.js";
+
+            initHeader({
+                header: "#header-ty1",
+                headerNav: ".header-nav",
+                hamburger: ".hamburger-modern",
+                globalPanel: "#global-panel",
+                panelSection: ".global-panel-section",
+                closeBtn: ".global-panel-close",
+            });
+        </script>
+    </head>
+    <body style="padding: 0">
+        <header id="header-ty1">
+            <div class="header-top">
+                <h1><a href="/">LOGO</a></h1>
+                <button type="button" class="hamburger-modern" aria-label="메뉴 열기">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="header-nav">
+                <nav>
+                    <a href="">그룹소개</a>
+                    <a href="">기업지배구조</a>
+                    <a href="">투자정보</a>
+                    <a href="">PR센터</a>
+                    <a href="">ESG</a>
+                </nav>
+            </div>
+            <aside id="global-panel" class="global-panel" aria-hidden="true">
+                <button
+                    type="button"
+                    aria-label="메뉴 닫기"
+                    aria-controls="global-panel"
+                    class="global-panel-close"
+                >
+                    <i class="ico-x" aria-hidden="true"></i>
+                </button>
+                <div class="global-panel-section">
+                    <nav>
+                        <a href="">그룹소개</a>
+                        <a href="">기업지배구조</a>
+                        <a href="">투자정보</a>
+                        <a href="">PR센터</a>
+                        <a href="">ESG</a>
+                    </nav>
+                </div>
+            </aside>
+        </header>
+        <div id="container">
+            <div id="contents" class="main" style="height: 1500px"></div>
+        </div>
+    </body>
+</html>
