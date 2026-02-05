@@ -1,6 +1,7 @@
 @use "../abstracts" as *;
 
 $border-color: $gray66;
+$accent-color :#007bff;
 
 @mixin button-base {
     display: flex;
@@ -74,7 +75,7 @@ $border-color: $gray66;
 
     @include respond(phone) {
         button {
-            flex: 1;
+            //flex: 1;
         }
     }
 }

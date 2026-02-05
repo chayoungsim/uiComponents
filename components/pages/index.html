@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="../../assets/css/style.css" />
+        <link rel="stylesheet" href="../../assets/css/temp.css" />
+    </head>
+    <body style="padding: 0">
+        <div id="wrap">
+            <div data-include-path="_inc/header.html"></div>
+
+            <div id="container">
+                <div class="main" style="height: 1500px"></div>
+            </div>
+        </div>
+
+        <script type="module">
+            import { initHeader } from "../layout/header.init.js";
+
+            // HTML Include 함수 (Promise 반환)
+            function loadInclude(el) {
+                return new Promise((resolve, reject) => {
+                    const url = el.dataset.includePath;
+                    const xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {
+                                el.outerHTML = this.responseText;
+                                resolve();
+                            } else {
+                                reject(new Error(`Failed to load ${url}`));
+                            }
+                        }
+                    };
+                    xhr.open("GET", url, true);
+                    xhr.send();
+                });
+            }
+
+            // 모든 include 요소 로드 후 초기화 실행
+            const includeElements = document.querySelectorAll("[data-include-path]");
+            const promises = Array.from(includeElements).map(loadInclude);
+
+            Promise.all(promises)
+                .then(() => {
+                    // HTML 로드가 완료된 시점에 실행 (선택자는 include된 HTML 구조에 맞춰주세요)
+                    initHeader({
+                        header: "#header-ty1",
+                        headerNav: ".header-nav",
+                        hamburger: ".hamburger-modern",
+                        globalPanel: "#global-panel",
+                        panelSection: ".global-panel-section",
+                        closeBtn: ".global-panel-close",
+                    });
+                })
+                .catch((err) => console.error("Include Error:", err));
+        </script>
+    </body>
+</html>

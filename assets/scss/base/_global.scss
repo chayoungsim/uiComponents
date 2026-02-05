@@ -38,6 +38,18 @@ html, body {
     }
 }
 
+.h-screen {
+  @include vh(height);
+}
+
+.min-h-screen {
+  @include vh(min-height);
+}
+
+.h-screen-80 {
+  @include vh(height, 80);
+}
+
 .not-scroll {  
     overflow: hidden;
     width: 100%;

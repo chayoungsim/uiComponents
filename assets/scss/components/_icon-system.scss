@@ -1,0 +1,44 @@
+@use "sass:map";
+@use '../abstracts' as *;
+
+
+// SVG 아이콘 맵
+$icons: (
+  'arrow-right': "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' x='50' y='50' fill='currentColor' /></svg>",
+  'arrow-left': "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M19 12H5M12 19l-7-7 7-7' fill='none' stroke='currentColor' stroke-width='2'/></svg>",
+  'check': "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 12l5 5L20 7' fill='none' stroke='currentColor' stroke-width='2'/></svg>",
+  'close': "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 6l12 12M18 6L6 18' stroke='currentColor' stroke-width='2'/></svg>",
+  'menu': "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3 6h18M3 12h18M3 18h18' stroke='currentColor' stroke-width='2'/></svg>",
+  'search': "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='11' cy='11' r='8' fill='none' stroke='currentColor' stroke-width='2'/><path d='M21 21l-4.35-4.35' stroke='currentColor' stroke-width='2'/></svg>",
+);
+
+
+
+// 아이콘 가져오기 함수
+@function get-icon($name, $color: 'currentColor') {
+  $svg: map.get($icons, $name);
+  
+  @if $svg {
+    $svg: str-replace($svg, 'currentColor', $color);
+    @return url(svg-encode($svg));
+  }
+  
+  @warn "Icon '#{$name}' not found in $icons map.";
+  @return null;
+}
+
+// 아이콘 믹스인
+@mixin icon($name, $size: 24px, $color: 'currentColor') {
+  display: inline-block;
+  width: $size;
+  height: $size;
+  background-image: get-icon($name, $color);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.arrowRight {
+    @include icon('arrow-left');
+    font-size: 0;
+}

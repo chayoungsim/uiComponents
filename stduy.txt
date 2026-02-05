@@ -1,0 +1,29 @@
+assets (프론트엔드 표준)
+: 빌드·배포 대상이 되는 정적 자원
+assets/
+ ├─ images/
+ ├─ icons/
+ ├─ fonts/
+ ├─ css/
+ ├─ js/
+ └─ video/
+
+
+
+project/
+ ├─ assets/        ← 실제 서비스 사용
+ │   ├─ images/
+ │   ├─ fonts/
+ │   ├─ css/
+ │   └─ js/
+ │
+ ├─ resources/     ← 원본·관리용
+ │   ├─ design/
+ │   ├─ raw/
+ │   └─ docs/
+ │
+ ├─ index.html
+ └─ README.md
+
+✔️ assets = 배포 대상
+✔️ resources = 관리 대상

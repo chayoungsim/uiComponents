@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../assets/css/style.min.css">
+  <link rel="stylesheet" href="../../assets/css/temp.css" />
+  <style>
+    body{
+      padding: 0;
+    }
+    .garo-items {
+      display: flex;
+      gap:4rem;
+      padding:4vw 0;
+      padding-left: 320px;
+    }
+    .garo-item {
+      flex-shrink: 0;
+      border:1px solid #efefef;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      width: 20vw;
+      height: 50vh;
+      flex: 0 0 auto;
+    }
+    .garo-items-wrap {
+       overflow: hidden;
+       height: 100vh;
+       display: flex;
+       align-items: center;
+    }
+
+    
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <header>Header</header>
+    <div id="container">
+      <div class="contents">
+          <div class="static">
+            <div style="height:700px;background:#f4f4f4"></div>                   
+          </div>
+          <div class="garo-items-wrap">
+            <div class="garo-items">
+              <div class="garo-item">01</div>
+              <div class="garo-item">02</div>  
+              <div class="garo-item">03</div>  
+              <div class="garo-item">04</div>  
+              <div class="garo-item">05</div>  
+              <div class="garo-item">06</div>  
+            </div>
+          </div>
+          <div class="static" style="border:1px soid #ddd;">
+            <div style="height:1000px;background:#f4f4f4"></div>                   
+          </div>
+      </div>
+      
+    </div>
+    <footer>Footer</footer>
+  </div>
+    
+
+    <script src="../../assets/js/gsap.min.js"></script>
+    <script src="../../assets/js/ScrollTrigger.min.js"></script>
+
+    <script>
+      gsap.registerPlugin(ScrollTrigger);      
+      const wrapper = document.querySelector('.garo-items-wrap');  
+      const inner = wrapper.querySelector('.garo-items');
+      
+
+       const getEndSpace = () => {
+          // 데스크톱 320px, 모바일은 10vw 정도로 완화
+          return window.innerWidth >= 1024 ? 320 : window.innerWidth * 0.1;
+        };
+
+      const getScrollAmount = () => {
+        return wrapper.scrollWidth - wrapper.offsetWidth + getEndSpace();
+      };
+
+   
+
+       const horizontalTween = gsap.to(inner, {
+        x: () => -getScrollAmount(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: () => `+=${getScrollAmount()}`,
+          pin: true,
+          scrub: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        }
+      })
+
+    let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 150);
+      });
+
+
+    </script>
+</body>
+</html>

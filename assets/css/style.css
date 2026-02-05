@@ -376,6 +376,18 @@ html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
   background-color: #ececec;
 }
 
+.h-screen {
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.min-h-screen {
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.h-screen-80 {
+  height: calc(var(--vh, 1vh) * 80);
+}
+
 .not-scroll {
   overflow: hidden;
   width: 100%;
@@ -489,597 +501,15 @@ footer {
     padding-top: 6rem;
   }
 }
-.icon {
+.arrowRight {
   display: inline-block;
-  vertical-align: middle;
-}
-.icon-download {
-  width: 3.2rem;
-  height: 3.2rem;
-  background-size: contain;
-  mask: url(../images/icons/download.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #666;
-}
-.icon-box-arrow-right {
-  width: 3.2rem;
-  height: 3.2rem;
-  background-size: contain;
-  mask: url(../images/icons/box-arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #666;
-}
-.icon-box-arrow-up-right {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/box-arrow-up-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-clip {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/clip.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-clip-square {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/clip-square.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-question-circle {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/question-circle.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-exc-circle {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/exc-circle.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-info-circle {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/info-circle.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-info-circle-fill {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/info-circle-fill.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-check {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/check.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-check-circle {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/check-circle.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-eye {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/eye.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-link-45deg {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/link-45deg.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-search {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/search.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-share {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/share.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-refresh {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/refresh.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-pen {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/pen.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-pen-square {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/pen-square.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-calendar {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/calendar.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-print {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/print.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-geo-alt {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/geo-alt.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-telephone {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/telephone.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-envelope {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/envelope.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-house {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/house.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-globe {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/globe.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-bell {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/bell.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-bag {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/bag.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-bus-front {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/bus-front.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-train-front {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/train-front.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-car-front {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/car-front.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-person {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/person.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-clock {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/clock.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-hamber-bar {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/hamber-bar.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-message-dots {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/message-dots.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-minus {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/minus.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-plus {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/plus.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-x {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/x.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-x-lg {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/x-lg.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-pause {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/pause.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-play {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/play.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-play-fill {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/play-fill.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-play-fill-up {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/play-fill.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(-90deg);
-}
-.icon-play-fill-down {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/play-fill.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(90deg);
-}
-.icon-arrow-right {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-arrow-left {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(180deg);
-}
-.icon-arrow-up {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(-90deg);
-}
-.icon-arrow-up-left {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(-135deg);
-}
-.icon-arrow-up-right {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(-45deg);
-}
-.icon-arrow-down {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(90deg);
-}
-.icon-arrow-down-left {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(135deg);
-}
-.icon-arrow-down-right {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arrow-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(45deg);
-}
-.icon-arr-right {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arr-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-arr-left {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arr-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(180deg);
-}
-.icon-arr-up {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arr-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(-90deg);
-}
-.icon-arr-down {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arr-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(90deg);
-}
-.icon-arr-double-right {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arr-double-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-arr-double-left {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/arr-double-right.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-  transform: rotate(180deg);
-}
-.icon-facebook {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/facebook.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-instagram {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/instagram.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-youtube {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/youtube.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-twitter {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/twitter.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-kakao {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/kakao.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-naver {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/naver.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-blog {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/blog.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-apple {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/apple.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-band {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/band.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-pinterest {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/pinterest.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-linkedin {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/linkedin.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-.icon-tiktok {
-  width: 2.4rem;
-  height: 2.4rem;
-  background-size: contain;
-  mask: url(../images/icons/tiktok.svg) no-repeat center;
-  mask-size: contain;
-  background-color: #0072c6;
-}
-
-.icon-lists {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-.icon-lists li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 1rem;
-  padding: 2rem 1rem;
-  background: #dfdfdf;
-  width: 18rem;
-}
-.icon-lists li .bx {
-  height: 3.2rem;
-}
-.icon-lists li .tx {
-  font-size: 1.3rem;
-  text-align: center;
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 12H5M12 19l-7-7 7-7' fill='none' stroke='currentColor' stroke-width='2'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-size: 0;
 }
 
 .btn-fill {
@@ -1092,8 +522,8 @@ footer {
   border-radius: 0.5rem;
   height: 5rem;
   font-size: 1.6rem;
-  border: 1px solid #0072C6;
-  background: #0072C6;
+  border: 1px solid #007bff;
+  background: #007bff;
   color: #fff;
 }
 .btn-fill i {
@@ -1118,7 +548,7 @@ footer {
   font-size: 1.6rem;
   border: 1px solid #666;
   background: #fff;
-  color: #222;
+  color: #007bff;
 }
 .btn-outline i {
   display: inline-block;
@@ -1161,12 +591,6 @@ footer {
   gap: 1rem;
   margin: 4rem 0;
 }
-@media (max-width: 640px) {
-  .btn-cols button {
-    flex: 1;
-  }
-}
-
 .hamburger-modern {
   width: 4rem;
   height: 4rem;
@@ -1246,8 +670,8 @@ footer {
   color: #000;
 }
 .btn-trans.active, .btn-trans:focus, .btn-trans:hover {
-  background: #0072C6;
-  border: 1px solid #0072C6;
+  background: #007bff;
+  border: 1px solid #007bff;
 }
 .btn-trans.active span, .btn-trans:focus span, .btn-trans:hover span {
   transform: translateY(-100%);
@@ -2462,34 +1886,4 @@ body.has-fixed-header {
   #header-ty1 .global-panel-close {
     top: 1rem;
   }
-}
-
-.loading-splash {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  position: fixed;
-  background: #fff;
-  z-index: 99990;
-}
-
-#container {
-  width: 100%;
-}
-
-#contents {
-  width: 100%;
-}
-
-.list {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 25rem), 1fr));
-  grid-gap: 1rem;
-}
-.list li {
-  border: 1px solid lime;
-  height: 25rem;
 }

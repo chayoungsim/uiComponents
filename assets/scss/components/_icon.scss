@@ -31,10 +31,10 @@ $icon-sizes: (
     display: inline-block;
     vertical-align: middle;
     &-download {
-        @include icon("download",$sub-color, 3.2rem);    
+        @include icon("download",$color-secondary, 3.2rem);    
     }
     &-box-arrow-right {
-        @include icon("box-arrow-right",$sub-color,map.get($icon-sizes, "lg"));    
+        @include icon("box-arrow-right",$color-secondary,map.get($icon-sizes, "lg"));    
     }
     &-box-arrow-up-right {
         @include icon("box-arrow-up-right");    

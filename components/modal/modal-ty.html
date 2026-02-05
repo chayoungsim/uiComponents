@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../assets/css/style.min.css">
+  <link rel="stylesheet" href="../../assets/css/temp.css" />
+  <style>
+      /* 모달 기본 동작을 위한 스타일 */
+      .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;transition: all 0.3s ease; opacity: 0;}
+      .modal-overlay.is-active { display: flex;opacity: 1;}
+      .modal-content { background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; transform: translateY(50px);transition: all 0.5s ease;opacity: 0}
+      .is-active .modal-content { transform: translateY(0);opacity: 1;}
+ 
+      .modal-center-btn {
+        display: flex;
+        justify-content: center;
+      }
+      
+      /* 하단 모달 스타일 */
+      .modal-bottom { align-items: flex-end; }
+      .modal-bottom .modal-content { width: 100%; border-radius: 20px 20px 0 0; }
+      
+      /* 전체화면 모달 스타일 */
+      .modal-fullscreen .modal-content { width: 100%; height: 100%; border-radius: 0; max-width: 100%;}
+      .modal-fullscreen .modal-footer {position: fixed;left:0;bottom: 0;width: 100%;display: flex;
+        justify-content: center;}
+        .modal-fullscreen .modal-footer .btn-fill {width: 100%}
+
+      .button-group {
+        display: flex;
+        justify-content: center;
+        gap:2rem;
+      }
+  </style>
+  <script type="module">
+      import { openModal, closeModal } from './modal-ty.js';
+      // 인라인 이벤트 핸들러(onclick)에서 사용할 수 있도록 window 객체에 할당
+      window.openModal = openModal;
+      window.closeModal = closeModal;
+  </script>
+  
+
+</head>
+<body>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card__title">모바일 모달 샘플</div>
+      <div class="card__desc">
+          <div class="button-group">
+            <button class="btn-outline" onclick="openModal(event)" modal-id="modalCenter"><span>중앙 모달 열기</span></button>
+            <button class="btn-outline" onclick="openModal(event)" modal-id="modalBottom">하단 슬라이드 모달 열기</button>
+            <button class="btn-outline" onclick="openModal(event)" modal-id="modalFullscreen">전체 화면 모달 열기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  
+
+    <!-- 중앙 모달 -->
+    <div class="modal-overlay modal-center" id="modalCenter">
+        <div class="modal-content">
+            <div class="modal-header flex-center">
+                <h2 class="modal-title">알림</h2>
+            </div>
+            <div class="modal-body">
+                <p>BMI(체질량지수)는 키와 체중으로 비만도를 가늠하는 일반적인 지표에요.</p>
+                <br />
+                <p>하지만 근육량 등 체성분을 고려하지 않기 때문에, 근육이 많은 경우 BMI가 높게 나와도 실제 비만은 아닐 수 있어요. 따라서 모든 사람에게 정확히 적용되는 것은 아니에요.</p>
+
+                <div class="modal-center-btn">
+                    <button type="button" class="btn-outline" onclick="closeModal('modalCenter')">확인</button>
+                </div>
+            </div>
+          </div>
+    </div>
+
+    <!-- 하단 슬라이드 모달 -->
+    <div class="modal-overlay modal-bottom" id="modalBottom">
+        <div class="modal-content">            
+            <div class="modal-header">
+                <h2 class="modal-title">복용 관리</h2>
+                <button class="modal-close" onclick="closeModal('modalBottom')" aria-label="모달 닫기">
+                  <i class="icon icon-x" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="med-manage">
+                    <div class="med-manage1">
+                        <div class="info">
+                            <div class="text-b-lg">인진오령산가인삼액(1)</div>
+                            <div class="text-b-sm-sb hc3">
+                                <span>일</span>
+                                <span class="hc1">월</span>
+                                <span>화</span>
+                                <span class="hc1">수</span>
+                                <span class="hc1">목</span>
+                                <span class="hc1">금</span>
+                            </div>
+                            <div class="text-c-lg-m">
+                                <span>
+                                    <i class="ico-repeat"></i>
+                                    하루 1번</span>
+                                <span class="bar"></span>
+                                <span>1시, 8시</span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn">수정</button>
+                    </div>
+                    <div class="med-manage2">
+                        <div class="rut-item selected">
+                            <div class="pill-icon-mde">
+                                <i class="pill-taken"></i>
+                                <span class="text-b-sm-m">약 먹었어요</span>
+                            </div>
+                        </div>
+                        <div class="rut-item">
+                            <div class="pill-icon-mde">
+                                <i class="pill-ignored"></i>
+                                <span class="text-b-sm-m">다음에 먹을게요</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 전체 화면 모달 -->
+    <div class="modal-overlay modal-fullscreen" id="modalFullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">상세 정보</h2>
+                <button class="modal-close" onclick="closeModal('modalFullscreen')" aria-label="모달 닫기">
+                  <i class="icon icon-x" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-fill btn-primary">
+                    <strong>추가하기</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
