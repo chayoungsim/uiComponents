@@ -112,6 +112,11 @@ html, body {
 html {
   overflow: hidden;
   overflow-y: scroll;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -o-text-size-adjust: none;
+  font-size: 62.5%;
 }
 
 body {
@@ -131,6 +136,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   padding: 0;
   border: 0;
   vertical-align: baseline;
+  word-break: keep-all;
 }
 
 main, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -889,7 +895,7 @@ select {
   padding: 1rem 3rem 1rem 1rem;
   border: 1px solid #dfdfdf;
   border-radius: 0.5rem;
-  background: url(../images/ico-select-arr.svg) no-repeat right 1rem center;
+  background: url(../images/select-arr.svg) no-repeat right 1rem center;
 }
 
 .form-field .form-row {

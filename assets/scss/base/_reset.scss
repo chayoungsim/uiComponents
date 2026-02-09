@@ -12,7 +12,12 @@ html, body{
 }
 html{
     overflow: hidden;
-    overflow-y: scroll;    
+    overflow-y: scroll; 
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    font-size: 62.5%;   
 }
 body {  
   -webkit-font-smoothing: antialiased;
@@ -31,6 +36,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     padding: 0;
     border: 0;
     vertical-align: baseline;
+    word-break:keep-all;
 }
 main, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     display: block;

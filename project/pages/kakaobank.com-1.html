@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <!-- 자동 서식 감지 방지 -->
+        <meta name="format-detection" content="telephone=no, email=no, date=no, address=no" />
+        <title>kakaobank.com</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                min-height: 100%;
+            }
+            #wrap {
+                min-height: 100%;
+            }
+            .video-frame {
+                width: 100%;
+                height: 100vh;
+            }
+            .video-frame video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            section {
+                min-height: 100vh;
+            }
+
+            .main-visual {
+                width: 100%;
+                height: 100vh;
+                position: relative;
+                overflow: hidden;
+            }
+            .main-visual svg {
+                position: absolute;
+                /* top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); */
+                width: 100%;
+                height: 100vh;
+            }
+            .default-wrap {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+            .text-item {
+                font-size: 6.25vw;
+                font-weight: 800;
+                line-height: 1.3;
+                letter-spacing: -0.01em;
+            }
+            .text-cover {
+                position: relative;
+                overflow: hidden;
+            }
+            .text-cover span {
+                display: inline-block;
+                transform: translateY(100%);
+                animation: textCover 0.5s ease-in-out forwards;
+            }
+
+            .mask-wrap {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+            .mask-wrap .text-item {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #fff;
+                opacity: 0.4;
+                will-change: opacity;
+            }
+
+            @keyframes textCover {
+                0% {
+                    transform: translateY(100%);
+                }
+                100% {
+                    transform: translateY(0);
+                }
+            }
+
+            /*svg 마스크*/
+            .clip-svg {
+              position: relative;
+              inset: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+              z-index: 10;
+            }
+            .mask-wrap {
+              position: relative;
+              inset: 0;
+              overflow: hidden;
+              transform-origin: 50% 100%;
+              z-index: 20;
+            }
+            .mask-inner {
+                width: 100%;
+                height: 100%;
+                transform-origin: center center;
+            } 
+
+
+         
+
+            .ic-scroll-down {
+                background: url(../assets/images/ic-scroll-down.svg) no-repeat 50% 50%;
+            }
+
+            @keyframes scrollDown {
+                0% {
+                    transform: translateY(0);
+                }
+                100% {
+                    transform: translateY(10px);
+                }
+            }
+
+            .scroll-down-bx {
+                position: absolute;
+                left: 50%;
+                bottom: 30px;
+                z-index: 333;
+                transform: translateX(-50%);
+            }
+            .scroll-down-bx button {
+                background: transparent;
+                border: none;
+                cursor: pointer;
+            }
+            .scroll-down-bx i {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                animation: scrollDown 1.8s linear infinite alternate;
+                animation-fill-mode: both;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .motion-box {
+                    clip-path: inset(0);
+                    transform: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="container">
+                <main class="main" role="main">
+                    <section class="main-visual">
+                        
+                        <div class="default-wrap">
+                            <div class="text-item">
+                                <div class="text-cover"><span>나의 첫 번째 AI 은행</span></div>
+                                <div class="text-cover"><span>카카오뱅크</span></div>
+                            </div>
+                        </div>
+                        <svg class="clip-svg" aria-hidden="true" focusable="false">
+                          <defs>
+                            <clipPath id="maskRect" clipPathUnits="userSpaceOnUse">
+                              <rect id="maskRectEl"></rect>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <div class="mask-wrap" style="clip-path: url(#maskRect);">
+                            <div class="mask-inner">
+                                <div class="text-item">
+                                    <div class="text-cover"><span>나의 첫 번째 AI 은행</span></div>
+                                    <div class="text-cover"><span>카카오뱅크</span></div>
+                                </div>
+                                <div class="video-frame">
+                                    <video
+                                        id="mainVisualVideo"
+                                        muted
+                                        loop
+                                        autoplay
+                                        playsinline
+                                        preload="none"
+                                        aria-label="카카오뱅크 메인 비주얼 영상"
+                                    ></video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scroll-down-bx">
+                            <button type="button" aria-label="다음 섹션으로 이동">
+                                <i class="ic ic-scroll-down"></i>
+                            </button>
+                        </div>
+                    </section>
+                    <section>section2</section>
+                    <section>section3</section>
+                </main>
+            </div>
+        </div>
+
+        <script>
+            const BREAKPOINTS = {
+                pc: "(min-width: 1280px)",
+                tablet: "(min-width: 768px)",
+                mobile: "(max-width: 767px)",
+            };
+            const video = document.getElementById("mainVisualVideo");
+            const VIDEO_PATH = "../assets/media/";
+            const VIDEO_NAME = "main-visual-video";
+
+            let currentType = null;
+
+            function getDeviceType() {
+                if (window.matchMedia(BREAKPOINTS.pc).matches) return "pc";
+                if (window.matchMedia(BREAKPOINTS.tablet).matches) return "tablet";
+                return "mobile";
+            }
+
+            function updateVideoSource() {
+                const deviceType = getDeviceType();
+                if (currentType === deviceType) return;
+                currentType = deviceType;
+
+                const src = `${VIDEO_PATH}${VIDEO_NAME}_${deviceType}.mp4`;
+                video.pause();
+                video.src = src;
+                video.load();
+                video.play().catch(() => {
+                    // autoplay 정책으로 실패해도 오류 방지
+                });
+            }
+
+            window.addEventListener("load", updateVideoSource);
+            window.addEventListener("resize", updateVideoSource);
+        </script>
+
+        <script src="../assets/js/core/gsap.min.js"></script>
+        <script src="../assets/js/core/ScrollTrigger.min.js"></script>
+<script>
+
+
+
+/* ------------------------------
+ * State
+ * ------------------------------ */
+const rect = document.getElementById('maskRectEl');
+
+const rectState = {
+  width: 70,
+  height: 300
+};
+
+/* ------------------------------
+ * Utils
+ * ------------------------------ */
+function getViewport() {
+  return {
+    vw: window.innerWidth,
+    vh: window.innerHeight
+  };
+}
+
+function setRect({ x, y, width, height }) {
+  rect.setAttribute('x', x);
+  rect.setAttribute('y', y);
+  rect.setAttribute('width', width);
+  rect.setAttribute('height', height);
+}
+
+/* ------------------------------
+ * Responsive Rect Size
+ * ------------------------------ */
+function updateRectSize() {
+  const vw = window.innerWidth;
+
+  if (vw < 768) {
+    rectState.width = 40;
+    rectState.height = 200;
+  } else {
+    rectState.width = 70;
+    rectState.height = 300;
+  }
+}
+
+/* ------------------------------
+ * Initial Rect
+ * ------------------------------ */
+function setStartRect() {
+  updateRectSize();
+
+  const { vw, vh } = getViewport();
+
+  setRect({
+    width: rectState.width,
+    height: rectState.height,
+    x: vw / 2 - rectState.width / 2,
+    y: vh + rectState.height
+  });
+}
+
+setStartRect();
+
+/* ------------------------------
+ * GSAP Timeline
+ * ------------------------------ */
+const tl = gsap.timeline({
+  defaults: { ease: 'power3.inOut' },
+  invalidateOnRefresh: true
+});
+
+// 1️⃣ 회전 해제
+tl.fromTo('.mask-wrap',
+  { rotation: 45 },
+  { rotation: 0, duration: 1.2 }
+);
+
+// 2️⃣ 하단 → 중앙
+tl.to(rect, {
+  attr: () => {
+    const { vw, vh } = getViewport();
+    return {
+      x: vw / 2 - rectState.width / 2,
+      y: vh / 2 - rectState.height / 2
+    };
+  },
+  duration: 1.2
+}, '<');
+
+// 3️⃣ 중앙 정지
+tl.to({}, { duration: 0.3 });
+
+// 4️⃣ 화면 전체 확장
+tl.to(rect, {
+  attr: () => {
+    const { vw, vh } = getViewport();
+    return {
+      x: 0,
+      y: 0,
+      width: vw,
+      height: vh
+    };
+  },
+  duration: 0.9
+});
+
+// 5️⃣ 텍스트 등장
+tl.to('.text-item', {
+  opacity: 1,
+  y: 0,
+  duration: 0.5,
+  ease: 'power3.out'
+}, '<+=0.2');
+
+/* ------------------------------
+ * Resize 대응
+ * ------------------------------ */
+window.addEventListener('resize', () => {
+  setStartRect();
+  tl.invalidate().restart(false);
+});
+
+</script>
+
+
+<script>
+    // 스크롤 다운 버튼
+    const arrowBtn = document.querySelector(".scroll-down-bx button");
+    arrowBtn.addEventListener("click", () => {
+        const nextSection = arrowBtn.closest("section")?.nextElementSibling;
+        if (!nextSection) return;
+        nextSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    });
+</script>
+
+
+    </body>
+</html>

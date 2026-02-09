@@ -86,7 +86,7 @@ select {
     padding: 1rem 3rem 1rem 1rem;    
     border: 1px solid $border-color;
     border-radius: 0.5rem;
-    background: url(#{$url-imgs}ico-select-arr.svg) no-repeat right 1rem center;
+    background: url(#{$url-imgs}select-arr.svg) no-repeat right 1rem center;
 }
 .form-field {
     .form-row {
@@ -233,7 +233,7 @@ select {
     transform: translateY(-50%);
     color: #999;
     pointer-events: none;
-    background: url(../images/select-arr.svg) no-repeat 50% 50%;
+    background: url(#{$url-imgs}select-arr.svg) no-repeat 50% 50%;
     width: 1.4rem;
     height: 1.4rem
 }
@@ -268,7 +268,7 @@ select {
     transform: translateY(-50%);
     color: #999;
     pointer-events: none;
-    background: url(../images/select-arr.svg) no-repeat 50% 50%;
+    background: url(#{$url-imgs}select-arr.svg) no-repeat 50% 50%;
     width: 1.4rem;
     height: 1.4rem
 }
