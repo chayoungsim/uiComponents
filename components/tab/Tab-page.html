@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tab - 페이지내에서 이동</title>
+        <link rel="stylesheet" href="../../assets/css/style.min.css" />
+        <link rel="stylesheet" href="../../assets/css/temp.css" />
+        <style>
+            section {
+                height: 1500px;
+                padding: 4rem;
+                background: #fffefa;
+            }
+            h2 {
+                font-size: 2.4rem;
+            }
+            section:nth-child(2n) {
+                background: #efefef;
+            }
+            #section1 {
+                height: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+            .sticky-tab-wrap {
+                display: flex;
+                justify-content: center;
+                padding: 2rem 0;
+                position: sticky;
+                top: 0;
+            }
+            .sticky-title-bar {
+                display: inline-block;
+                background: #f7f7f7;
+                padding: 0.6rem;
+                border-radius: 3rem;
+                position: relative;
+            }
+            .sticky-title-bar ul {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .sticky-title-bar a {
+                min-height: 36px;
+                padding: 7px 12px;
+                font-size: 1.3rem;
+                letter-spacing: -0.13px;
+                font-size: 1.6rem;
+                font-weight: 600;
+                transition: all 0.5s ease;
+                position: relative;
+                z-index: 2;
+            }
+            a.on {
+                color: #fff;
+            }
+            .highlight-box {
+                position: absolute;
+                top: 50%;
+                left: 6px;
+                transform: translateY(-50%);
+                width: 59px;
+                height: 24px;
+                border-radius: 30px;
+                background: #282828;
+                transition: left 0.5s ease;
+            }
+        </style>
+    </head>
+    <body style="background: #fff; padding: 0">
+        <section id="section1">
+            <h1>페이지내에서 이동<br />서비스를 소개합니다.</h1>
+        </section>
+        <div class="sticky-tab-wrap">
+            <div class="sticky-title-bar">
+                <nav>
+                    <a href="#section2" class="on" aria-current="true">AI</a>
+                    <a href="#section3">청소년</a>
+                    <a href="#section4">사업자</a>
+                    <a href="#section5">글로벌</a>
+                    <a href="#section6">모두보기</a>
+                </nav>
+                <div class="highlight-box" aria-hidden="true"></div>
+            </div>
+        </div>
+        <section id="section2" class="section__cont">
+            <h2>AI</h2>
+        </section>
+        <section id="section3" class="section__cont">
+            <h2>청소년</h2>
+        </section>
+        <section id="section4" class="section__cont">
+            <h2>사업자</h2>
+        </section>
+        <section id="section5" class="section__cont">
+            <h2>글로벌</h2>
+        </section>
+        <section id="section6" class="section__cont">
+            <h2>모두보기</h2>
+        </section>
+
+        <script src="../../assets/js/gsap.min.js"></script>
+        <script src="../../assets/js/ScrollTrigger.min.js"></script>
+        <script src="../../assets/js/ScrollToPlugin.min.js"></script>
+        <script>
+             gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+            const sections = document.querySelectorAll(".section__cont");
+            const container = document.querySelector(".sticky-title-bar");
+            const navLinks = document.querySelectorAll(".sticky-title-bar a");
+            const highlightBox = document.querySelector(".highlight-box");
+
+            /* 하이라이트 이동 */
+            function moveHighlight(index) {
+                const target = navLinks[index];
+                if (!target) return;
+
+                const containerRect = container.getBoundingClientRect();
+                const targetRect = target.getBoundingClientRect();
+
+                const leftPos = targetRect.left - containerRect.left + targetRect.width / 2; //target의 중앙값
+                const boxWidth = targetRect.width;
+                const highlightLeft = leftPos - boxWidth / 2; //target의 왼쪽값 다시계산
+
+                highlightBox.style.width = `${boxWidth}px`;
+                highlightBox.style.left = `${highlightLeft}px`;
+            }
+
+            /* 활성 상태 + ARIA 동기화 */
+            function setActiveNav(activeIndex) {
+                navLinks.forEach((link, i) => {
+                    const isActive = i === activeIndex;
+                    link.classList.toggle("on", isActive);
+                    link.setAttribute("aria-current", isActive ? "true" : "false");
+                });
+            }
+
+            /* 현재 활성 항목 기준 하이라이트 갱신 */
+            function updateHighlightByActive() {
+                const activeIndex = [...navLinks].findIndex((link) =>
+                    link.classList.contains("on"),
+                );
+                if (activeIndex !== -1) {
+                    moveHighlight(activeIndex);
+                }
+            }
+
+            /* 스크롤 위치에 따른 활성 상태 */
+            document.querySelectorAll(".section__cont").forEach((section, idx) => {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "top 30%",
+                    end: "bottom center",
+                    onEnter: () => {
+                        setActiveNav(idx);
+                        moveHighlight(idx);
+                    },
+                    onEnterBack: () => {
+                        setActiveNav(idx);
+                        moveHighlight(idx);
+                    },
+                });
+            });
+
+            /* 키보드 포커스 대응 */
+            navLinks.forEach((link, idx) => {
+                // 키보드로 포커스 시 하이라이트 이동
+                link.addEventListener("focus", () => {
+                    setActiveNav(idx);
+                    moveHighlight(idx);
+                });
+
+                // 클릭 시 해당 섹션으로 스크롤
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    gsap.to(window, {
+                        scrollTo: { y: sections[idx], offsetY: 100 }, // offsetY는 sticky 헤더 높이 등을 고려하여 조정
+                    });
+                });
+            });
+
+            /* 초기 로딩 시 위치 보정 */
+            window.addEventListener("load", () => {
+                highlightBox.style.transition = "none";
+                updateHighlightByActive();
+                requestAnimationFrame(() => {
+                    highlightBox.style.transition = "";
+                });
+            });
+
+            /* 리사이즈 대응 */
+            let resizeTimeout;
+            const DEBOUNCE_DELAY = 200;
+
+            window.addEventListener("resize", () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    requestAnimationFrame(updateHighlightByActive);
+                }, DEBOUNCE_DELAY);
+            });
+        </script>
+    </body>
+</html>
