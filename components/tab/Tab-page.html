@@ -39,7 +39,7 @@
                 border-radius: 3rem;
                 position: relative;
             }
-            .sticky-title-bar ul {
+            .sticky-title-bar nav {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -65,7 +65,7 @@
                 left: 6px;
                 transform: translateY(-50%);
                 width: 59px;
-                height: 24px;
+                height: 34px;
                 border-radius: 30px;
                 background: #282828;
                 transition: left 0.5s ease;
@@ -108,11 +108,19 @@
         <script src="../../assets/js/ScrollTrigger.min.js"></script>
         <script src="../../assets/js/ScrollToPlugin.min.js"></script>
         <script>
-             gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
             const sections = document.querySelectorAll(".section__cont");
             const container = document.querySelector(".sticky-title-bar");
             const navLinks = document.querySelectorAll(".sticky-title-bar a");
             const highlightBox = document.querySelector(".highlight-box");
+            
+
+            function getScrollOffset() {
+              const stickyWrap = document.querySelector(".sticky-tab-wrap");
+              if (!stickyWrap) return 0;
+              return stickyWrap.getBoundingClientRect().height;
+            }
+
 
             /* 하이라이트 이동 */
             function moveHighlight(index) {
@@ -178,7 +186,11 @@
                 link.addEventListener("click", (e) => {
                     e.preventDefault();
                     gsap.to(window, {
-                        scrollTo: { y: sections[idx], offsetY: 100 }, // offsetY는 sticky 헤더 높이 등을 고려하여 조정
+                        scrollTo: { 
+                          y: sections[idx], 
+                          offsetY: getScrollOffset(),
+                          //offsetY: 100 
+                        }, // offsetY는 sticky 헤더 높이 등을 고려하여 조정
                     });
                 });
             });
