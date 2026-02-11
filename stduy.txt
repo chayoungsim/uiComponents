@@ -27,3 +27,49 @@ project/
 
 ✔️ assets = 배포 대상
 ✔️ resources = 관리 대상
+
+아이콘만 있는 경우
+<button class="modal-close" onclick="closeModal('modalFullscreen')" aria-label="모달 닫기">
+                  <i class="ico-x" aria-hidden="true"></i>
+                </button>
+
+components 분리 기준
+재사용성, 가독성
+
+
+### API 사용
+
+## 날씨 
+https://openweathermap.org/ chay~/Car~
+
+key : 5a83fe8234fc03d79b5d319320864273
+
+
+### Git
+1. Git 저장소 초기화 : git init
+2. 원격 저장소 연결 : git remote add origin 원격저장소_URL
+2  원격 저장소 연결 확인 : git remote -v
+3. 변경 사항 확인 :  git status
+4. 스테이징(Stage)에 파일 추가 :  git add .
+5. 커밋 생성 : git commit -m "메인 비주얼 슬라이더 스크립트 추가"
+6. 원격 저장소로 업로드 (push) :  git push -u origin master
+
+### API Key vs Token
+API Key는 == “이 요청이 누구의 앱에서 왔는지를 식별하기 위한 고정된 키”
+Token은 == 이 요청이 어떤 권한을 가진 주체인지를 증명하는 증명서”  -- 보통 HTTP Header로 전달
+API Key = 출입증(식별용) , Token = 신분증 + 권한증 (인증권한용)
+
+# API Key 사용해도 되는 경우
+공개 데이터
+읽기 전용
+개인 학습용
+서버 없이 빠르게 구현
+
+Token이 필요한 경우
+로그인 기능
+사용자별 데이터
+쓰기 / 수정 / 삭제
+실서비스
+
+##=> 최신 API 설계에서는 Token이 표준
+

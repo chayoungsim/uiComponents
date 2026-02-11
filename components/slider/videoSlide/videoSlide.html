@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비디오,영상 슬라이더</title>
+  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <link rel="stylesheet" href="videoslide.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script type="module" src="videoslide.js"></script>
+</head>
+<body>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" data-type="video">
+        <div class="swiper-slide-item">
+          <video muted playsinline preload="metadata">
+            <source src="kv.mp4" type="video/mp4">
+          </video>
+          <div class="swiper-text">
+              <p>영상</p>
+              <p>영상</p>
+              <p>영상</p>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide" data-type="image" data-duration="5000">
+        <div class="swiper-slide-item">
+            <img src="info-b0.jpg" alt="이미지 1">
+            <div class="swiper-text">
+              <p>이미지</p>
+              <p>이미지</p>
+            </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="custom-progress-container">
+      <div class="custom-progress-bar"></div>
+    </div>
+
+    <button type="button" class="btn-play-pause">정지</button>
+  </div>
+</body>
+</html>
