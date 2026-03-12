@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* 부모 label에 focus-within을 사용하여 내부 input이 포커스되면 디자인 변경 */
+.custom-control:focus-within .control-indicator {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* 마우스 클릭 시에는 아웃라인을 숨기고 키보드 사용시에만 보여주고 싶다면 :focus-visible 활용 */
+.custom-control input:focus-visible + .control-indicator {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+.control-indicator {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #eee;
+  vertical-align: middle;
+  transition: background 0.2s;
+}
+
+/* 라디오는 원형으로 */
+.radio .control-indicator { border-radius: 50%; }
+
+/* 체크/선택 시 상태 */
+input:checked + .control-indicator {
+  background-color: #007bff;
+}
+
+/* 체크 표시(V)나 라디오 내부 점(●) 구현 */
+input:checked + .control-indicator::after {
+  content: '';
+  display: block;
+  /* CSS로 아이콘 형태 구현 */
+}
+
+.custom-control {
+  display: flex;
+  align-items: center;
+  min-height: 44px; /* 모바일 터치 가이드라인 준수 */
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .form-group {
+    display: flex;
+    flex-direction: column; /* 모바일에서는 세로로 나열하여 터치 미스 방지 */
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="cards">
+    <div class="card">
+        <div class="card__title">
+          form - check, radio
+        </div>
+        <div class="card__desc">
+            <div class="form-group">
+              <legend class="group-title">관심 분야 (다중 선택)</legend>
+              
+              <label class="custom-control checkbox">
+                <input type="checkbox" name="interest" value="design" class="visually-hidden">
+                <span class="control-indicator" aria-hidden="true"></span>
+                <span class="control-label">디자인</span>
+              </label>
+
+              <label class="custom-control checkbox">
+                <input type="checkbox" name="interest" value="dev" class="visually-hidden">
+                <span class="control-indicator" aria-hidden="true"></span>
+                <span class="control-label">개발</span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <legend class="group-title">수신 동의 (단일 선택)</legend>
+              
+              <label class="custom-control radio">
+                <input type="radio" name="agree" value="yes" class="visually-hidden">
+                <span class="control-indicator" aria-hidden="true"></span>
+                <span class="control-label">동의함</span>
+              </label>
+
+              <label class="custom-control radio">
+                <input type="radio" name="agree" value="no" class="visually-hidden">
+                <span class="control-indicator" aria-hidden="true"></span>
+                <span class="control-label">동의하지 않음</span>
+              </label>
+            </div>
+
+
+        </div>
+    </div>
+  </div>
+</body>
+</html>

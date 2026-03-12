@@ -1,0 +1,64 @@
+@use "sass:map";
+@use "./variables" as *;
+
+$themes: (
+    light: (
+        "primary": $primary,
+        "primary-dark": #2176ae,
+        "primary-light": #aed6f1,
+
+        "secondary": $secondary,
+        "danger": $danger,
+        "warning": $warning,
+
+        "bg": $bg,
+        "bg-subtle": $bg-subtle,
+        "surface": $surface,
+
+        "text": $text,
+        "text-muted": $text-muted,
+        "border": $border,
+
+        // Button 전용 토큰
+        "btn-primary-bg":        #3498db,
+        "btn-primary-bg-hover":  #2176ae,
+        "btn-primary-text":      #ffffff,
+
+        "btn-secondary-bg":      #2ecc71,
+        "btn-secondary-bg-hover":#27ae60,
+        "btn-secondary-text":    #ffffff,
+
+        "btn-danger-bg":         #e74c3c,
+        "btn-danger-bg-hover":   #c0392b,
+        "btn-danger-text":       #ffffff,
+
+        "btn-ghost-bg":          transparent,
+        "btn-ghost-bg-hover":    rgba(52, 152, 219, 0.1),
+        "btn-ghost-text":        #3498db,
+
+        "btn-outline-border":    #3498db,
+        "btn-outline-text":      #3498db,
+        "btn-outline-bg-hover":  #3498db,
+        "btn-outline-text-hover":#ffffff,
+
+        "btn-disabled-bg":       #bdc3c7,
+        "btn-disabled-text":     #7f8c8d,
+    ),
+    dark: (
+        "primary": #5dade2,
+        "primary-dark": #3498db,
+        "primary-light": #2c5f8a,
+
+        "secondary": #58d68d,
+        "danger": #ec7063,
+        "warning": #f8c471,
+
+        "bg": #1a1a2e,
+        "bg-subtle": #16213e,
+        "surface": #0f3460,
+
+        "text": #eaeaea,
+        "text-muted": #a0aab4,
+        "border": #2c3e50,
+    ),
+);

@@ -1,0 +1,24 @@
+
+@use 'functions' as fn;
+
+// Base Font
+$font-family-base: 'Pretendard', sans-serif;
+
+// Font Weights
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Fluid Type Scale
+$font-size-xs: fn.fluid(1.2, 1.4);
+$font-size-sm: fn.fluid(1.4, 1.6);
+$font-size-md: fn.fluid(1.6, 1.8);
+$font-size-lg: fn.fluid(1.8, 2.2);
+$font-size-xl: fn.fluid(2.2, 2.8);
+$font-size-2xl: fn.fluid(2.8, 3.6);
+$font-size-3xl: fn.fluid(3.6, 4.8);
+
+// Line Height
+$line-height-tight: 1.2;
+$line-height-base: 1.6;
+$line-height-loose: 1.8;

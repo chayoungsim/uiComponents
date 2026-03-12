@@ -1,0 +1,43 @@
+@use '../abstracts/typography' as typo;
+
+body {
+  font-family: typo.$font-family-base;
+  font-size: typo.$font-size-sm;
+  line-height: typo.$line-height-base;
+}
+
+h1 {
+  font-size: typo.$font-size-3xl;
+  font-weight: typo.$font-weight-bold;
+  line-height: typo.$line-height-tight;
+}
+
+h2 {
+  font-size: typo.$font-size-2xl;
+  font-weight: typo.$font-weight-bold;
+}
+
+h3 {
+  font-size: typo.$font-size-xl;
+}
+
+#wrap {
+    max-width: 2560px;
+    margin:0 auto;
+}
+
+
+.video__frame {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+}

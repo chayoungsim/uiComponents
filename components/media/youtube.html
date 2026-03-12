@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Youtube Size</title>
+  <link rel="stylesheet" href="../../assets/css/style.min.css">
+  <link rel="stylesheet" href="../../assets/css/temp.css" />
+  <style>
+    /*비율대로*/
+    .iframe-container {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+    .iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /*IE 대응이 필요한 경우*/
+    .iframe-container-ie {
+      position: relative;
+      width: 100%;      
+      padding-top: 56.25%; /* 16:9 비율 */
+    }
+    .iframe-container-ie iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* full */
+    .iframe-container-full {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    /* .iframe-container-full::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+    } */
+    .iframe-container-full iframe {
+      /* 1. 기본 크기를 화면 비율보다 크게 설정 */
+        width: 100vw;
+        height: 56.25vw; /* 16:9 비율 (9/16 = 0.5625) */
+        
+        /* 2. 어떤 상황에서도 부모보다 작아지지 않게 방어 */
+        min-height: 100%;
+        min-width: 177.77vh; /* 16:9 비율 (16/9 = 1.7777) */
+
+        /* 3. 정중앙 배치 (이미지의 background-position: center 효과) */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+    <div class="cards">
+      <div class="card">
+          <div class="card__title">
+            Youtube 영상 반응형
+          </div>
+          <div class="card__desc">
+
+            <div class="iframe-container">
+              <iframe 
+                  class="youtubePlayer"
+                  data-video-id="FTnmslr7faY"
+                  src="https://www.youtube.com/embed/FTnmslr7faY?enablejsapi=1&rel=0&modestbranding=1&controls=1&showinfo=0&fs=0" 
+                  width="100%" 
+                  height="100%" 
+                  title="2025 SK이노베이션 E&S 필름 소개 영상입니다. 자세한 내용은 하단 내용을 참조해주세요." 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin" 
+                  allowfullscreen>
+              </iframe>                                
+            </div>
+
+          </div>
+      </div>
+      <div class="card">
+          <div class="card__title">
+            Youtube 영상 반응형 - ie대응이 필요한 경우
+          </div>
+          <div class="card__desc">
+
+            <div class="iframe-container-ie">
+              <iframe 
+                  class="youtubePlayer"
+                  data-video-id="FTnmslr7faY"
+                  src="https://www.youtube.com/embed/FTnmslr7faY?enablejsapi=1&rel=0&modestbranding=1&controls=1&showinfo=0&fs=0" 
+                  width="100%" 
+                  height="100%" 
+                  title="2025 SK이노베이션 E&S 필름 소개 영상입니다. 자세한 내용은 하단 내용을 참조해주세요." 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin" 
+                  allowfullscreen>
+              </iframe>                                
+            </div>
+
+
+          </div>
+      </div>
+      <div class="card">
+          <div class="card__title">
+            Youtube 영상 full
+          </div>
+          <div class="card__desc">
+
+              <div class="iframe-container-full">
+                <iframe 
+                  class="youtubePlayer"
+                  data-video-id="FTnmslr7faY"
+                  src="https://www.youtube.com/embed/FTnmslr7faY?enablejsapi=1&rel=0&modestbranding=1&controls=1&showinfo=0&fs=0" 
+                  width="100%" 
+                  height="100%" 
+                  title="2025 SK이노베이션 E&S 필름 소개 영상입니다. 자세한 내용은 하단 내용을 참조해주세요." 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin" 
+                  allowfullscreen>
+                </iframe>  
+              </div>
+    
+
+          </div>
+      </div>
+    </div>  
+    
+    
+</body>
+</html>

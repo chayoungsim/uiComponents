@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>비주얼 축소 인터랙션 (Hero Shrink Interaction)</title>
+        <link rel="stylesheet" href="../assets/css/style.css" />
+
+        <!-- Tailwind CSS -->
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+       
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/MotionPathPlugin.min.js"></script>
+
+        <style>
+            body{
+              font-family: 'Pretendard';
+            }
+            section {
+                height: 100vh;
+            }
+            .main__visual {
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+                background-color: #ffffff;
+                overflow: hidden;
+            }
+            .video-wrapper {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0px;
+                overflow: hidden;
+                /* GSAP 성능 최적화 */
+                will-change: width, height, border-radius;
+                z-index: 2;
+            }
+
+            /* 비디오 자체는 래퍼 안에서 꽉 차게 유지 */
+            .video-wrapper video {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+            }
+
+            /* 비디오 위에 깔리는 어두운 오버레이 (텍스트 가독성용) */
+            .video-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.4);
+                z-index: 1;
+            }
+
+            .text {
+                border: 1px solid lime;
+                margin-bottom: 13rem;
+                padding: 0 6rem;
+            }
+            .text h3 {
+                transform: translateY(40px);
+                opacity: 0;
+                 font-size: clamp(4rem, 10vw, 10rem);
+                font-weight: 500;
+                letter-spacing: -0.05em;
+                line-height: 1;
+            }
+            .text p {
+                transform: translateY(40px);
+                opacity: 0;
+               
+            }
+            .text p {
+                font-size: clamp(1rem, 1vw, 1.8rem);
+            }
+            .text1 {
+            }
+            .text2 {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            .text3 {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .copy_text_w {
+                font-size: clamp(4rem, 10vw, 10rem);
+                color: #fff;
+                font-weight: 600;
+                position: absolute;
+
+                left: 0;
+                padding: 0 6rem 6rem;
+                width: 100%;
+                height: 100vh;
+                bottom: 0;
+                line-height: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+            .copy01 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .copy_w {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow: hidden;
+            }
+            .copy_w span {
+                display: block;
+            }
+            .copy_w .t1 {
+                transform: translateY(100%);
+            }
+            .copy_w .t2 {
+                position: absolute;
+                bottom: -100%;
+            }
+
+            .copy_and {
+                overflow: hidden;
+            }
+            .copy_and span {
+                display: block;
+                transform: translateY(100%);
+            }
+            .copy02 {
+                display: flex;
+                position: relative;
+
+                overflow: hidden;
+            }
+
+            .copy02 span {
+                display: block;
+            }
+            .copy02 .t21 {
+                transform: translateY(100%);
+            }
+            .copy02 .t22 {
+                position: absolute;
+                bottom: -100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <header></header>
+            <div id="container">
+                <main>
+                    <div class="main__visual__wrapper">
+                        <div class="main__visual">
+                            <div class="video-wrapper">
+                                <div class="video-overlay"></div>
+                                <video
+                                    id="videobcg"
+                                    loop
+                                    muted
+                                    autoplay
+                                    playsinline
+                                    aria-hidden="true"
+                                    data-autoplay=""
+                                    preload="metadata"
+                                    poster=""
+                                >
+                                    <source src="../assets/media/m_video.mp4" />
+                                </video>
+                            </div>
+                        </div>
+                        <div class="copy_text_w">
+                            <div class="copy copy01">
+                                <div class="copy_w">
+                                    <span class="t1">LEAD</span>
+                                    <span class="t2">LAW</span>
+                                </div>
+                                <div class="copy_and">
+                                    <span>AND</span>
+                                </div>
+                            </div>
+                            <div class="copy copy02">
+                                <span class="t21">ACT</span>
+                                <span class="t22">ADVISORS</span>
+                            </div>
+                        </div>
+                        <div class="text text1">
+                            <h3>SHIFT</h3>
+                            <p>
+                                빠르게 변하는 흐름을 민첩하게 포착하고,<br />
+                                유연한 해법으로 방향을 전환하며 대응합니다.<br />
+                                로앤에이는 기회를 놓치지 않는 법률 솔루션을 제공합니다.
+                            </p>
+                        </div>
+                        <div class="text text2">
+                            <h3>DRIFT</h3>
+                            <p>
+                                변화의 흐름 속에서도 중심을 잃지 않고,<br />
+                                언제나 고객 곁을 지키는 든든한 법률 동반자가 되겠습니다.<br />
+                                끝까지 함께 가는 신뢰,<br />
+                                그것이 로앤에이의 약속입니다.
+                            </p>
+                        </div>
+                        <div class="text text3">
+                            <h3>LEFT</h3>
+                            <p>
+                                고객이 미처 보지 못한 지점까지 깊이 통찰하고,<br />
+                                치열한 고민과 집요한 시도로<br />
+                                해답을 수면 위로 끌어올립니다.<br />
+                                로앤에이는 문제의 핵심이 드러날 때까지 멈추지 않습니다.
+                            </p>
+                        </div>
+                    </div>
+                    <section>2</section>
+                    <section>3</section>
+                    <section>4</section>
+                </main>
+            </div>
+        </div>
+
+        <script>
+            // 1. Lenis를 이용한 부드러운 관성 스크롤 설정 (선택사항이지만 고급스러운 느낌을 위해 필수)
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            // ScrollTrigger와 Lenis 동기화
+            lenis.on("scroll", ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0, 0);
+
+            const heroTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".main__visual",
+                    start: "top top", // 컨테이너의 상단이 뷰포트 상단에 닿을 때 시작
+                    end: "+=150%", // 텍스트 애니메이션을 포함하기 위해 스크롤 길이를 늘림
+                    pin: true,
+                    scrub: 1,
+                },
+            });
+
+            heroTl.to(
+                ".video-wrapper",
+                {
+                    width: "35vw",
+                    height: "55vh",
+                    borderRadius: "30px",
+                    ease: "power1.inOut",
+                },
+                0,
+            );
+
+
+            const item = document.querySelector(".text");
+
+            // 비디오가 작아진 후, 스크롤에 따라 텍스트들이 순차적으로 나타나는 애니메이션
+            const textAnimations = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".text",
+                    start: "top 500", // .main__visual__wrapper의 시작점에서 시작
+                    end: "top 0", // .main__visual__wrapper의 끝까지 스크롤
+                    scrub: 1,
+                },
+            });
+
+            // 비디오 축소가 끝나는 시점 이후에 텍스트 애니메이션 시작
+            textAnimations
+                .addLabel("startText", 0.125) // 비디오 축소가 50% 진행된 시점(0.25 * 0.5)
+                .to(
+                    ".text1 h3, .text1 p",
+                    { y: 0, opacity: 1, stagger: 0.1, ease: "power2.out" ,duration: 0.6},
+                    "startText",
+                )
+                // .to(
+                //     ".text1 h3, .text1 p",
+                //     { y: -40, opacity: 0, stagger: 0.1, ease: "power2.in" },
+                //     "startText+=0.15",
+                // )
+                .to(
+                    ".text2 h3, .text2 p",
+                    { y: 0, opacity: 1, stagger: 0.1, ease: "power2.out" },
+                    "startText+=0.2",
+                )
+                // .to(
+                //     ".text2 h3, .text2 p",
+                //     { y: -40, opacity: 0, stagger: 0.1, ease: "power2.in" },
+                //     "startText+=0.35",
+                // )
+                .to(
+                    ".text3 h3, .text3 p",
+                    { y: 0, opacity: 1, stagger: 0.1, ease: "power2.out" },
+                    "startText+=0.4",
+                )
+                // .to(
+                //     ".text3 h3, .text3 p",
+                //     { y: -40, opacity: 0, stagger: 0.1, ease: "power2.in" },
+                //     "startText+=0.55",
+                // );
+
+            const textTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".copy_text_w",
+                    start: "top top",
+                    end: "bottom bottom",
+                    pin: true, // 화면 고정
+                    scrub: 1,
+                },
+            });
+
+            // 로드될때 텍스트 모션 설정
+
+            const introTl = gsap.timeline({
+                defaults: { duration: 0.6, ease: "power2.out" },
+                delay: 0.5, // 페이지 로드 후 0.5초 뒤 애니메이션 시작,
+            });
+
+            // 1. 페이지 로드 시 초기 텍스트('LEAD', 'AND', 'ACT')가 순서대로 나타납니다.
+            introTl
+                .to(".copy_w .t1", { y: "0%" })
+                .to(".copy_and span", { y: "0%" }, "-=0.5") // 0.1초 딜레이
+                .to(".copy02 .t21", { y: "0%" }, "-=0.5"); // 0.2초 딜레이
+
+            // 2. 'AND' 텍스트가 'LEAD' 옆으로 이동합니다.
+            introTl.to(
+                ".copy_and",
+                {
+                    x: () => {
+                        const copyAnd = document.querySelector(".copy_and");
+                        const copyW = document.querySelector(".copy_w");
+                        return -(copyAnd.offsetLeft - (copyW.offsetLeft + copyW.offsetWidth));
+                    },
+                    ease: "power1.inOut",
+                },
+                "+=0.3",
+            ); // 텍스트가 모두 나타난 후 0.3초 뒤에 실행
+
+            // 3. 'LEAD' -> 'LAW', 'ACT' -> 'ADVISORS'로 동시에 전환됩니다.
+            introTl
+                .to(".copy_w .t1", { y: "-100%", ease: "power1.inOut" }, "+=0.2")
+                .to(".copy_w .t2", { bottom: 0, y: "0%", ease: "power1.inOut" }, "<")
+                .to(".copy02 .t21", { y: "-100%", ease: "power1.inOut" }, "<")
+                .to(".copy02 .t22", { bottom: 0, y: "0%", ease: "power1.inOut" }, "<");
+        </script>
+    </body>
+</html>

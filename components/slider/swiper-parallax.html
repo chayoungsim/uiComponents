@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+  <style>
+    .slide{
+      position: relative;
+      overflow: hidden;
+      max-width: 280px;
+      max-height: 280px;
+      width: 100%;
+      border-radius: 1.25rem;
+    }
+
+.background-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.background-swiper .swiper-wrapper {
+  align-items: center;
+}
+
+
+.slider-section {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 685px;
+}
+.centered-swiper {
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  z-index: 10;
+  max-width: 280px;
+  max-height: 390px;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  border-radius: 1.25rem;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+.centered-swiper__slide {
+  width: 100%;
+  transition: transform 0.6s ease;
+}
+
+.background-swiper img,
+.centered-swiper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.slider-section__next-button {
+  position: absolute;
+  right: 2.5%;
+  top: 50%;
+  transform: translate(-50%, 2.5%);
+}
+
+.slider-section__prev-button {
+  position: absolute;
+  left: 2.5%;
+  top: 50%;
+  transform: translate(-50%, 2.5%);
+}
+
+.slider-section__next-button,
+.slider-section__prev-button {
+  z-index: 100;
+}
+
+.hidden-out {
+  animation: slideOutLeft 0.4s forwards;
+}
+
+.hidden-in {
+  animation: slideInRight 0.4s forwards;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- 참고 : https://codepen.io/bato-web-agency/pen/emJjENV -->
+  <!-- 참고 : https://codepen.io/jonwelsh/pen/WNEXyoZ -->
+  <section class="slider-section">
+
+    <div class="swiper background-swiper">
+        <div class="swiper-wrapper">
+          <!-- Background Slide 1 -->
+          <div class="swiper-slide slide" data-title="Golden Silence" data-desc="Embrace the harmony of colors and calm.">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img1.jpg" alt="Golden Silence" width="768" height="1024" loading="lazy">
+          </div>
+          <!-- Background Slide 2 -->
+          <div class="swiper-slide slide" data-title="Frozen Majesty" data-desc="Touch the purity in every breath of frosty air.">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img2.jpg" alt="Frozen Majesty" width="768" height="1152" loading="lazy">
+          </div>
+          <!-- Background Slide 3 -->
+          <div class="swiper-slide slide" data-title="Hidden Beauty" data-desc="Discover the mystery veiled in clouds.">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img3.jpg" alt="Hidden Beauty" width="768" height="929" loading="lazy">
+          </div>
+          <!-- Background Slide 4 -->
+          <div class="swiper-slide slide" data-title="Sunlit Heights" data-desc="Breathe freely in the warmth of freedom.">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img4.jpg" alt="Sunlit Heights" width="768" height="1152" loading="lazy">
+          </div>
+          <!-- Background Slide 5 -->
+          <div class="swiper-slide slide" data-title="Awakening Peaks" data-desc="Feel life return to every slope.">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img5.jpg" alt="Awakening Peaks" width="768" height="768" loading="lazy">
+          </div>
+          <!-- Background Slide 6 -->
+          <div class="swiper-slide slide" data-title="Language of Details" data-desc="Watch the mountains greet the night in radiant skies.">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img6.jpg" alt="Language of Details" width="768" height="1152" loading="lazy">
+          </div>
+        </div>
+    </div>
+
+    <div class="centered-swiper swiper">
+        <div class="swiper-wrapper">
+          <!-- Centered Slide 1 -->
+          <div class="swiper-slide centered-swiper__slide">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img1.jpg" alt="Golden Silence" width="768" height="1024" loading="lazy">
+          </div>
+          <!-- Centered Slide 2 -->
+          <div class="swiper-slide centered-swiper__slide">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img2.jpg" alt="Frozen Majesty" width="768" height="1152" loading="lazy">
+          </div>
+          <!-- Centered Slide 3 -->
+          <div class="swiper-slide centered-swiper__slide">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img3.jpg" alt="Hidden Beauty" width="768" height="929" loading="lazy">
+          </div>
+          <!-- Centered Slide 4 -->
+          <div class="swiper-slide centered-swiper__slide">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img4.jpg" alt="Sunlit Heights" width="768" height="1152" loading="lazy">
+          </div>
+          <!-- Centered Slide 5 -->
+          <div class="swiper-slide centered-swiper__slide">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img5.jpg" alt="Awakening Peaks" width="768" height="768" loading="lazy">
+          </div>
+          <!-- Centered Slide 6 -->
+          <div class="swiper-slide centered-swiper__slide">
+            <img src="https://bato-web-agency.github.io/bato-shared/img/double-slider/img6.jpg" alt="Language of Details" width="768" height="1152" loading="lazy">
+          </div>
+        </div>
+    </div>
+
+    <button class="slider-section__prev-button">Prev</button>
+    <button class="slider-section__next-button">Next</button>
+
+  </section>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const buttonPrev = document.querySelector(".slider-section__prev-button");
+  const buttonNext = document.querySelector(".slider-section__next-button");
+
+  const slides = document.querySelectorAll(".background-swiper .swiper-slide");
+
+  // Content Preparation
+
+  const titles = [],
+    texts = [];
+
+  slides.forEach((slide) => {
+    const title = slide.dataset.title.trim() || "";
+    const desc = slide.dataset.desc.trim() || "";
+
+    titles.push(title);
+    texts.push(desc);
+  });
+
+  // Buttons State Update
+
+  const updateState = (swiper) => {
+    const { isBeginning, isEnd } = swiper;
+
+    isBeginning
+      ? buttonPrev.classList.add("disabled")
+      : buttonPrev.classList.remove("disabled");
+    isEnd
+      ? buttonNext.classList.add("disabled")
+      : buttonNext.classList.remove("disabled");
+  };
+
+  // Background Slider Initialization
+
+  const backgroundSwiper = new Swiper(".background-swiper", {
+    slidesPerView: "auto",
+    spaceBetween: 45,
+    centeredSlides: true,
+    initialSlide: 2,
+    speed: 800,
+    navigation: {
+      prevEl: buttonPrev,
+      nextEl: buttonNext
+    },
+    on: {
+      init: function () {
+        updateState(this);
+      },
+      slideChange: function () {
+        updateState(this);
+      }
+    }
+  });
+
+  // Centered Slider Initialization
+
+  const centerSwiper = new Swiper(".centered-swiper", {
+    slidesPerView: 1,
+    loop: false,
+    initialSlide: 2,
+    speed: 800
+  });
+
+  // Sliders Interactions
+
+  const title = document.getElementById("slideTitle");
+  const text = document.getElementById("slideText");
+
+  backgroundSwiper.on("slideChange", function () {
+    const index = this.realIndex;
+
+    centerSwiper.slideToLoop(index, 600);
+
+    title.classList.add("hidden-out");
+    text.classList.add("hidden-out");
+
+    setTimeout(() => {
+      title.classList.remove("hidden-out");
+      text.classList.remove("hidden-out");
+
+      title.textContent = titles[index];
+      text.textContent = texts[index];
+
+      title.classList.add("hidden-in");
+      text.classList.add("hidden-in");
+
+      setTimeout(() => {
+        title.classList.remove("hidden-in");
+        text.classList.remove("hidden-in");
+      }, 300);
+    }, 300);
+  });
+});
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Aristide Benoist Interaction Clone</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            /* 1. Base & Reset */
+            :root {
+                --bg-color: #111111;
+                --text-color: #ffffff;
+                --detail-bg: #d0d0cc;
+                --detail-text: #1a1a1a;
+                --font-ui: "Inter", sans-serif;
+                --font-display: "Anton", sans-serif;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                font-family: var(--font-ui);
+                overflow: hidden;
+                transition:
+                    background-color 0.8s cubic-bezier(0.7, 0, 0.3, 1),
+                    color 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+                -webkit-font-smoothing: antialiased;
+            }
+
+            body.is-detail {
+                background-color: var(--detail-bg);
+                color: var(--detail-text);
+            }
+
+            /* 2. UI Elements */
+            .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 2.5rem 3rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 100;
+                mix-blend-mode: difference;
+                color: white;
+                pointer-events: none;
+            }
+
+            .logo,
+            .nav-link {
+                pointer-events: auto;
+            }
+
+            .logo {
+                font-family: var(--font-display);
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+                cursor: pointer;
+            }
+
+            .nav-link {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                cursor: pointer;
+                font-weight: 500;
+            }
+
+            /* 프로그레스 바 영역 */
+            .progress-wrap {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .prog-item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: auto;
+                cursor: pointer;
+            }
+
+            .prog-line {
+                width: 1px;
+                height: 10px;
+                background-color: currentColor;
+                opacity: 0.25;
+                transition:
+                    opacity 0.3s,
+                    height 0.3s,
+                    margin 0.3s,
+                    width 0.3s;
+            }
+
+            .prog-item.is-current .prog-line {
+                opacity: 1;
+                height: 16px;
+            }
+
+            .prog-detail-block {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 0.65rem;
+                letter-spacing: 1px;
+                white-space: nowrap;
+                overflow: hidden;
+                max-width: 0;
+                opacity: 0;
+                transition:
+                    max-width 0.5s cubic-bezier(0.7, 0, 0.3, 1),
+                    opacity 0.5s;
+            }
+
+            .prog-box {
+                width: 16px;
+                height: 10px;
+                border: 1px solid currentColor;
+                opacity: 0.8;
+            }
+
+            body.is-detail .prog-item.is-detail-active .prog-line {
+                width: 0;
+                opacity: 0;
+                margin: 0;
+            }
+
+            body.is-detail .prog-item.is-detail-active .prog-detail-block {
+                max-width: 120px;
+                opacity: 1;
+                margin: 0 6px;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 2.5rem 3rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                z-index: 100;
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                mix-blend-mode: difference;
+                color: white;
+                line-height: 1.6;
+                pointer-events: none;
+            }
+
+            /* 3. Detail Mode UI */
+            .detail-bg-letters {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100vw;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 10vw;
+                font-family: var(--font-display);
+                font-size: clamp(8rem, 28vw, 35rem);
+                color: #1a1a1a;
+                z-index: 5;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.5s;
+            }
+
+            body.is-detail .detail-bg-letters {
+                opacity: 1;
+                transition-delay: 0.2s;
+            }
+
+            .detail-meta-wrap {
+                position: fixed;
+                bottom: 2.5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 200;
+                display: flex;
+                align-items: flex-end;
+                gap: 4vw;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.5s;
+                mix-blend-mode: difference;
+                color: white;
+            }
+
+            body.is-detail .detail-meta-wrap {
+                opacity: 1;
+                transition-delay: 0.4s;
+                pointer-events: auto;
+            }
+
+            .explore-btn {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+
+            .explore-btn::after {
+                content: "";
+                width: 1px;
+                height: 30px;
+                background-color: currentColor;
+            }
+
+            .meta-grid {
+                display: grid;
+                grid-template-columns: auto auto;
+                column-gap: 3rem;
+                row-gap: 0.4rem;
+                font-size: 0.6rem;
+                letter-spacing: 1px;
+            }
+
+            .meta-grid div:nth-child(odd) {
+                opacity: 0.6;
+            }
+
+            /* 4. 2.5D Gallery Container (리스트 라인 형식으로 변경) */
+            .gallery-wrap {
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                z-index: 50;
+            }
+
+            .gallery-scene {
+                position: relative;
+                width: 0;
+                height: 0;
+                cursor: grab;
+            }
+
+            .gallery-scene:active {
+                cursor: grabbing;
+            }
+
+            .gallery-item {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                /* 높이/너비/위치 연산이 많아지므로 하드웨어 가속 적용 */
+                will-change: transform, opacity, width, height;
+                filter: grayscale(100%) contrast(1.1);
+                cursor: pointer;
+                /* 둥근 모서리 등 디테일 추가 시 여기에 작성 */
+            }
+
+            .gallery-item:hover {
+                filter: grayscale(0%) contrast(1);
+            }
+
+            body.is-detail .gallery-scene {
+                cursor: default;
+            }
+
+            .btn-close {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+                cursor: pointer;
+                z-index: 300;
+                opacity: 0;
+                transition:
+                    transform 0.6s cubic-bezier(0.7, 0, 0.3, 1),
+                    opacity 0.6s;
+                pointer-events: none;
+            }
+
+            body.is-detail .btn-close {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+                pointer-events: auto;
+                transition-delay: 0.3s;
+            }
+
+            .btn-close:hover {
+                background: #000;
+                transform: translate(-50%, -50%) scale(1.1) !important;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo" onclick="closeDetail()">ARISTIDE</div>
+            <div class="progress-wrap" id="progress-wrap"></div>
+            <div class="nav-link">ABOUT</div>
+        </header>
+
+        <div class="detail-bg-letters">
+            <span class="bg-char">P</span>
+            <span class="bg-char">&</span>
+            <span class="bg-char">H</span>
+        </div>
+
+        <div class="gallery-wrap">
+            <div class="gallery-scene"></div>
+        </div>
+
+        <div class="detail-meta-wrap">
+            <div class="explore-btn">EXPLORE</div>
+            <div class="meta-grid">
+                <div>COMPLETED</div>
+                <div id="meta-date">MAY 2021</div>
+                <div>TYPE</div>
+                <div id="meta-type">PHOTOGRAPHY</div>
+                <div>ROLE</div>
+                <div id="meta-role">FULLSTACK DEV & MOTION</div>
+                <div>CLIENT</div>
+                <div id="meta-client">PAUL & HENRIETTE</div>
+            </div>
+        </div>
+
+        <div class="btn-close">CLOSE</div>
+
+        <footer class="footer">
+            <div>INDEPENDENT DEVELOPER<br />AVAILABLE APR. 2026</div>
+            <div style="text-align: right">EMAIL<br />INSTAGRAM<br />TWITTER</div>
+        </footer>
+
+        <script>
+            const projects = [
+                {
+                    img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+                    chars: ["P", "&", "H"],
+                    meta: ["MAY 2021", "PHOTOGRAPHY", "FULLSTACK DEV", "PAUL & HENRIETTE"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80",
+                    chars: ["W", "&", "W"],
+                    meta: ["OCT 2022", "E-COMMERCE", "FRONTEND DEV", "WAKA WAKA"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=800&q=80",
+                    chars: ["M", "O", "D"],
+                    meta: ["JAN 2023", "CORPORATE", "UI/UX DESIGN", "MODERN NATURE"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80",
+                    chars: ["W", "I", "N"],
+                    meta: ["DEC 2021", "FASHION", "WEBGL MOTION", "WINTER COLL."],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
+                    chars: ["U", "R", "B"],
+                    meta: ["MAR 2020", "EDITORIAL", "INTERACTION", "URBAN STREETS"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
+                    chars: ["A", "V", "A"],
+                    meta: ["JUL 2022", "PORTFOLIO", "FULLSTACK", "AVANT GARDE"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=800&q=80",
+                    chars: ["V", "I", "N"],
+                    meta: ["SEP 2023", "AGENCY", "FRONTEND DEV", "VINTAGE SOUL"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
+                    chars: ["N", "E", "O"],
+                    meta: ["FEB 2024", "MAGAZINE", "CREATIVE DEV", "NEO CLASSIC"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80",
+                    chars: ["P", "U", "R"],
+                    meta: ["MAY 2024", "BRANDING", "WEBGL DEV", "PURE ESSENCE"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=800&q=80",
+                    chars: ["F", "L", "O"],
+                    meta: ["AUG 2024", "FASHION", "UI/UX DESIGN", "FLORA & CO"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?auto=format&fit=crop&w=800&q=80",
+                    chars: ["A", "R", "T"],
+                    meta: ["OCT 2024", "EDITORIAL", "FRONTEND DEV", "ARTISAN"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1478641300939-010df6124d39?auto=format&fit=crop&w=800&q=80",
+                    chars: ["S", "Y", "N"],
+                    meta: ["DEC 2024", "MUSIC", "WEBGL MOTION", "SYNTHESIS"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=800&q=80",
+                    chars: ["L", "U", "M"],
+                    meta: ["JAN 2025", "BRANDING", "FULLSTACK DEV", "LUMINA"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+                    chars: ["M", "N", "T"],
+                    meta: ["MAR 2025", "AGENCY", "CREATIVE DEV", "MOUNTAIN"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1444464666168-49b626f8a15b?auto=format&fit=crop&w=800&q=80",
+                    chars: ["E", "C", "O"],
+                    meta: ["MAY 2025", "SUSTAINABLE", "FRONTEND DEV", "ECO CENTRIC"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+                    chars: ["T", "E", "C"],
+                    meta: ["JUL 2025", "TECHNOLOGY", "UI/UX DESIGN", "TECHNO LOGIC"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1485230405346-71acb9518d9c?auto=format&fit=crop&w=800&q=80",
+                    chars: ["S", "P", "C"],
+                    meta: ["SEP 2025", "INNOVATION", "WEBGL DEV", "SPACE X"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1520121401995-928fc50cb375?auto=format&fit=crop&w=800&q=80",
+                    chars: ["A", "Q", "U"],
+                    meta: ["NOV 2025", "EXHIBITION", "INTERACTION", "AQUA DEEP"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1510166089176-b57564a5b7d2?auto=format&fit=crop&w=800&q=80",
+                    chars: ["Z", "E", "N"],
+                    meta: ["DEC 2025", "LIFESTYLE", "FULLSTACK", "ZENITH"],
+                },
+                {
+                    img: "https://images.unsplash.com/photo-1518331647614-7a1f04cd34f5?auto=format&fit=crop&w=800&q=80",
+                    chars: ["N", "O", "V"],
+                    meta: ["FEB 2026", "PORTFOLIO", "FRONTEND DEV", "NOVA STUDIO"],
+                },
+            ];
+
+            const scene = document.querySelector(".gallery-scene");
+            const wrap = document.querySelector(".gallery-wrap");
+            const closeBtn = document.querySelector(".btn-close");
+
+            const progWrap = document.getElementById("progress-wrap");
+            let progItems = [];
+            let lastCenterIndex = -1;
+
+            const bgChars = document.querySelectorAll(".bg-char");
+            const mDate = document.getElementById("meta-date");
+            const mType = document.getElementById("meta-type");
+            const mRole = document.getElementById("meta-role");
+            const mClient = document.getElementById("meta-client");
+
+            let items = [];
+
+            // --- 새로운 리스트 라인 형태의 물리 엔진 변수 ---
+            // 이전의 px 기반 scroll이 아닌, '아이템 인덱스' 기준의 가상 스크롤 값 사용 (0.0 ~ 19.0)
+            let scrollIndex = 0;
+            let targetScrollIndex = 0;
+            let lastScrollIndex = 0;
+            let isDragging = false;
+            let startX = 0;
+            let dragScrollOffset = 0;
+
+            // 크기 변수: 화면 밖/가장자리는 좁게(base), 중앙은 넓게(center)
+            let baseW = 0,
+                baseH = 0;
+            let centerW = 0,
+                centerH = 0;
+            let detailW = 0,
+                detailH = 0;
+            let itemGap = 10; // 아이템 간 고정 간격
+
+            let mode = "gallery";
+            let activeIndex = 0;
+            let detailProgress = 0;
+            let targetDetailProgress = 0;
+
+            function init() {
+                calculateLayout();
+                window.addEventListener("resize", calculateLayout);
+
+                projects.forEach((proj, i) => {
+                    const progEl = document.createElement("div");
+                    progEl.classList.add("prog-item");
+                    progEl.innerHTML = `
+                    <div class="prog-line"></div>
+                    <div class="prog-detail-block">
+                        <span class="prog-num">${String(i + 1).padStart(2, "0")}</span>
+                        <div class="prog-box"></div>
+                        <span class="prog-num">${String(projects.length).padStart(2, "0")}</span>
+                    </div>
+                `;
+
+                    progEl.addEventListener("click", () => {
+                        if (mode === "gallery") targetScrollIndex = i;
+                    });
+
+                    progWrap.appendChild(progEl);
+                    progItems.push(progEl);
+
+                    const el = document.createElement("div");
+                    el.classList.add("gallery-item");
+                    el.style.backgroundImage = `url(${proj.img})`;
+
+                    el.addEventListener("click", () => handleItemClick(i));
+                    scene.appendChild(el);
+                    items.push(el);
+                });
+
+                bindEvents();
+                requestAnimationFrame(render);
+            }
+
+            function calculateLayout() {
+                // 사이드 아이템 (얇은 선 형태)
+                baseW = Math.max(30, window.innerWidth * 0.04);
+                baseH = Math.max(300, window.innerHeight * 0.45);
+
+                // 중앙 하이라이트 아이템 (넓게 펼쳐짐)
+                centerW = Math.max(220, window.innerWidth * 0.22);
+                centerH = Math.max(380, window.innerHeight * 0.55);
+
+                // 상세 모드 아이템
+                detailW = window.innerWidth * 0.45;
+                detailH = window.innerHeight * 0.5;
+            }
+
+            function bindEvents() {
+                wrap.addEventListener("wheel", (e) => {
+                    if (mode === "detail") return;
+                    // 마우스 휠 감도 (인덱스 기반이므로 소수점 단위)
+                    targetScrollIndex += Math.sign(e.deltaY) * 0.25;
+                });
+
+                wrap.addEventListener("mousedown", dragStart);
+                window.addEventListener("mousemove", dragMove);
+                window.addEventListener("mouseup", dragEnd);
+
+                wrap.addEventListener("touchstart", (e) => dragStart(e.touches[0]));
+                window.addEventListener("touchmove", (e) => dragMove(e.touches[0]));
+                window.addEventListener("touchend", dragEnd);
+
+                closeBtn.addEventListener("click", closeDetail);
+            }
+
+            function dragStart(e) {
+                if (mode === "detail") return;
+                isDragging = true;
+                startX = e.clientX;
+                dragScrollOffset = targetScrollIndex;
+                scene.style.cursor = "grabbing";
+            }
+
+            function dragMove(e) {
+                if (!isDragging || mode === "detail") return;
+                const delta = startX - e.clientX;
+                // 드래그 거리만큼 가상 스크롤 인덱스 이동
+                targetScrollIndex = dragScrollOffset + delta * 0.005;
+            }
+
+            function dragEnd() {
+                isDragging = false;
+                scene.style.cursor = "grab";
+            }
+
+            function handleItemClick(idx) {
+                if (mode === "detail" || isDragging) return;
+                mode = "detail";
+                activeIndex = idx;
+
+                targetScrollIndex = idx;
+                targetDetailProgress = 1;
+
+                progItems.forEach((el) => {
+                    el.classList.remove("is-current");
+                    el.classList.remove("is-detail-active");
+                });
+                progItems[idx].classList.add("is-detail-active");
+
+                const proj = projects[idx];
+                bgChars[0].innerText = proj.chars[0];
+                bgChars[1].innerText = proj.chars[1];
+                bgChars[2].innerText = proj.chars[2];
+
+                mDate.innerText = proj.meta[0];
+                mType.innerText = proj.meta[1];
+                mRole.innerText = proj.meta[2];
+                mClient.innerText = proj.meta[3];
+
+                document.body.classList.add("is-detail");
+            }
+
+            function closeDetail() {
+                mode = "gallery";
+                targetDetailProgress = 0;
+                document.body.classList.remove("is-detail");
+
+                progItems.forEach((el) => el.classList.remove("is-detail-active"));
+                lastCenterIndex = -1;
+            }
+
+            function render() {
+                const numItems = projects.length;
+
+                // 1. 끝부분 튕기는 탄성(Bounce/Elastic) 효과
+                let maxScroll = numItems - 1;
+                if (targetScrollIndex < 0) targetScrollIndex += (0 - targetScrollIndex) * 0.15;
+                if (targetScrollIndex > maxScroll)
+                    targetScrollIndex += (maxScroll - targetScrollIndex) * 0.15;
+
+                // 2. 관성 스크롤 및 속도(Velocity) 도출
+                scrollIndex += (targetScrollIndex - scrollIndex) * 0.08;
+                detailProgress += (targetDetailProgress - detailProgress) * 0.06;
+
+                let velocity = scrollIndex - lastScrollIndex;
+                lastScrollIndex = scrollIndex;
+
+                // 스크롤 속도에 비례해 아이템이 젤리처럼 휘어지는 '탄력(Skew)' 연산
+                let skewX = velocity * 8;
+                skewX = Math.max(-15, Math.min(15, skewX)); // 각도 제한
+                // 상세 모드 진입 시 스큐 원상복구
+                skewX = skewX * (1 - detailProgress);
+
+                // 3. 프로그레스 바 중앙 하이라이트 갱신
+                let centerIndex = Math.round(scrollIndex);
+                centerIndex = Math.max(0, Math.min(numItems - 1, centerIndex));
+
+                if (mode === "gallery" && centerIndex !== lastCenterIndex) {
+                    if (lastCenterIndex >= 0 && progItems[lastCenterIndex]) {
+                        progItems[lastCenterIndex].classList.remove("is-current");
+                    }
+                    if (progItems[centerIndex]) {
+                        progItems[centerIndex].classList.add("is-current");
+                    }
+                    lastCenterIndex = centerIndex;
+                }
+
+                // 4. 아이템 폭 동적 계산 (중앙일수록 넓어짐)
+                let widths = new Float32Array(numItems);
+                let heights = new Float32Array(numItems);
+
+                for (let i = 0; i < numItems; i++) {
+                    let dist = Math.abs(i - scrollIndex);
+                    // 2개 반경 이내에 들어오면 커지기 시작 (Smoothstep 곡선)
+                    let factor = Math.max(0, 1 - dist / 2.0);
+                    let ease = factor * factor * (3 - 2 * factor);
+
+                    widths[i] = baseW + (centerW - baseW) * ease;
+                    heights[i] = baseH + (centerH - baseH) * ease;
+                }
+
+                // 5. 누적 X 좌표 계산 (아이템들이 완벽히 틈 없이 맞물리도록 밀어냄)
+                let xPos = new Float32Array(numItems);
+                xPos[0] = 0;
+                for (let i = 1; i < numItems; i++) {
+                    xPos[i] = xPos[i - 1] + widths[i - 1] / 2 + widths[i] / 2 + itemGap;
+                }
+
+                // 카메라(뷰포트 중앙) 좌표를 현재 스크롤 인덱스에 맞춰 부드럽게 추적
+                let floorIdx = Math.floor(scrollIndex);
+                let ceilIdx = Math.ceil(scrollIndex);
+                let frac = scrollIndex - floorIdx;
+
+                let clampFloor = Math.max(0, Math.min(numItems - 1, floorIdx));
+                let clampCeil = Math.max(0, Math.min(numItems - 1, ceilIdx));
+                let cameraX = xPos[clampFloor] + (xPos[clampCeil] - xPos[clampFloor]) * frac;
+
+                // 6. 렌더링 적용
+                items.forEach((item, i) => {
+                    // 평면 라인 상의 x 위치
+                    let x = xPos[i] - cameraX;
+                    let w = widths[i];
+                    let h = heights[i];
+                    let opacity = 1;
+                    let grayscale = 100;
+
+                    // [상세 모드 인터랙션 오버라이드]
+                    if (detailProgress > 0) {
+                        if (i === activeIndex) {
+                            x = x * (1 - detailProgress);
+                            w = widths[i] + (detailW - widths[i]) * detailProgress;
+                            h = heights[i] + (detailH - heights[i]) * detailProgress;
+                            grayscale = 100 - 100 * detailProgress;
+                        } else if (i === activeIndex - 1) {
+                            let targetX = -(window.innerWidth * 0.38);
+                            x = x * (1 - detailProgress) + targetX * detailProgress;
+                        } else if (i === activeIndex + 1) {
+                            let targetX = window.innerWidth * 0.38;
+                            x = x * (1 - detailProgress) + targetX * detailProgress;
+                        } else {
+                            opacity = 1 - detailProgress;
+                            // 화면 밖으로 살짝 더 밀어내기
+                            x += Math.sign(i - activeIndex) * (100 * detailProgress);
+                        }
+                    } else {
+                        let fadeDist = window.innerWidth * 0.6;
+                        if (Math.abs(x) > fadeDist) {
+                            opacity = 0;
+                        } else {
+                            opacity = 1 - Math.pow(Math.abs(x) / fadeDist, 2);
+                            if (opacity < 0) opacity = 0;
+                        }
+                    }
+
+                    item.style.width = `${w}px`;
+                    item.style.height = `${h}px`;
+                    // 중심점을 요소 가운데로 맞추기 위한 네거티브 마진
+                    item.style.marginLeft = `${-w / 2}px`;
+                    item.style.marginTop = `${-h / 2}px`;
+
+                    // 3D 회전을 제거하고 translateX와 skewX(탄성)만 적용
+                    item.style.transform = `translateX(${x}px) skewX(${skewX}deg)`;
+                    item.style.opacity = opacity;
+                    item.style.filter = `grayscale(${grayscale}%) contrast(1.1)`;
+                    item.style.visibility = opacity <= 0.01 ? "hidden" : "visible";
+                });
+
+                requestAnimationFrame(render);
+            }
+
+            window.onload = init;
+        </script>
+    </body>
+</html>

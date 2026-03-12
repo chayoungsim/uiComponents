@@ -1,0 +1,19 @@
+@use "../abstracts" as *;
+@use "sass:map";
+
+:root {
+    // 기본 라이트 모드 변수 선언
+    @include generate-theme-variables(map.get($themes, light));
+
+    // 시스템 설정이 다크일 때 자동으로 적용
+    @media (prefers-color-scheme: dark) {
+        // data-theme 속성이 없는 경우에만 시스템 설정을 따름
+        &:not([data-theme]) {
+            @include generate-theme-variables(map.get($themes, dark));
+        }
+    }
+    // 사용자가 수동으로 다크모드 선택 시 (JS로 <html>에 추가)
+    &[data-theme="dark"] {
+        @include generate-theme-variables(map.get($themes, dark));
+    }
+}

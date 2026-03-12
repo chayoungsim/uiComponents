@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marquee Effect</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #efefef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0;
+      height: 10rem;
+      border:1px solid #ddd;
+    }
+
+    .swiper-wrapper {
+      transition-timing-function: linear !important;
+      will-change: transform;
+    }
+    .swiper-slide {
+      width:auto;
+      flex-shrink:0;
+
+      
+      width: 50rem;
+    }
+
+/*gsap*/
+.marquee{
+  overflow:hidden;
+  width:100%;
+}
+
+.marquee-track{
+  display:flex;
+  gap:40px;
+}
+
+.marquee-item{
+  flex-shrink:0;
+  padding:20px 40px;
+  background:#eee;
+  border-radius:8px;
+}
+  </style>
+</head>
+<body>
+  <div class="swiper marquee-carousel" data-speed="10000">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">Slide 1</div>
+      <div class="swiper-slide">Slide 2</div>
+      <div class="swiper-slide">Slide 3</div>
+      <div class="swiper-slide">Slide 4</div>
+      <div class="swiper-slide">Slide 5</div>
+      <div class="swiper-slide">Slide 6</div>
+      <div class="swiper-slide">Slide 7</div>
+      <div class="swiper-slide">Slide 8</div>
+      <div class="swiper-slide">Slide 9</div>
+    </div>
+  </div>
+
+  <div class="swiper reverse-marquee-carousel" data-speed="12500">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        <div class="swiper-slide">Slide 4</div>
+        <div class="swiper-slide">Slide 5</div>
+        <div class="swiper-slide">Slide 6</div>
+        <div class="swiper-slide">Slide 7</div>
+        <div class="swiper-slide">Slide 8</div>
+        <div class="swiper-slide">Slide 9</div>
+      </div>
+  </div>
+
+
+
+
+<script>
+
+  let marqueeCarouselSpeed;
+  if (document.querySelector('.marquee-carousel').dataset.speed) { 
+    marqueeCarouselSpeed = document.querySelector('.marquee-carousel').dataset.speed; 
+  } else { 
+    marqueeCarouselSpeed = 10000; 
+  }
+
+
+  const swiper = new Swiper(".marquee-carousel", {
+    loop: true,
+    speed: marqueeCarouselSpeed,
+    slidesPerView: 'auto',
+    spaceBetween: 0,
+    freeMode: true,
+    freeModeMomentum: false,
+    centeredSlides: true,        
+    allowTouchMove: false,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false,
+    }
+  });
+
+  let reverseMarqueeCarouselSpeed;
+  if (document.querySelector('.reverse-marquee-carousel').dataset.speed) { 
+    reverseMarqueeCarouselSpeed = document.querySelector('.reverse-marquee-carousel').dataset.speed; 
+  } else { 
+    reverseMarqueeCarouselSpeed = 10000; 
+  }
+
+  const swiperRev = new Swiper(".reverse-marquee-carousel", {
+    loop: true,
+    speed: reverseMarqueeCarouselSpeed,
+    slidesPerView: 3,
+    spaceBetween: 0,
+    freeMode: true,
+    freeModeMomentum: false,     
+    allowTouchMove: false,
+    autoplay: {
+      delay: 1,
+      disableOnInteraction: false,        
+      reverseDirection: true,  // FOR REVERSE
+    }
+  });
+
+
+
+const marqueeEl = document.querySelector('.marquee-carousel'); 
+const wrapperEl = marqueeEl.querySelector('.swiper-wrapper')
+
+marqueeEl.addEventListener('mouseenter', () => {
+  swiper.autoplay.stop();
+  swiper.wrapperEl.style.transitionDuration = "0ms";    
+})
+
+marqueeEl.addEventListener('mouseleave', () => {
+  swiper.autoplay.start();
+})
+
+</script>
+
+
+</body>
+</html>

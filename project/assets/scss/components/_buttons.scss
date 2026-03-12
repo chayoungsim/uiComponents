@@ -1,0 +1,94 @@
+@use "../abstracts" as *;
+
+@mixin button-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 
+        background-color 0.2s ease,
+        border-color     0.2s ease,
+        color            0.2s ease,
+        transform        0.1s ease,
+        opacity          0.2s ease;
+}
+
+@mixin button-size($padding-y, $padding-x, $font-size, $height) {
+    padding: $padding-y $padding-x;
+    font-size: $font-size;
+    height: $height;   
+}
+
+@mixin button-variant($bg, $text, $bg-hover, $border: transparent) {
+  background-color: var(--color-#{$bg});
+  color: var(--color-#{$text});
+  //border: 1px solid #{if($border == transparent, transparent, var(--color-#{$border}))};
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-#{$bg-hover});
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+}
+
+.btn {
+    &--primary {
+        @include button-base;
+        @include button-variant(
+            "btn-primary-bg",
+            "btn-primary-text",
+            "btn-primary-bg-hover"
+        );
+        
+    }    
+    &--outline {
+        @include button-base;
+        background-color: transparent;
+        color: color("btn-outline-text");   
+        border: 1px solid color("btn-outline-border");
+
+        &:hover:not(:disabled) {
+            background-color: color("btn-outline-bg-hover");
+            color: color("btn-outline-text-hover");
+        }
+    }
+    &--secondary {
+        @include button-base;
+        @include button-variant(
+            "btn-secondary-bg",
+            "btn-secondary-text",
+            "btn-secondary-bg-hover"
+        );
+    }
+    &--danger {
+        @include button-base;
+        @include button-variant(
+            "btn-danger-bg",
+            "btn-danger-text",
+            "btn-danger-bg-hover"
+        );
+    }
+
+    //Sizes
+    &--sm {
+        @include button-size(0, 0.85rem, 1.2rem, 2rem);
+        border-radius: 0.4rem;
+    }
+    &--md {
+        @include button-size(0, 1.6rem, 1.6rem, 4rem);
+        border-radius: 0.5rem;
+    }
+    &--lg {
+        @include button-size(0, 2rem, 1.6rem, 5rem);
+        border-radius: 0.6rem; 
+    }
+}
+

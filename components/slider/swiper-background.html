@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="../../assets/css/style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+        <style>
+            section {
+                width: 100%;
+                height: 100vh;
+            }
+
+            .carousel {
+                overflow-x: clip;
+            }
+.slider {
+    height: 100%;
+    /* transform: rotate(15deg);  */
+    overflow: visible;
+    top: 10vh;
+}
+.slider__wrapper {
+    transition: var(--transition) !important;
+    will-change: transform;
+}
+.slider__img {
+    will-change: transform;
+    width: 300%;
+    position: absolute;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    left: -100%;
+    transition: var(--transition) !important;
+}
+.slider__item {
+    max-height: 75vh;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.slider__item.opened {
+    z-index: 3;
+    transform: rotate(-15deg) scale(1.5);
+    box-shadow: rgba(0,0,0,.75) 0 0 0 10000px;
+}
+.slider_bg {
+    z-index: 0;
+    /* transform: rotate(-20deg) !important; */
+    top: -90vh;
+    left: -10vh;
+    opacity: .2;
+    filter: blur(140px) saturate(9);
+}
+.slider_bg .slider__item {
+    max-height: 100vh;
+    cursor: default;
+}
+            
+        </style>
+    </head>
+    <body>
+        <section>
+<!-- 참고 : https://codepen.io/dmitrij-rog/pen/JjOLygR -->
+<div class="swiper slider slider_main">
+    <div class="swiper-wrapper slider__wrapper">
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/1.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/2.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/3.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/4.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/5.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/6.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/7.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/8.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/9.jpg);"></div>
+        </div>
+    </div>
+</div>
+
+<div class="swiper slider slider_bg">
+    <div class="swiper-wrapper slider__wrapper">
+
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/1.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/2.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/3.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/4.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/5.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/6.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/7.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/8.jpg);"></div>
+        </div>
+        <div class="swiper-slide slider__item">
+            <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(https://dmitry-rogg.vn.ua/animate-slider/images/9.jpg);"></div>
+        </div>
+
+    </div>
+</div>
+        </section>
+
+<script>
+  const sliderMain = new Swiper('.slider_main', {
+    freeMode: true,
+    centeredSlides: true,
+    mousewheel: true,
+    parallax: true,
+    breakpoints: {
+        0: {
+            slidesPerView: 2.5,
+            spaceBetween: 20
+        },
+        680: {
+            slidesPerView: 3.5,
+            spaceBetween: 60
+        }
+    }
+})
+//filtering this slider under mainSlider filter: blur(140px) saturate(9); transform: rotate(-20deg)
+const sliderBg = new Swiper('.slider_bg', {
+    centeredSlides: true,
+    slidesPerView: 3.5,
+    parallax: true,
+    spaceBetween: 60,
+    allowTouchMove: false,
+})
+
+sliderMain.controller.control = sliderBg
+
+const sliderItems = document.querySelectorAll('.slider__item')
+const desc = document.querySelector('.description')
+
+function removeClass(items,className) {
+    items.forEach(item => {
+        item.classList.remove(className)
+    })
+}
+
+sliderItems.forEach(item => {
+    item.addEventListener('click', e => {
+        if (!item.classList.contains('opened')) removeClass(sliderItems,'opened')
+        item.classList.toggle('opened')
+    })
+})
+
+// sliderMain.on('slideChange', e => {
+//     sliderMain.activeIndex > 0 ? desc.classList.add('hidden') : desc.classList.remove('hidden')
+// })
+</script>
+    </body>
+</html>

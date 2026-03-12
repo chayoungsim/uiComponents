@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="../../assets/css/style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+        <style>
+            section {
+                width: 100%;
+                height: 100vh;
+            }
+
+            .carousel {
+                overflow-x: clip;
+            }
+            .swiper {
+                padding: 5rem 0;
+                overflow: visible;
+            }
+            .swiper-slide {
+                width: 400px;
+                background: transparent;
+            }
+            .single {
+                position: relative;
+                /* pointer-events: none;
+                user-select: none; */
+                box-shadow:
+                    rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+                    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+                    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+                transition: all 0.1s;
+                border-radius: 24px;
+                cursor: pointer;
+            }
+            .single .thumb {
+                width: 100%;
+                height: 500px;
+                border-radius: 24px;
+                overflow: hidden;
+            }
+            .single img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .single::after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 24px;
+                opacity: 0;
+                transition: all 0.5s;
+            }
+
+            .swiper-slide-active .single {
+                position: relative;
+            }
+            .swiper-slide-active .single::after {
+                opacity: 1;
+            }
+
+            section {
+              height: 100vh;
+            }
+            h1 {                
+                text-align: center;
+                padding: 100px 0;
+                font-size: 50px;
+                font-weight: 700;
+            }
+                   
+            .swiper-slide .single:hover::after {
+              opacity: 1;
+            }
+            .intro {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="intro">
+           <p>스크롤을 이동하세요</p>
+        </section>
+        <section class="slider">
+
+            <h1>
+                세상을 밝히는 사랑의 손길,<br />
+                희망조약돌과 함께하는 맞춤형 나눔
+            </h1>
+            <!-- 참고 : https://codepen.io/rogerkuik/pen/OPyyqGE -->
+            <div class="carousel">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=1" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=2" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=3" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=4" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=5" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=6" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=7" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=8" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=9" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=10" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>3</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js"></script>
+
+<script>
+    const multiplier = {
+        translate: 0.3,
+        rotate: 0.02,
+        minScale: 0.85,
+        maxScale: 1,
+    };
+
+    const swiper = new Swiper(".swiper", {
+        slidesPerView: "auto",
+        spaceBetween: 60,
+        centeredSlides: true,
+        loop: false,
+        grabCursor: true,        
+    });
+
+    const slides = document.querySelectorAll(".single");
+
+    slides.forEach(slide => {
+      slide.addEventListener('mouseenter', () => slide.dataset.hovered = 'true');
+      slide.addEventListener('mouseleave', () => slide.dataset.hovered = 'false');
+    });
+
+    function calculateWheel() {
+        
+        slides.forEach((slide, i) => {
+            const rect = slide.getBoundingClientRect(); 
+            const r = window.innerWidth * 0.5 - (rect.x + rect.width * 0.5);
+            
+            let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
+            if (ty < 0) ty = 0;
+
+            const dist = Math.abs(r);
+            const maxDist = window.innerWidth * 0.5;
+            let scale = Math.max(
+                multiplier.minScale,
+                multiplier.maxScale - (dist / maxDist) * 0.3,
+            );
+
+            if (slide.dataset.hovered === 'true') {
+                scale += 0.1; 
+            }
+
+            slide.style.transform = `translate(0, ${ty}px) rotate(${-r * multiplier.rotate}deg) scale(${scale})`;
+            slide.style.transformOrigin = "center bottom";
+
+            
+        });
+    }
+
+    function raf() {
+        requestAnimationFrame(raf);
+        calculateWheel();
+    }
+    raf();
+
+
+    gsap.registerPlugin(ScrollTrigger);
+    let currentSlide = 0;
+    const totalSlides = swiper.slides.length;
+    const tl = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".slider",
+        pin: ".slider",
+        start: "top top",
+        end: "+=3000vh", // 스크롤 길이에 맞게 조정하세요
+        scrub: true,
+        //markers: true, // 배포 시 삭제
+        onUpdate: (self) => {
+            // 3. progress를 기반으로 인덱스 계산 후, 최대 인덱스 범위를 넘지 않도록 방어
+            let updatedIndex = Math.round(self.progress * totalSlides);
+            updatedIndex = Math.min(updatedIndex, totalSlides - 1); 
+
+            if (updatedIndex !== currentSlide) {
+                currentSlide = updatedIndex;
+                swiper.slideTo(currentSlide);
+            }
+        }
+    }
+  });
+
+
+</script>
+    </body>
+</html>

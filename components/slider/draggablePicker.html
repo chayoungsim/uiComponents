@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/Draggable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/InertiaPlugin.min.js"></script>
+
+  <style>
+    * {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  font-family: Roboto, sans-serif;
+  background: #e2e0e0;
+}
+
+main {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-size: 26px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0, 0, 0, 0.92);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+
+  height: 100%;
+  transform-origin: center bottom;
+}
+
+.cell-content {
+}
+
+.picker {
+  position: relative;
+  overflow: hidden;
+  width: 80vw; 
+  height: 90vh;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+  </style>
+</head>
+<body>
+  <main>
+  <div id="picker" class="picker">
+    <div class="cell">
+      <div class="cell-content">Card 1</div>
+    </div>
+    <div class="cell">
+      <div class="cell-content">Card 2</div>
+    </div>
+    <div class="cell">
+      <div class="cell-content">Card 3</div>
+    </div>
+    <div class="cell">
+      <div class="cell-content">Card 4</div>
+    </div>
+    <div class="cell">
+      <div class="cell-content">Card 5</div>
+    </div>
+    <div class="cell">
+      <div class="cell-content">Card 6</div>
+    </div>
+    <div class="cell">
+      <div class="cell-content">Card 7</div>
+    </div>
+    <div class="cell">
+      <div class="cell-content">Card 8</div>
+    </div>
+  </div>
+</main>
+<script>
+  gsap.registerPlugin(Draggable, InertiaPlugin);
+
+gsap.defaults({ ease: "none" });
+
+var picker = document.querySelector(".picker");
+var cells = gsap.utils.toArray(".cell");
+var proxy = document.createElement("div");
+
+var cellWidth = 450;
+//var rotationX = 90;
+
+var numCells = cells.length;
+var cellStep = 1 / numCells;
+var wrapWidth = cellWidth * numCells;
+
+var baseTl = gsap.timeline({ paused: true });
+var wrapProgress = gsap.utils.wrap(0, 1);
+
+gsap.set(picker, {
+  width: wrapWidth - cellWidth
+});
+
+cells.forEach((cell, i) => initCell(cell, i));
+
+var animation = gsap
+  .timeline({ repeat: -1, paused: true })
+  .add(baseTl.tweenFromTo(1, 2, { immediateRender: true }));
+
+var draggable = new Draggable(proxy, {
+  // allowContextMenu: true,
+  type: "x",
+  trigger: picker,
+  inertia: true,
+  onDrag: updateProgress,
+  onThrowUpdate: updateProgress,
+  snap: {
+    x: snapX
+  },
+  onThrowComplete: function () {
+    console.log("onThrowComplete");
+    //TODO: animation that inject selected card title
+  }
+});
+
+function snapX(x) {
+  return Math.round(x / cellWidth) * cellWidth;
+}
+
+function updateProgress() {
+  animation.progress(wrapProgress(this.x / wrapWidth));
+}
+
+function initCell(element, index) {
+  gsap.set(element, {
+    width: cellWidth,
+    scale: 0.6,
+    x: -cellWidth
+  });
+
+  var tl = gsap
+    .timeline({ repeat: 1 })
+    .to(element, { x: "+=" + wrapWidth, duration: 1 }, 0)
+    .to(
+      element,
+      {
+        color: "#009688",
+        duration: cellStep,
+        scale: 1,
+        repeat: 1,
+        yoyo: true
+      },
+      0.5 - cellStep
+    );
+  baseTl.add(tl, index * -cellStep);
+}
+
+</script>
+</body>
+</html>

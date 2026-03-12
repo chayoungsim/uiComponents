@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akaru Clone - Creative Agency</title>
+    
+    <!-- 폰트: 강렬한 타이틀용 Anton, 본문용 Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Lenis & GSAP 라이브러리 로드 -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- 1. Base & Reset --- */
+        :root {
+            --font-display: 'Anton', sans-serif;
+            --font-ui: 'Inter', sans-serif;
+            --transition-color: background-color 0.8s ease, color 0.8s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-ui);
+            background-color: #f4f4f4; /* 초기 배경색 */
+            color: #111111;
+            overflow-x: hidden;
+            transition: var(--transition-color);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 커스텀 커서 */
+        .cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 12px; height: 12px;
+            background-color: currentColor;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference; /* 배경색에 따라 반전 */
+            color: white;
+            transition: width 0.3s, height 0.3s;
+        }
+        
+        .cursor.is-hover {
+            width: 40px; height: 40px;
+            background-color: transparent;
+            border: 1px solid currentColor;
+        }
+
+        /* 공통 유틸리티 */
+        img { width: 100%; height: 100%; object-fit: cover; }
+        .flex-center { display: flex; justify-content: center; align-items: center; }
+
+        /* --- 2. Header --- */
+        .header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 2rem 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+            color: white;
+        }
+        .nav-links { display: flex; gap: 2rem; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; }
+        .nav-links div { cursor: pointer; }
+        
+        /* --- 3. Hero Section (Massive Typography & Parallax) --- */
+        .hero {
+            position: relative;
+            width: 100vw; height: 120vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(8rem, 25vw, 30rem);
+            line-height: 0.8;
+            text-transform: uppercase;
+            z-index: 2;
+            mix-blend-mode: difference;
+            color: white;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            text-align: center;
+            margin-top: 2rem;
+            z-index: 2;
+        }
+
+        /* 비대칭 패럴랙스 이미지들 */
+        .hero-img { position: absolute; z-index: 1; }
+        .hero-img-1 { width: 300px; height: 400px; top: 10%; left: 5%; }
+        .hero-img-2 { width: 450px; height: 300px; bottom: -10%; right: 10%; }
+
+        /* --- 4. Projects Section (Asymmetrical Grid) --- */
+        .projects {
+            position: relative;
+            width: 100vw;
+            padding: 10vh 5vw;
+        }
+
+        .projects-header {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 10vw, 10rem);
+            margin-bottom: 5rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+
+        .grid-item { position: relative; overflow: hidden; }
+        .grid-item-1 { grid-column: 1 / 7; height: 70vh; margin-top: 10vh; }
+        .grid-item-2 { grid-column: 8 / 13; height: 50vh; }
+        .grid-item-3 { grid-column: 3 / 10; height: 80vh; margin-top: 15vh; }
+
+        /* --- 5. Horizontal Scroll Section (Expertises) --- */
+        .expertises-wrap {
+            position: relative;
+            width: 100vw;
+            height: 100vh; /* Pin될 고정 영역 */
+            overflow: hidden;
+        }
+
+        .expertises-container {
+            display: flex;
+            width: 300vw; /* 3개의 패널 */
+            height: 100%;
+        }
+
+        .panel {
+            width: 100vw;
+            height: 100%;
+            padding: 0 5vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-content { width: 40%; }
+        .panel-content h2 { font-family: var(--font-display); font-size: 6rem; margin-bottom: 1rem; }
+        .panel-image { width: 45%; height: 60vh; overflow: hidden; }
+        
+        /* 내부 이미지 패럴랙스 효과용 */
+        .panel-image img { transform: scale(1.2); }
+
+        /* --- 6. Awards / Kinetic Type Section --- */
+        .awards {
+            position: relative;
+            width: 100vw; height: 100vh;
+            display: flex; align-items: center;
+            overflow: hidden;
+        }
+
+        .marquee {
+            white-space: nowrap;
+            font-family: var(--font-display);
+            font-size: 15vw;
+            color: rgba(0, 0, 0, 0.05);
+            -webkit-text-stroke: 2px currentColor;
+            text-transform: uppercase;
+        }
+        
+        .awards-list {
+            position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80%;
+            z-index: 2;
+        }
+
+        .award-item {
+            display: flex; justify-content: space-between;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid currentColor;
+            font-size: 1.2rem; font-weight: 500;
+        }
+
+        /* --- 7. Footer --- */
+        .footer {
+            padding: 5rem;
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 8vw;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 커스텀 커서 -->
+    <div class="cursor"></div>
+
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="nav-links">
+            <div class="hover-target">Projets</div>
+            <div class="hover-target">Expertises</div>
+            <div class="hover-target">Agence</div>
+        </div>
+        <div class="hover-target" style="font-weight: 700; font-size: 1rem;">MENU +</div>
+    </header>
+
+    <main>
+        <!-- 1. Hero 섹션 (초기 화이트 테마) -->
+        <section class="hero" data-color="#f4f4f4" data-text="#111111">
+            <h1 data-speed="0.8">AKARU</h1>
+            <p data-speed="1.1">Nous sommes une agence web à Lyon avec un savoir-faire de précision.</p>
+            
+            <div class="hero-img hero-img-1 hover-target" data-speed="0.5">
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80" alt="Cat">
+            </div>
+            <div class="hero-img hero-img-2 hover-target" data-speed="1.4">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Sneakers">
+            </div>
+        </section>
+
+        <!-- 2. Projects 섹션 (민트톤 테마 변경) -->
+        <section class="projects" data-color="#A5B8A8" data-text="#111111">
+            <h2 class="projects-header" data-speed="0.9">Projets</h2>
+            
+            <div class="grid-container">
+                <div class="grid-item grid-item-1 hover-target" data-speed="1.1">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80" alt="Model">
+                </div>
+                <div class="grid-item grid-item-2 hover-target" data-speed="0.8">
+                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=800&q=80" alt="Design">
+                </div>
+                <div class="grid-item grid-item-3 hover-target" data-speed="1.2">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80" alt="Interior">
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Expertises 섹션 (가로 스크롤 & 피치톤 테마 변경) -->
+        <section class="expertises-wrap" data-color="#E2BCA0" data-text="#111111">
+            <div class="expertises-container">
+                
+                <div class="panel">
+                    <div class="panel-content">
+                        <h2>01<br>Stratégie</h2>
+                        <p>Audit & Benchmark / Positionnement / Image de marque</p>
+                    </div>
+                    <div class="panel-image hover-target">
+                        <img class="horizontal-img" src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1000&q=80" alt="Strategy">
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-content">
+                        <h2>02<br>Design</h2>
+                        <p>Identité Visuelle / UI & UX Design / Direction Artistique</p>
+                    </div>
+                    <div class="panel-image hover-target">
+                        <img class="horizontal-img" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1000&q=80" alt="Design">
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-content">
+                        <h2>03<br>Tech</h2>
+                        <p>Développement WebGL / Headless CMS / E-commerce</p>
+                    </div>
+                    <div class="panel-image hover-target">
+                        <img class="horizontal-img" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=80" alt="Tech">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Awards 섹션 (다크 테마 & 키네틱 타이포) -->
+        <section class="awards" data-color="#111111" data-text="#ffffff">
+            <div class="marquee">
+                <div class="marquee-inner">
+                    FWA SITE OF THE DAY - AWWWARDS SITE OF THE DAY - DEV AWARD - 
+                </div>
+            </div>
+            
+            <div class="awards-list">
+                <div class="award-item hover-target">
+                    <span>SITE OF THE DAY</span>
+                    <span>UBAC SHOES</span>
+                    <span>2024</span>
+                </div>
+                <div class="award-item hover-target">
+                    <span>DEVELOPER AWARD</span>
+                    <span>AKARU PORTFOLIO</span>
+                    <span>2023</span>
+                </div>
+                <div class="award-item hover-target">
+                    <span>MOBILE EXCELLENCE</span>
+                    <span>JORDA GROUP</span>
+                    <span>2022</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer" data-color="#f4f4f4" data-text="#111111">
+            LET'S WORK TOGETHER.
+        </footer>
+    </main>
+
+    <script>
+        // --- 1. 스무스 스크롤 (Lenis) 설정 ---
+        const lenis = new Lenis({
+            duration: 1.2, // 스크롤 감속 시간
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // 관성 곡선
+            smooth: true
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // GSAP과 Lenis 연동
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0, 0);
+
+        // --- 2. 커스텀 커서 애니메이션 ---
+        const cursor = document.querySelector('.cursor');
+        const hoverTargets = document.querySelectorAll('.hover-target');
+
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.15, ease: "power2.out" });
+        });
+
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+        });
+
+        // --- 3. 다이내믹 컬러 전환 (배경 및 텍스트 색상) ---
+        const colorSections = document.querySelectorAll('[data-color]');
+        
+        colorSections.forEach(section => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top 50%", // 섹션의 상단이 화면의 50% 지점을 지날 때 색상 변경
+                end: "bottom 50%",
+                onEnter: () => changeTheme(section),
+                onEnterBack: () => changeTheme(section)
+            });
+        });
+
+        function changeTheme(section) {
+            gsap.to('body', {
+                backgroundColor: section.dataset.color,
+                color: section.dataset.text,
+                duration: 0.8,
+                overwrite: "auto"
+            });
+        }
+
+        // --- 4. 다중 속도 패럴랙스 (Y축 이동) ---
+        const parallaxElements = document.querySelectorAll('[data-speed]');
+        
+        parallaxElements.forEach(el => {
+            const speed = parseFloat(el.dataset.speed);
+            // speed가 1보다 크면 스크롤보다 빨리 올라가고, 작으면 느리게 올라감
+            const yMovement = (1 - speed) * 300; 
+            
+            gsap.to(el, {
+                y: yMovement,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true // 스크롤에 맞춰 애니메이션 동기화
+                }
+            });
+        });
+
+        // --- 5. 가로 스크롤 (Pinned Horizontal Scroll) ---
+        const horizontalWrap = document.querySelector('.expertises-wrap');
+        const horizontalContainer = document.querySelector('.expertises-container');
+        
+        // 전체 가로 스크롤 거리 계산
+        let horizontalScrollLength = horizontalContainer.scrollWidth - window.innerWidth;
+
+        let hTween = gsap.to(horizontalContainer, {
+            x: -horizontalScrollLength,
+            ease: "none",
+            scrollTrigger: {
+                trigger: horizontalWrap,
+                pin: true, // 섹션 화면 고정
+                scrub: 1, // 1초 딜레이로 부드러운 동기화
+                end: () => "+=" + horizontalScrollLength, // 가로 너비만큼 스크롤해야 끝남
+                invalidateOnRefresh: true
+            }
+        });
+
+        // 가로 스크롤 내부 이미지 역방향 패럴랙스 (패널이 왼쪽으로 갈 때 이미지는 오른쪽으로)
+        const hImages = document.querySelectorAll('.horizontal-img');
+        hImages.forEach(img => {
+            gsap.to(img, {
+                x: 100, // 반대 방향으로 이동
+                ease: "none",
+                scrollTrigger: {
+                    trigger: horizontalWrap,
+                    start: "top top",
+                    end: () => "+=" + horizontalScrollLength,
+                    scrub: true
+                }
+            });
+        });
+
+        // --- 6. 키네틱 타이포그래피 (무한 흐름 텍스트) ---
+        const marquee = document.querySelector('.marquee-inner');
+        
+        gsap.to(marquee, {
+            xPercent: -50, // 왼쪽으로 절반 이동
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".awards",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.5 // 스크롤에 반응하여 움직임
+            }
+        });
+
+    </script>
+</body>
+</html>

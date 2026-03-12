@@ -1,0 +1,35 @@
+@use "sass:map";
+@use "sass:math";
+
+
+
+@function fluid($min-size, $max-size, $min-vw: 36, $max-vw: 144) {
+    // 단위 제거 (순수 수치 계산을 위해)
+    $min-size-val: math.div($min-size, $min-size * 0 + 1);
+    $max-size-val: math.div($max-size, $max-size * 0 + 1);
+    $min-vw-val: math.div($min-vw, $min-vw * 0 + 1);
+    $max-vw-val: math.div($max-vw, $max-vw * 0 + 1);
+
+    // 기울기 계산: (최대크기 - 최소크기) / (최대뷰포트 - 최소뷰포트)
+    $slope: math.div($max-size-val - $min-size-val, $max-vw-val - $min-vw-val);
+
+    // y절편 계산: 최소크기 - (기울기 * 최소뷰포트)
+    $y-intercept: $min-size-val - ($slope * $min-vw-val);
+
+    // 결과 생성
+    // slope * 100은 vw 단위로 변환됨
+    $slope-vw: $slope * 100;
+
+    @return clamp(
+        #{$min-size-val}rem,
+        calc(#{$y-intercept}rem + #{$slope-vw}vw),
+        #{$max-size-val}rem
+    );
+}
+
+// CSS 변수 이름을 쉽게 생성하고 반환하는 함수
+@function color($name) {
+    @return var(--color-#{$name});
+}
+
+

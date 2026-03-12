@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="../../assets/css/style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+        <style>
+            section {
+                width: 100%;
+                height: 100vh;
+            }
+
+            .carousel {
+                overflow-x: clip;
+            }
+            
+            .swiper .swiper-slide {
+                width: 297px;
+                padding: 30px 0;
+                transform: scale(0.75);
+                transition: 0.3s;
+                background: transparent;
+            }
+            .single {
+                
+                width: 276px;
+                /* padding: 25px 30px 30px; */
+                border-radius: 48px;
+                background: linear-gradient(
+                  135deg,
+                  hsl(25 98% 70%),
+                  hsl(23.9645 96.8689% 69.7096%),
+                  hsl(21.0027 93.4957% 68.9107%),
+                  hsl(16.5084 88.0997% 67.7756%),
+                  hsl(11.099 81.428% 66.5035%),
+                  hsl(5.69633 74.8663% 65.3092%),
+                  hsl(1.56759 70.0643% 64.439%),
+                  hsl(0.00000265346 68.306% 64.1176%)
+                );
+                transition: 0.3s;
+            }
+            .single .thumb {
+                width: 100%;
+                height: 100%;
+                border-radius: 24px;
+                overflow: hidden;
+            }
+            .single img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .single::after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 24px;
+                opacity: 0;
+                transition: all 0.5s;
+            }
+
+            .swiper-slide-active .single {
+                position: relative;
+            }
+            .swiper-slide-active .single::after {
+                opacity: 1;
+            }
+
+            h1 {
+                text-align: center;
+                padding: 100px 0;
+                font-size: 50px;
+                font-weight: 700;
+            }
+
+            .swiper .swiper-slide-active {
+              animation-name: elastic1;
+              animation-duration: 0.6s;
+              animation-fill-mode: forwards;
+              animation-timing-function: ease-in-out;
+            }
+            .swiper .swiper-slide-active {
+              animation-name: elastic1_sp;
+            }
+            .swiper-slide:nth-child(even) .single {
+              transform: rotate(-5deg);
+            }
+            .swiper-slide:nth-child(odd) .single {
+              transform: rotate(5deg);
+            }
+
+ @keyframes elastic1 {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.4);
+  }
+
+  55% {
+    transform: scale(1.27);
+  }
+
+  70% {
+    transform: scale(1.36);
+  }
+
+  85% {
+    transform: scale(1.31);
+  }
+
+  100% {
+    transform: scale(1.33);
+  }
+}
+
+@keyframes elastic1_sp {
+  0% {
+    transform: scale(0.75);
+  }
+
+  40% {
+    transform: scale(1.05);
+  }
+
+  55% {
+    transform: scale(0.95);
+  }
+
+  70% {
+    transform: scale(1.02);
+  }
+
+  85% {
+    transform: scale(0.98);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+        </style>
+    </head>
+    <body>
+        <section>
+            <h1>
+                세상을 밝히는 사랑의 손길,<br />
+                희망조약돌과 함께하는 맞춤형 나눔
+            </h1>
+            <!-- 참고 : https://codepen.io/nguyenanhtuan/pen/gOqWjNO -->
+             <!-- https://www.nagoyatv.com/saiyo/ -->
+            <div class="carousel">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=1" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=2" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=3" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=4" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=5" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=6" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=7" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=8" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=9" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single">
+                                <div class="thumb">
+                                    <img src="https://picsum.photos/800/1200?random=10" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+          
+
+            const swiper = new Swiper('.swiper', {
+              loop: true, 
+              slidesPerView: "auto",
+              centeredSlides: true,
+              autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+              },
+              observeParents: !0,
+              observer: !0
+            });
+            
+        </script>
+    </body>
+</html>

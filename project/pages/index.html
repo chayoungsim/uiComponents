@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="format-detection" content="telephone=no, email=no, date=no, address=no" />
+        <title>Document</title>
+        <link rel="stylesheet" href="../assets/css/style.min.css" />
+    </head>
+    <body>
+        <p id="accessibility"><a href="#container">본문바로가기</a></p>
+        <div id="wrap">
+            <header class="header">
+                <div class="header__inner inner-wrapper">
+                    <h1 class="header__logo">
+                        <a href="/" aria-label="홈으로 이동">
+                            <!-- <img src="logo.svg" alt="기업 로고" class="header__logo-img"> -->
+                        </a>
+                    </h1>
+
+                    <nav class="header__nav" aria-label="주 메뉴">
+                        <ul class="header__menu">
+                            <li class="header__item">
+                                <a href="#" class="header__link">회사소개</a>
+                            </li>
+                            <li class="header__item">
+                                <a href="#" class="header__link">사업영역</a>
+                            </li>
+                            <li class="header__item">
+                                <a href="#" class="header__link">인재채용</a>
+                            </li>
+                            <li class="header__item">
+                                <a href="#" class="header__link">고객지원</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="header__util">
+                        <button
+                            type="button"
+                            class="header__btn header__btn--sitemap"
+                            aria-label="사이트맵 열기"
+                        >
+                            <span></span><span></span><span></span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="header__btn header__btn--mobile"
+                            aria-label="모바일 메뉴 열기"
+                        >
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                        <button type="button" class="theme">Dark</button>
+                    </div>
+                </div>
+            </header>
+            <div id="container">
+                <main class="main" role="main" style="padding-top: 20rem">
+                    <button type="button" class="btn--primary">기본</button>
+                    <button type="button" class="btn--primary btn--sm">기본</button>
+                    <button type="button" class="btn--primary btn--md">기본</button>
+                    <button type="button" class="btn--primary btn--lg">기본</button>
+                </main>
+            </div>
+            <footer id="footer">
+                <div class="footer__inner">
+                    <div class="footer__copyright"></div>
+                </div>
+            </footer>
+        </div>
+
+        <script>
+            const themeToggle = () => {
+                const html = document.documentElement;
+                const themeBtn = document.querySelector(".theme");
+
+                // 현재 테마를 확인하고 data-theme 속성을 토글합니다.
+                if (html.hasAttribute("data-theme")) {
+                    html.removeAttribute("data-theme");
+                    themeBtn.textContent = "Dark"; // 버튼 텍스트 변경
+                } else {
+                    html.setAttribute("data-theme", "dark");
+                    themeBtn.textContent = "Light"; // 버튼 텍스트 변경
+                }
+            };
+            document.querySelector(".theme").addEventListener("click", themeToggle);
+        </script>
+
+        <script>
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            // 문제 1) 짝수만 뽑아봐
+            // filter 메서드는 콜백 함수가 true를 반환하는 모든 요소를 모아 새 배열을 만듭니다.
+            const evenNumbers = numbers.filter((num) => num % 2 === 0);
+            console.log("문제 1 (짝수):", evenNumbers); // 결과: [2, 4, 6, 8, 10]
+
+            // 문제 2) 5보다 큰 것만 뽑아봐
+            const greaterThanFive = numbers.filter((num) => num > 5);
+            console.log("문제 2 (5보다 큰 수):", greaterThanFive); // 결과: [6, 7, 8, 9, 10]
+
+            // 문제 3) 3의 배수만 뽑아봐
+            const multiplesOfThree = numbers.filter((num) => num % 3 === 0);
+            console.log("문제 3 (3의 배수):", multiplesOfThree); // 결과: [3, 6, 9]
+
+            const users = [
+              { name: "김철수", age: 28, active: true },
+              { name: "이영희", age: 17, active: false },
+              { name: "박민준", age: 34, active: true },
+            ];
+
+            // 문제 4) active가 true인 유저만 뽑아봐
+            const activeUsers = users.filter((user) => user.active);
+            console.log("문제 4 (활성화된 유저):", activeUsers); // 결과:
+
+            // 문제 5) 나이가 20 이상인 유저만 뽑아봐
+            const usersOver20 = users.filter((user) => user.age >= 20);
+            console.log("문제 5 (나이가 20 이상인 유저):", usersOver20); // 결과:
+
+            //1-1
+            // function add(a,b) {
+            //   return a+b;
+            // }
+            // console.log(add(2,3))
+            // console.log(add(10,20))
+
+            //1-2
+            function greet(name) {
+              return `안녕하세요, ${name}님!`
+            }
+            console.log(greet("철수"))
+            console.log(greet("영희"))
+
+            //1-3 
+            function checkNumber(num) {
+               if(num%2 === 0) {
+                 return "짝수"
+               } else {
+                 return "홀수"
+               }
+            }
+            console.log(checkNumber(4))
+            console.log(checkNumber(7))
+
+            //1-4
+            const add = (a,b) => a+b; 
+            console.log(add(2,3))
+            console.log(add(10,20))
+
+            const greet = (name) => `안녕하세요, ${name}님!`;
+            console.log(greet("철수"))
+            console.log(greet("영희"))
+
+            const checkNumber = (num) => (
+              num % 2 === 0 ? "짝수" : "홀수"
+            )
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aristide Benoist - WebGL Version</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Three.js 라이브러리 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* --- 1. Base & UI Overlay Styles --- */
+        :root {
+            --bg-color: #111111;
+            --text-color: #ffffff;
+            --font-ui: 'Inter', sans-serif;
+            --font-display: 'Anton', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-ui);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* WebGL 캔버스를 배경으로 고정 */
+        #webgl-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            /* 캔버스 터치 액션 제어 */
+            touch-action: none; 
+        }
+
+        /* UI 레이어 (WebGL 위에 얹힘) */
+        .ui-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 10;
+            pointer-events: none; /* 클릭 이벤트를 WebGL Canvas로 통과시킴 */
+        }
+
+        /* Header UI */
+        .header {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference; 
+            color: white;
+        }
+
+        .logo, .nav-link { pointer-events: auto; }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Progress Bar UI */
+        .progress-wrap {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+            pointer-events: auto;
+        }
+
+        .prog-item { display: flex; align-items: center; cursor: pointer; }
+
+        .prog-line {
+            width: 1px; height: 10px;
+            background-color: currentColor;
+            opacity: 0.25;
+            transition: opacity 0.3s, height 0.3s, margin 0.3s, width 0.3s;
+        }
+
+        .prog-item.is-current .prog-line { opacity: 1; height: 16px; }
+
+        .prog-detail-block {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.65rem; letter-spacing: 1px;
+            white-space: nowrap; overflow: hidden;
+            max-width: 0; opacity: 0;
+            transition: max-width 0.5s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.5s;
+        }
+
+        .prog-box {
+            width: 16px; height: 10px; border: 1px solid currentColor; opacity: 0.8;
+        }
+
+        .is-detail .prog-item.is-detail-active .prog-line { width: 0; opacity: 0; margin: 0; }
+        .is-detail .prog-item.is-detail-active .prog-detail-block { max-width: 120px; opacity: 1; margin: 0 6px; }
+
+        /* Footer UI */
+        .footer {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            mix-blend-mode: difference;
+            color: white;
+            line-height: 1.6;
+        }
+
+        /* Detail Mode Background Letters */
+        .detail-bg-letters {
+            position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100vw; display: flex; justify-content: space-between;
+            padding: 0 10vw;
+            font-family: var(--font-display);
+            font-size: clamp(8rem, 28vw, 35rem);
+            color: #1a1a1a;
+            z-index: -1; /* WebGL 뒤쪽이 아닌 캔버스 투명도를 통해 보이게 설정할 것임 */
+            opacity: 0; transition: opacity 0.5s;
+        }
+        .is-detail .detail-bg-letters { opacity: 1; transition-delay: 0.2s; }
+
+        /* Detail Meta UI */
+        .detail-meta-wrap {
+            position: absolute;
+            bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: flex-end; gap: 4vw;
+            opacity: 0; transition: opacity 0.5s;
+            mix-blend-mode: difference; color: white;
+            pointer-events: none;
+        }
+        .is-detail .detail-meta-wrap { opacity: 1; transition-delay: 0.4s; pointer-events: auto; }
+
+        .explore-btn {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 10px; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px;
+        }
+        .explore-btn::after { content: ''; width: 1px; height: 30px; background-color: currentColor; }
+
+        .meta-grid {
+            display: grid; grid-template-columns: auto auto;
+            column-gap: 3rem; row-gap: 0.4rem; font-size: 0.6rem; letter-spacing: 1px;
+        }
+        .meta-grid div:nth-child(odd) { opacity: 0.6; }
+
+        /* Close Button */
+        .btn-close {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 80px; height: 80px; border-radius: 50%;
+            background: rgba(0,0,0,0.8); color: white;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 0.75rem; letter-spacing: 1px;
+            cursor: pointer; opacity: 0; pointer-events: auto;
+            transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.6s;
+        }
+        .is-detail .btn-close { transform: translate(-50%, -50%) scale(1); opacity: 1; transition-delay: 0.3s; }
+        .btn-close:hover { background: #000; transform: translate(-50%, -50%) scale(1.1); }
+
+        /* 로딩 텍스트 */
+        .loading {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-family: var(--font-display); font-size: 2rem; color: white; z-index: 999;
+            transition: opacity 0.5s; pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading -->
+    <!-- <div class="loading" id="loading">LOADING TEXTURES...</div> -->
+
+    <!-- WebGL Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- UI Overlay Layer -->
+    <div class="ui-layer" id="ui-layer">
+        
+        <!-- Detail Background Text -->
+        <div class="detail-bg-letters">
+            <span class="bg-char">P</span>
+            <span class="bg-char">&</span>
+            <span class="bg-char">H</span>
+        </div>
+
+        <header class="header">
+            <div class="logo" onclick="closeDetail()">ARISTIDE</div>
+            <div class="progress-wrap" id="progress-wrap"></div>
+            <div class="nav-link">ABOUT</div>
+        </header>
+
+        <div class="detail-meta-wrap">
+            <div class="explore-btn">EXPLORE</div>
+            <div class="meta-grid">
+                <div>COMPLETED</div><div id="meta-date">MAY 2021</div>
+                <div>TYPE</div><div id="meta-type">PHOTOGRAPHY</div>
+                <div>ROLE</div><div id="meta-role">FULLSTACK DEV & MOTION</div>
+                <div>CLIENT</div><div id="meta-client">PAUL & HENRIETTE</div>
+            </div>
+        </div>
+
+        <div class="btn-close" id="btn-close">CLOSE</div>
+
+        <footer class="footer">
+            <div>INDEPENDENT DEVELOPER<br>AVAILABLE APR. 2026</div>
+            <div style="text-align: right;">EMAIL<br>INSTAGRAM<br>TWITTER</div>
+        </footer>
+    </div>
+
+    <script>
+        // --- 1. Data Setup ---
+        const projects = [
+            { img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80", chars: ['P', '&', 'H'], meta: ['MAY 2021', 'PHOTOGRAPHY', 'FULLSTACK DEV', 'PAUL & HENRIETTE'] },
+            { img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80", chars: ['W', '&', 'W'], meta: ['OCT 2022', 'E-COMMERCE', 'FRONTEND DEV', 'WAKA WAKA'] },
+            { img: "https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=800&q=80", chars: ['M', 'O', 'D'], meta: ['JAN 2023', 'CORPORATE', 'UI/UX DESIGN', 'MODERN NATURE'] },
+            { img: "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80", chars: ['W', 'I', 'N'], meta: ['DEC 2021', 'FASHION', 'WEBGL MOTION', 'WINTER COLL.'] },
+            { img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80", chars: ['U', 'R', 'B'], meta: ['MAR 2020', 'EDITORIAL', 'INTERACTION', 'URBAN STREETS'] },
+            { img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80", chars: ['A', 'V', 'A'], meta: ['JUL 2022', 'PORTFOLIO', 'FULLSTACK', 'AVANT GARDE'] },
+            { img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=800&q=80", chars: ['V', 'I', 'N'], meta: ['SEP 2023', 'AGENCY', 'FRONTEND DEV', 'VINTAGE SOUL'] },
+            { img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80", chars: ['N', 'E', 'O'], meta: ['FEB 2024', 'MAGAZINE', 'CREATIVE DEV', 'NEO CLASSIC'] },
+            { img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80", chars: ['P', 'U', 'R'], meta: ['MAY 2024', 'BRANDING', 'WEBGL DEV', 'PURE ESSENCE'] },
+            { img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=800&q=80", chars: ['F', 'L', 'O'], meta: ['AUG 2024', 'FASHION', 'UI/UX DESIGN', 'FLORA & CO'] },
+            { img: "https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?auto=format&fit=crop&w=800&q=80", chars: ['A', 'R', 'T'], meta: ['OCT 2024', 'EDITORIAL', 'FRONTEND DEV', 'ARTISAN'] },
+            { img: "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80", chars: ['S', 'Y', 'N'], meta: ['DEC 2024', 'MUSIC', 'WEBGL MOTION', 'SYNTHESIS'] },
+            { img: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=800&q=80", chars: ['L', 'U', 'M'], meta: ['JAN 2025', 'BRANDING', 'FULLSTACK DEV', 'LUMINA'] },
+            { img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80", chars: ['M', 'N', 'T'], meta: ['MAR 2025', 'AGENCY', 'CREATIVE DEV', 'MOUNTAIN'] },
+            { img: "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80", chars: ['E', 'C', 'O'], meta: ['MAY 2025', 'SUSTAINABLE', 'FRONTEND DEV', 'ECO CENTRIC'] },
+            { img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80", chars: ['T', 'E', 'C'], meta: ['JUL 2025', 'TECHNOLOGY', 'UI/UX DESIGN', 'TECHNO LOGIC'] },
+            { img: "https://images.unsplash.com/photo-1485230405346-71acb9518d9c?auto=format&fit=crop&w=800&q=80", chars: ['S', 'P', 'C'], meta: ['SEP 2025', 'INNOVATION', 'WEBGL DEV', 'SPACE X'] },
+            { img: "https://images.unsplash.com/photo-1520121401995-928fc50cb375?auto=format&fit=crop&w=800&q=80", chars: ['A', 'Q', 'U'], meta: ['NOV 2025', 'EXHIBITION', 'INTERACTION', 'AQUA DEEP'] },
+            { img: "https://images.unsplash.com/photo-1510166089176-b57564a5b7d2?auto=format&fit=crop&w=800&q=80", chars: ['Z', 'E', 'N'], meta: ['DEC 2025', 'LIFESTYLE', 'FULLSTACK', 'ZENITH'] },
+            { img: "https://images.unsplash.com/photo-1518331647614-7a1f04cd34f5?auto=format&fit=crop&w=800&q=80", chars: ['N', 'O', 'V'], meta: ['FEB 2026', 'PORTFOLIO', 'FRONTEND DEV', 'NOVA STUDIO'] }
+        ];
+
+        // --- 2. Custom GLSL Shader ---
+        // 이미지를 흑백으로 만들고, 스크롤 속도에 맞춰 기하학적으로 휘어지게(Skew) 만드는 핵심 마법입니다.
+        const vertexShader = `
+            uniform float uSkew;
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                vec3 pos = position;
+                // 스크롤 속도(uSkew)에 비례하여 Y축을 기준으로 X축이 어긋남 (탄력 효과)
+                pos.x += pos.y * uSkew;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            uniform sampler2D uTexture;
+            uniform float uGrayscale; // 0.0(컬러) ~ 1.0(흑백)
+            uniform float uOpacity;
+            varying vec2 vUv;
+            void main() {
+                vec4 texColor = texture2D(uTexture, vUv);
+                
+                // RGB를 흑백 밝기로 변환하는 공식
+                float gray = dot(texColor.rgb, vec3(0.299, 0.587, 0.114));
+                
+                // 원본 컬러와 흑백 컬러를 uGrayscale 비율에 따라 섞음(mix)
+                vec3 finalColor = mix(texColor.rgb, vec3(gray), uGrayscale);
+                
+                gl_FragColor = vec4(finalColor, texColor.a * uOpacity);
+            }
+        `;
+
+        // --- 3. WebGL & UI Setup ---
+        let scene, camera, renderer;
+        let meshes = []; // 3D 평면(이미지) 배열
+        
+        // 렌더링 물리 변수
+        let scrollIndex = 0;         
+        let targetScrollIndex = 0;   
+        let lastScrollIndex = 0;
+        let isDragging = false;
+        let startX = 0;
+        let dragScrollOffset = 0;
+
+        // 레이아웃 크기 (CSS px와 1:1 매칭되는 3D 단위)
+        let baseW = 0, baseH = 0;
+        let centerW = 0, centerH = 0;
+        let detailW = 0, detailH = 0;
+        let itemGap = 10; 
+
+        // 상태
+        let mode = 'gallery'; 
+        let activeIndex = 0;  
+        let detailProgress = 0;
+        let targetDetailProgress = 0;
+
+        // UI DOM
+        const uiLayer = document.getElementById('ui-layer');
+        const progWrap = document.getElementById('progress-wrap');
+        const btnClose = document.getElementById('btn-close');
+        const bgChars = document.querySelectorAll('.bg-char');
+        let progItems = [];
+        let lastCenterIndex = -1;
+
+        // --- 4. Initialization ---
+        function init() {
+            // 4-1. Three.js 기본 무대 설정
+            const canvas = document.getElementById('webgl-canvas');
+            scene = new THREE.Scene();
+            
+            // 시야각 45도 카메라
+            const fov = 45;
+            camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 1, 3000);
+            
+            // 핵심: 3D 공간의 1단위가 실제 화면의 1픽셀과 일치하도록 카메라 거리를 계산
+            camera.position.z = window.innerHeight / (2 * Math.tan((fov * Math.PI / 180) / 2));
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // 최적화
+            // 갤러리 모드일 때의 배경색
+            renderer.setClearColor(0x111111);
+
+            calculateLayout();
+
+            // 4-2. 텍스처 로드 및 Mesh 생성
+            const textureLoader = new THREE.TextureLoader();
+            textureLoader.setCrossOrigin('anonymous'); // 외부 이미지 CORS 해결
+
+            let loadedCount = 0;
+            const geometry = new THREE.PlaneGeometry(1, 1, 32, 32); // 기본 1x1 뼈대, 세그먼트를 쪼개야 skew가 부드러움
+
+            projects.forEach((proj, i) => {
+                // UI 프로그레스 생성
+                createProgressUI(i);
+
+                // 3D 머티리얼(피부/옷) 생성 - 방금 만든 커스텀 셰이더 적용
+                const material = new THREE.ShaderMaterial({
+                    vertexShader,
+                    fragmentShader,
+                    uniforms: {
+                        uTexture: { value: null },
+                        uGrayscale: { value: 1.0 }, // 처음엔 완전 흑백
+                        uOpacity: { value: 0.0 },
+                        uSkew: { value: 0.0 }
+                    },
+                    transparent: true // 투명도 처리 허용
+                });
+
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.userData.index = i; // 클릭 시 식별용
+                scene.add(mesh);
+                meshes.push(mesh);
+
+                // 텍스처 비동기 로딩
+                textureLoader.load(proj.img, (texture) => {
+                    texture.generateMipmaps = true;
+                    texture.minFilter = THREE.LinearMipmapLinearFilter;
+                    mesh.material.uniforms.uTexture.value = texture;
+                    
+                    loadedCount++;
+                    if(loadedCount === projects.length) {
+                        document.getElementById('loading').style.opacity = '0'; // 로딩 완료
+                    }
+                });
+            });
+
+            // 이벤트 바인딩
+            bindEvents();
+            window.addEventListener('resize', onWindowResize);
+
+            // 렌더링 루프 시작
+            requestAnimationFrame(render);
+        }
+
+        // UI 생성 도우미
+        function createProgressUI(i) {
+            const progEl = document.createElement('div');
+            progEl.classList.add('prog-item');
+            progEl.innerHTML = `
+                <div class="prog-line"></div>
+                <div class="prog-detail-block">
+                    <span class="prog-num">${String(i + 1).padStart(2, '0')}</span>
+                    <div class="prog-box"></div>
+                    <span class="prog-num">${String(projects.length).padStart(2, '0')}</span>
+                </div>
+            `;
+            progEl.addEventListener('click', () => { if (mode === 'gallery') targetScrollIndex = i; });
+            progWrap.appendChild(progEl);
+            progItems.push(progEl);
+        }
+
+        function calculateLayout() {
+            baseW = Math.max(30, window.innerWidth * 0.04); 
+            baseH = Math.max(300, window.innerHeight * 0.45); 
+            centerW = Math.max(220, window.innerWidth * 0.22);
+            centerH = Math.max(380, window.innerHeight * 0.55);
+            detailW = window.innerWidth * 0.45; 
+            detailH = window.innerHeight * 0.5;
+        }
+
+        // 브라우저 크기 변경 대응
+        function onWindowResize() {
+            calculateLayout();
+            const fov = 45;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.position.z = window.innerHeight / (2 * Math.tan((fov * Math.PI / 180) / 2));
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- 5. Interactions (이벤트 제어) ---
+        function bindEvents() {
+            const canvas = renderer.domElement;
+            
+            // 휠 및 드래그 스크롤
+            window.addEventListener('wheel', (e) => {
+                if (mode === 'detail') {
+                    // 상세 모드일 때 휠 스크롤 감지 시 닫기
+                    if (Math.abs(e.deltaY) > 5) closeDetail();
+                }
+                targetScrollIndex += Math.sign(e.deltaY) * 0.25; 
+            });
+
+            canvas.addEventListener('mousedown', dragStart);
+            window.addEventListener('mousemove', dragMove);
+            window.addEventListener('mouseup', dragEnd);
+
+            canvas.addEventListener('touchstart', (e) => dragStart(e.touches[0]));
+            window.addEventListener('touchmove', (e) => dragMove(e.touches[0]));
+            window.addEventListener('touchend', dragEnd);
+
+            // 3D 객체 클릭 감지를 위한 Raycaster (레이저빔)
+            const raycaster = new THREE.Raycaster();
+            const mouse = new THREE.Vector2();
+
+            canvas.addEventListener('click', (e) => {
+                if (mode === 'detail' || isDragging) return;
+                
+                // 마우스 좌표를 -1 ~ +1 사이의 WebGL 좌표계로 변환
+                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+                raycaster.setFromCamera(mouse, camera);
+                // 광선에 맞은 Mesh 찾기
+                const intersects = raycaster.intersectObjects(meshes);
+                if (intersects.length > 0) {
+                    handleItemClick(intersects[0].object.userData.index);
+                }
+            });
+
+            btnClose.addEventListener('click', closeDetail);
+        }
+
+        function dragStart(e) {
+            isDragging = true;
+            startX = e.clientX;
+            dragScrollOffset = targetScrollIndex;
+            
+            // 상세 모드가 아닐 때만 커서 변경 (상세 모드에선 클릭/스와이프 전까지 기본 커서 유지)
+            if (mode !== 'detail') {
+                document.body.style.cursor = 'grabbing';
+            }
+        }
+
+        function dragMove(e) {
+            if (!isDragging) return;
+            const delta = startX - e.clientX;
+            
+            if (mode === 'detail') {
+                // 상세 모드에서 20px 이상 스와이프/드래그 감지 시 닫기
+                if (Math.abs(delta) > 20) {
+                    closeDetail();
+                    // 닫히면서 갤러리 스크롤이 자연스럽게 이어지도록 커서 상태 변경
+                    document.body.style.cursor = 'grabbing';
+                } else {
+                    return; // 너무 작은 움직임(단순 클릭)은 무시
+                }
+            }
+            
+            targetScrollIndex = dragScrollOffset + (delta * 0.005);
+        }
+
+        function dragEnd() {
+            isDragging = false;
+            document.body.style.cursor = 'default';
+        }
+
+        function handleItemClick(idx) {
+            mode = 'detail';
+            activeIndex = idx;
+            targetScrollIndex = idx;
+            targetDetailProgress = 1;
+
+            progItems.forEach(el => { el.classList.remove('is-current', 'is-detail-active'); });
+            progItems[idx].classList.add('is-detail-active');
+            
+            const proj = projects[idx];
+            bgChars[0].innerText = proj.chars[0];
+            bgChars[1].innerText = proj.chars[1];
+            bgChars[2].innerText = proj.chars[2];
+            document.getElementById('meta-date').innerText = proj.meta[0];
+            document.getElementById('meta-type').innerText = proj.meta[1];
+            document.getElementById('meta-role').innerText = proj.meta[2];
+            document.getElementById('meta-client').innerText = proj.meta[3];
+
+            uiLayer.classList.add('is-detail');
+        }
+
+        function closeDetail() {
+            mode = 'gallery';
+            targetDetailProgress = 0;
+            uiLayer.classList.remove('is-detail');
+            progItems.forEach(el => el.classList.remove('is-detail-active'));
+            lastCenterIndex = -1; 
+        }
+
+        // --- 6. Core Rendering Loop ---
+        const colorDark = new THREE.Color(0x111111);
+        const colorLight = new THREE.Color(0xd0d0cc); // 상세 뷰 배경색
+
+        function render() {
+            const numItems = projects.length;
+
+            // 관성 스크롤 물리
+            let maxScroll = numItems - 1;
+            if (targetScrollIndex < 0) targetScrollIndex += (0 - targetScrollIndex) * 0.15;
+            if (targetScrollIndex > maxScroll) targetScrollIndex += (maxScroll - targetScrollIndex) * 0.15;
+
+            scrollIndex += (targetScrollIndex - scrollIndex) * 0.08;
+            detailProgress += (targetDetailProgress - detailProgress) * 0.06;
+
+            // WebGL 캔버스 배경색 전환 (Lerp)
+            renderer.setClearColor(colorDark.clone().lerp(colorLight, detailProgress));
+
+            // 스크롤 속도에 따른 Skew 계산
+            let velocity = scrollIndex - lastScrollIndex;
+            lastScrollIndex = scrollIndex;
+            
+            // WebGL의 Skew 계수 (CSS degree 방식과 다르므로 값을 조절)
+            let skewForce = velocity * 0.8; 
+            skewForce = Math.max(-0.5, Math.min(0.5, skewForce)); 
+            skewForce = skewForce * (1 - detailProgress); // 상세뷰 진입시 원상복구
+
+            // 프로그레스 바 UI 하이라이트
+            let centerIndex = Math.round(scrollIndex);
+            centerIndex = Math.max(0, Math.min(numItems - 1, centerIndex));
+            
+            if (mode === 'gallery' && centerIndex !== lastCenterIndex) {
+                if (lastCenterIndex >= 0 && progItems[lastCenterIndex]) {
+                    progItems[lastCenterIndex].classList.remove('is-current');
+                }
+                if (progItems[centerIndex]) {
+                    progItems[centerIndex].classList.add('is-current');
+                }
+                lastCenterIndex = centerIndex;
+            }
+
+            // 동적 폭 및 누적 X 위치 계산 (DOM 버전과 완벽히 동일한 수학)
+            let widths = new Float32Array(numItems);
+            let heights = new Float32Array(numItems);
+            
+            for (let i = 0; i < numItems; i++) {
+                let dist = Math.abs(i - scrollIndex);
+                let factor = Math.max(0, 1 - dist / 2.0); 
+                let ease = factor * factor * (3 - 2 * factor); 
+                widths[i] = baseW + (centerW - baseW) * ease;
+                heights[i] = baseH + (centerH - baseH) * ease;
+            }
+
+            let xPos = new Float32Array(numItems);
+            xPos[0] = 0;
+            for (let i = 1; i < numItems; i++) {
+                xPos[i] = xPos[i-1] + widths[i-1]/2 + widths[i]/2 + itemGap;
+            }
+
+            let floorIdx = Math.floor(scrollIndex);
+            let ceilIdx = Math.ceil(scrollIndex);
+            let frac = scrollIndex - floorIdx;
+            
+            let clampFloor = Math.max(0, Math.min(numItems - 1, floorIdx));
+            let clampCeil = Math.max(0, Math.min(numItems - 1, ceilIdx));
+            let cameraX = xPos[clampFloor] + (xPos[clampCeil] - xPos[clampFloor]) * frac;
+
+            // 각 Mesh 트랜스폼 업데이트
+            meshes.forEach((mesh, i) => {
+                let x = xPos[i] - cameraX;
+                let w = widths[i];
+                let h = heights[i];
+                let opacity = 1.0;
+                let grayscale = 1.0; // 1.0 = 완전 흑백
+
+                if (detailProgress > 0) {
+                    if (i === activeIndex) {
+                        x = x * (1 - detailProgress);
+                        w = widths[i] + ((detailW - widths[i]) * detailProgress);
+                        h = heights[i] + ((detailH - heights[i]) * detailProgress);
+                        grayscale = 1.0 - detailProgress; // 컬러로 변환
+                    } 
+                    else if (i === activeIndex - 1) {
+                        let targetX = -(window.innerWidth * 0.38);
+                        x = x * (1 - detailProgress) + (targetX * detailProgress);
+                    } 
+                    else if (i === activeIndex + 1) {
+                        let targetX = (window.innerWidth * 0.38);
+                        x = x * (1 - detailProgress) + (targetX * detailProgress);
+                    } 
+                    else {
+                        opacity = 1 - detailProgress;
+                        x += Math.sign(i - activeIndex) * (100 * detailProgress);
+                    }
+                } 
+                else {
+                    let fadeDist = window.innerWidth * 0.6;
+                    if (Math.abs(x) > fadeDist) {
+                        opacity = 0;
+                    } else {
+                        opacity = 1 - Math.pow(Math.abs(x) / fadeDist, 2);
+                        if(opacity < 0) opacity = 0;
+                    }
+                    
+                    // 호버 효과 (WebGL Raycasting 기반의 마우스 오버 구현은 복잡성을 띄어
+                    // 중앙 하이라이트만 컬러로 변경되도록 자동화함)
+                    if (i === centerIndex && Math.abs(scrollIndex - centerIndex) < 0.5) {
+                        grayscale = Math.abs(scrollIndex - centerIndex) * 2.0;
+                    }
+                }
+
+                // Three.js의 스케일 및 위치는 화면 중앙이 (0,0) 기준
+                mesh.scale.set(w, h, 1);
+                mesh.position.set(x, 0, 0); // DOM의 translateX와 동일
+                
+                // 셰이더 Uniform 변수 업데이트
+                mesh.material.uniforms.uOpacity.value = opacity;
+                mesh.material.uniforms.uGrayscale.value = grayscale;
+                mesh.material.uniforms.uSkew.value = skewForce;
+                
+                // 렌더링 최적화
+                mesh.visible = opacity > 0.01;
+            });
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
